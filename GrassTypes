@@ -1,0 +1,1192 @@
+-- Decompiled with Velocity Script Decompiler
+local v_u_1 = {}
+local v2 = game:GetService("ReplicatedStorage")
+local v3 = require(v2.LethalNum)
+v_u_1.LevelTiers = {}
+v_u_1.TierLevels = {}
+v_u_1.LevelRanks = {}
+v_u_1.RankLevels = {}
+function v_u_1.GetTier(p4)
+    -- upvalues: (copy) v_u_1
+    if v_u_1.TierLevels[p4] then
+        return v_u_1.Types[p4]
+    else
+        return nil
+    end
+end
+v_u_1.Types = {
+    ["basic"] = {
+        ["value"] = v3.new(5, 0),
+        ["progressValue"] = v3.new(1, 0),
+        ["tierUpRequirement"] = v3.new(3, 2),
+        ["color"] = Color3.new(0.356863, 0.603922, 0.298039),
+        ["reflectance"] = 0,
+        ["nextTier"] = "pale",
+        ["displayName"] = "<b><font color=\"#ffffff\">Basic Grass</font></b>"
+    },
+    ["pale"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 0),
+        ["color"] = Color3.new(0.729412, 0.847059, 0.592157),
+        ["reflectance"] = 0,
+        ["nextTier"] = "copper",
+        ["displayName"] = "<b><font color=\"#deffb3\">Light Grass</font></b>"
+    },
+    ["copper"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 0),
+        ["color"] = Color3.new(0.847059, 0.552941, 0.192157),
+        ["reflectance"] = 0.3,
+        ["nextTier"] = "tin",
+        ["displayName"] = "<b><font color=\"#ffc49c\">Copper Grass</font></b>"
+    },
+    ["tin"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.33, 0),
+        ["prestigePoints"] = v3.new(15, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(4, 0),
+        ["color"] = Color3.new(0.796078, 0.796078, 0.796078),
+        ["reflectance"] = 0.3,
+        ["nextTier"] = "bronze",
+        ["displayName"] = "<b><font color=\"#eaeaea\">Tin Grass</font></b>"
+    },
+    ["bronze"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.25, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(3, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(5, 0),
+        ["color"] = Color3.new(0.835294, 0.682353, 0.376471),
+        ["reflectance"] = 0.4,
+        ["nextTier"] = "silver",
+        ["displayName"] = "<b><font color=\"#ffdf9e\">Bronze Grass</font></b>"
+    },
+    ["silver"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.4, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(5, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(4, 0),
+        ["color"] = Color3.new(0.866667, 0.945098, 1),
+        ["reflectance"] = 0.4,
+        ["nextTier"] = "gold",
+        ["displayName"] = "<b><font color=\"#ddf1ff\">Silver Grass</font></b>"
+    },
+    ["gold"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.43, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(5, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(4, 0),
+        ["color"] = Color3.new(1, 0.921569, 0.321569),
+        ["reflectance"] = 0.5,
+        ["nextTier"] = "diamond",
+        ["displayName"] = "<b><font color=\"#ffeb52\">Gold Grass</font></b>"
+    },
+    ["diamond"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(3, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 0),
+        ["color"] = Color3.new(0.807843, 0.984314, 1),
+        ["reflectance"] = 0.5,
+        ["nextTier"] = "white crystal",
+        ["displayName"] = "<b><font color=\"#cefbff\">Diamond Grass</font></b>"
+    },
+    ["platinum"] = {
+        ["value"] = v3.new(1, 0),
+        ["progressValue"] = v3.new(15, 0),
+        ["color"] = Color3.new(0.886275, 0.988235, 1),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["moonstone"] = {
+        ["value"] = v3.new(1, 0),
+        ["progressValue"] = v3.new(15, 0),
+        ["color"] = Color3.new(0.578424, 0.677897, 0.998993),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["ruby"] = {
+        ["color"] = Color3.new(1, 0, 0),
+        ["reflectance"] = 0.5,
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["observatorium"] = {
+        ["value"] = v3.new(1, 0),
+        ["progressValue"] = v3.new(15, 0),
+        ["color"] = Color3.new(0.309804, 0.321569, 1),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["perk"] = {
+        ["color"] = Color3.new(0, 0.568627, 1),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["perk2"] = {
+        ["color"] = Color3.new(1, 0, 0),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["rune"] = {
+        ["color"] = Color3.new(1, 0, 0),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["iridium"] = {
+        ["color"] = Color3.new(1, 0, 0),
+        ["ignore"] = true,
+        ["special"] = true
+    },
+    ["white crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.33, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(3, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 0),
+        ["color"] = Color3.new(1, 1, 1),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "green crystal",
+        ["displayName"] = "<b><font color=\"#ffffff\">White Crystal Grass</font></b>"
+    },
+    ["green crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.25, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(3, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(4, 0),
+        ["color"] = Color3.new(0.490196, 1, 0.376471),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "blue crystal",
+        ["displayName"] = "<b><font color=\"#7dff60\">Green Crystal Grass</font></b>"
+    },
+    ["blue crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.6, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(5, 0),
+        ["color"] = Color3.new(0.388235, 0.898039, 1),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "indigo crystal",
+        ["displayName"] = "<b><font color=\"#63e5ff\">Blue Crystal Grass</font></b>"
+    },
+    ["indigo crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.25, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(5, 0),
+        ["color"] = Color3.new(0.372549, 0.329412, 1),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "purple crystal",
+        ["displayName"] = "<b><font color=\"#5f54ff\">Indigo Crystal Grass</font></b>"
+    },
+    ["purple crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(4, 0),
+        ["color"] = Color3.new(0.690196, 0.309804, 1),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "pink crystal",
+        ["displayName"] = "<b><font color=\"#b04fff\">Purple Crystal Grass</font></b>"
+    },
+    ["pink crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.33, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(10, 0),
+        ["color"] = Color3.new(1, 0.411765, 1),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "red crystal",
+        ["displayName"] = "<b><font color=\"#ffaaff\">Pink Crystal Grass</font></b>"
+    },
+    ["red crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.2, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(15, 0),
+        ["color"] = Color3.new(1, 0, 0),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "orange crystal",
+        ["displayName"] = "<b><font color=\"#ff0000\">Red Crystal Grass</font></b>"
+    },
+    ["orange crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.2, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(20, 0),
+        ["color"] = Color3.new(1, 0.54902, 0),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "yellow crystal",
+        ["displayName"] = "<b><font color=\"#ff8c00\">Orange Crystal Grass</font></b>"
+    },
+    ["yellow crystal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1.5, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(1, 1, 0),
+        ["reflectance"] = 0,
+        ["transparency"] = 0.5,
+        ["nextTier"] = "zebra",
+        ["displayName"] = "<b><font color=\"#ffff00\">Yellow Crystal Grass</font></b>"
+    },
+    ["zebra"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(30, 0),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://8280036615",
+        ["nextTier"] = "polka dots",
+        ["displayName"] = "<b><font color=\"#ffffff\">Z<font color=\"#505050\">e</font>b<font color=\"#505050\">r</font>a</font> G<font color=\"#505050\">r</font>a<font color=\"#505050\">s</font>s</b>"
+    },
+    ["polka dots"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(1, 0, 0),
+        ["icon"] = "rbxassetid://8285905588",
+        ["texture"] = "rbxassetid://9622614563",
+        ["nextTier"] = "checker board",
+        ["displayName"] = "<b><font color=\"#cb1b4a\">Polka</font> <font color=\"#0cea8e\">Dot</font> <font color=\"#cb1b4a\">Grass</font></b>"
+    },
+    ["checker board"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(0.313725, 0.25098, 1),
+        ["icon"] = "rbxassetid://8285920399",
+        ["texture"] = "rbxassetid://9622642650",
+        ["nextTier"] = "triangles",
+        ["displayName"] = "<b><font color=\"#581d8c\">Che</font><font color=\"#0471c2\">cker</font> <font color=\"#581d8c\">Boa</font><font color=\"#0471c2\">rd</font> <font color=\"#581d8c\">Gra</font><font color=\"#0471c2\">ss</font></b>"
+    },
+    ["triangles"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(0.701961, 0.913725, 1),
+        ["icon"] = "rbxassetid://8285962692",
+        ["texture"] = "rbxassetid://9622437506",
+        ["nextTier"] = "hexagons",
+        ["displayName"] = "<b><font color=\"#c0dedb\">Tri</font><font color=\"#a5b0d9\">angle</font> <font color=\"#c0dedb\">Grass</font></b>"
+    },
+    ["hexagons"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(1, 0.835294, 0),
+        ["icon"] = "rbxassetid://8355484168",
+        ["texture"] = "rbxassetid://8355484168",
+        ["nextTier"] = "fractal",
+        ["displayName"] = "<b><font color=\"#ffff00\">Hexagon Grass</font></b>"
+    },
+    ["fractal"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(0.258824, 1, 0.717647),
+        ["icon"] = "rbxassetid://8366252312",
+        ["texture"] = "rbxassetid://9622486584",
+        ["nextTier"] = "arrows",
+        ["displayName"] = "<b><font color=\"#42ffb7\">Fractal Grass</font></b>"
+    },
+    ["arrows"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(0.776471, 0.776471, 0.776471),
+        ["icon"] = "rbxassetid://8366363300",
+        ["texture"] = "rbxassetid://9622614297",
+        ["nextTier"] = "puzzle",
+        ["displayName"] = "<b><font color=\"#c6c6c6\">Arrow Grass</font></b>"
+    },
+    ["puzzle"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(3, 1),
+        ["color"] = Color3.new(0.776471, 0.776471, 0.776471),
+        ["icon"] = "rbxassetid://8464537212",
+        ["texture"] = "rbxassetid://9622615269",
+        ["nextTier"] = "grassman",
+        ["displayName"] = "<b><font color=\"#ffff00\">Puzzle Grass</font></b>"
+    },
+    ["grassman"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0, 0.666667, 0),
+        ["icon"] = "rbxassetid://9682864002",
+        ["texture"] = "rbxassetid://9965498739",
+        ["nextTier"] = "placeholder1",
+        ["displayName"] = "<b><font color=\"#c0ffc0\">Grassman #1337</font> <font color=\"#ffffff\">Grass</font></b>"
+    },
+    ["placeholder1"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(3, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.5, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.60827, 0.60827, 0.60827),
+        ["texture"] = "rbxassetid://9563115824",
+        ["nextTier"] = "template",
+        ["displayName"] = "<b><font color=\"#b5b5b5\">Plated</font> <font color=\"#ffffff\">Grass</font></b>"
+    },
+    ["template"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0, 0, 1),
+        ["texture"] = "rbxassetid://9827145674",
+        ["nextTier"] = "spaceWhite",
+        ["displayName"] = "<b><font color=\"#00ff00\">Template</font> <font color=\"#ff0000\">Grass</font></b>"
+    },
+    ["spaceWhite"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0, 0, 0),
+        ["icon"] = "rbxassetid://9817792368",
+        ["texture"] = "rbxassetid://9817791977",
+        ["nextTier"] = "vibrant",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#ffffff\">White</font> Grass</b>"
+    },
+    ["vibrant"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0.588113, 0.995575, 0.521981),
+        ["icon"] = "rbxassetid://9817708681",
+        ["texture"] = "rbxassetid://9817708895",
+        ["nextTier"] = "neon",
+        ["displayName"] = "<b><font color=\"#b5ffb5\">Vibrant Grass</font></b>"
+    },
+    ["neon"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0.127703, 0.999771, 0.999054),
+        ["icon"] = "rbxassetid://9817710194",
+        ["texture"] = "rbxassetid://9817838406",
+        ["nextTier"] = "void",
+        ["displayName"] = "<b><font color=\"#ff00ff\">Neon</font> <font color=\"#00ffff\">Grass</font></b>"
+    },
+    ["void"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0.501961, 0.00155642, 0.998505),
+        ["texture"] = "rbxassetid://9817708316",
+        ["nextTier"] = "synthwave",
+        ["displayName"] = "<b><font color=\"#b500ff\">Void Grass</font></b>"
+    },
+    ["synthwave"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(1, 0.999969, 0.0410163),
+        ["icon"] = "rbxassetid://9817709840",
+        ["texture"] = "rbxassetid://9827145508",
+        ["nextTier"] = "aurora",
+        ["displayName"] = "<b><font color=\"#ffff00\">Synthwave</font> <font color=\"#ff00ff\">Grass</font></b>"
+    },
+    ["aurora"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0.321172, 1, 0.767727),
+        ["icon"] = "rbxassetid://9826900495",
+        ["texture"] = "rbxassetid://9827145110",
+        ["nextTier"] = "domino",
+        ["displayName"] = "<b><font color=\"#30ffb5\">Aurora</font> <font color=\"#bf30ff\">Grass</font></b>"
+    },
+    ["domino"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(1, 1, 1),
+        ["icon"] = "rbxassetid://9826900778",
+        ["texture"] = "rbxassetid://9826902207",
+        ["nextTier"] = "alphabet",
+        ["displayName"] = "<b><font color=\"#ffffff\">Domino</font> <font color=\"#000000\">Grass</font></b>"
+    },
+    ["alphabet"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.997528, 0.917723, 0.740597),
+        ["texture"] = "rbxassetid://9826901299",
+        ["nextTier"] = "candycane",
+        ["displayName"] = "<b><font color=\"#ffefbf\"><font color=\"#ff3030\">A</font>lphabet <font color=\"#30ff30\">G</font>rass</font></b>"
+    },
+    ["candycane"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(2, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 0.509804, 0.509804),
+        ["icon"] = "rbxassetid://9965391520",
+        ["texture"] = "rbxassetid://9965498867",
+        ["nextTier"] = "snow",
+        ["displayName"] = "<b><font color=\"#ff5050\">Candy</font> Cane <font color=\"#ff5050\">Grass</font></b>"
+    },
+    ["snow"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(2, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.768627, 1, 0.996078),
+        ["texture"] = "rbxassetid://9965391121",
+        ["nextTier"] = "blocky",
+        ["displayName"] = "<b><font color=\"#c0ffff\">Snow</font> <font color=\"#a0ffff\">Grass</font></b>"
+    },
+    ["blocky"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(2, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0, 0.298039, 1),
+        ["texture"] = "rbxassetid://9965391719",
+        ["nextTier"] = "festive",
+        ["displayName"] = "<b><font color=\"#7070ff\">Blocky</font> <font color=\"#3030ff\">Grass</font></b>"
+    },
+    ["festive"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(2, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.180392, 1, 0),
+        ["texture"] = "rbxassetid://9965391357",
+        ["nextTier"] = "placeholder2",
+        ["displayName"] = "<b><font color=\"#00ff00\">Festive</font> <font color=\"#ff0000\">Grass</font></b>"
+    },
+    ["wall2"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0, 0.0470588, 1),
+        ["texture"] = "rbxassetid://10091612332",
+        ["nextTier"] = "wall3",
+        ["displayName"] = "<b><font color=\"#0000ff\">The Decelerated Wall</font></b>"
+    },
+    ["wall3"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 0, 0.0156863),
+        ["texture"] = "rbxassetid://10091612173",
+        ["nextTier"] = "wall4",
+        ["displayName"] = "<b><font color=\"#ff0000\">The Accelerated Wall</font></b>"
+    },
+    ["wall4"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.733333, 1, 0),
+        ["texture"] = "rbxassetid://10091612013",
+        ["nextTier"] = "wall5",
+        ["displayName"] = "<b><font color=\"#aeff00\">The Recelerated Wall</font></b>"
+    },
+    ["wall5"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.192157, 0, 0.580392),
+        ["texture"] = "rbxassetid://10091611783",
+        ["nextTier"] = "wall6",
+        ["displayName"] = "<b><font color=\"#310094\">The Space Wall</font></b>"
+    },
+    ["wall6"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.698039, 0.976471, 1),
+        ["texture"] = "rbxassetid://10091611455",
+        ["nextTier"] = "wall7",
+        ["displayName"] = "<b><font color=\"#b2f9ff\">The Ice Wall</font></b>"
+    },
+    ["wall7"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 0.415686, 0),
+        ["texture"] = "rbxassetid://10091611268",
+        ["nextTier"] = "wall8",
+        ["displayName"] = "<b><font color=\"#ff0000\">The</font> <font color=\"#ff6a00\">Fire</font> <font color=\"#ffff00\">Wall</font></b>"
+    },
+    ["wall8"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0.945098, 0.513725, 1),
+        ["texture"] = "rbxassetid://10091611085",
+        ["nextTier"] = "wall9",
+        ["displayName"] = "<b><font color=\"#f183ff\">The Nice Wall</font></b>"
+    },
+    ["wall9"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0, 1, 0.717647),
+        ["texture"] = "rbxassetid://10091610909",
+        ["nextTier"] = "wall10",
+        ["displayName"] = "<b><font color=\"#00ff33\">The</font> <font color=\"#00ffb7\">Odd</font> <font color=\"#00ff33\">Wall</font></b>"
+    },
+    ["wall10"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0.654902, 0.654902, 0.654902),
+        ["texture"] = "rbxassetid://10091610689",
+        ["nextTier"] = "pw1",
+        ["displayName"] = "<b><font color=\"#a7a7a7\">The Stone Wall</font></b>"
+    },
+    ["pw1"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0.654902, 0, 0),
+        ["icon"] = "rbxassetid://11351922821",
+        ["texture"] = "rbxassetid://11351922963",
+        ["nextTier"] = "pw2",
+        ["displayName"] = "<b><font color=\"#a70000\">The Red Star</font></b>"
+    },
+    ["pw2"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0.972549, 0.682353, 0),
+        ["icon"] = "rbxassetid://11351922519",
+        ["texture"] = "rbxassetid://11351922682",
+        ["nextTier"] = "pw3",
+        ["displayName"] = "<b><font color=\"#f8ae00\">The Orange Star</font></b>"
+    },
+    ["pw3"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0.458824, 0.890196, 0),
+        ["icon"] = "rbxassetid://11351922080",
+        ["texture"] = "rbxassetid://11351922361",
+        ["nextTier"] = "pw4",
+        ["displayName"] = "<b><font color=\"#75e300\">The Green Star</font></b>"
+    },
+    ["pw4"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(1, 1, 1),
+        ["icon"] = "rbxassetid://11351921710",
+        ["texture"] = "rbxassetid://11351921903",
+        ["nextTier"] = "pw5",
+        ["displayName"] = "<b><font color=\"#ffffff\">The White Star</font></b>"
+    },
+    ["pw5"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0.607843, 1, 0.956863),
+        ["icon"] = "rbxassetid://11351921332",
+        ["texture"] = "rbxassetid://11351921499",
+        ["nextTier"] = "pw6",
+        ["displayName"] = "<b><font color=\"#9bfff4\">The Light Star</font></b>"
+    },
+    ["pw6"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0, 0.482353, 1),
+        ["icon"] = "rbxassetid://11351920913",
+        ["texture"] = "rbxassetid://11351921215",
+        ["nextTier"] = "pw7",
+        ["displayName"] = "<b><font color=\"#007bff\">The Blue Star</font></b>"
+    },
+    ["pw7"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(0.615686, 0, 1),
+        ["icon"] = "rbxassetid://11351920504",
+        ["texture"] = "rbxassetid://11351920645",
+        ["nextTier"] = "pw8",
+        ["displayName"] = "<b><font color=\"#9d00ff\">The Purple Star</font></b>"
+    },
+    ["pw8"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 4),
+        ["color"] = Color3.new(1, 0.482353, 0.760784),
+        ["icon"] = "rbxassetid://11363604877",
+        ["texture"] = "rbxassetid://11363625051",
+        ["nextTier"] = "pw8",
+        ["displayName"] = "<b><font color=\"#ff7bc2\">The Final Star</font></b>"
+    },
+    ["spaceGreen"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(0, 0, 0),
+        ["texture"] = "rbxassetid://9778628334",
+        ["nextTier"] = "spaceBlue",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#00ff00\">Green</font></b>"
+    },
+    ["spaceBlue"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://9778627373",
+        ["nextTier"] = "spaceIndigo",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#00b5ff\">Blue</font></b>"
+    },
+    ["spaceIndigo"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://9778628122",
+        ["nextTier"] = "spacePurple",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#bf99ff\">Indigo</font></b>"
+    },
+    ["spacePurple"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://9778626914",
+        ["nextTier"] = "spacePink",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#bf00ff\">Purple</font></b>"
+    },
+    ["spacePink"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://9778627802",
+        ["nextTier"] = "spaceRed",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#ffaaff\">Pink</font></b>"
+    },
+    ["spaceRed"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 30),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://9778627213",
+        ["nextTier"] = "placeholder2",
+        ["displayName"] = "<b><font color=\"#000000\">Space</font> <font color=\"#ff0000\">Red</font></b>"
+    },
+    ["placeholder2"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(1, 1),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1, 1),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 3),
+        ["color"] = Color3.new(1, 0, 0),
+        ["texture"] = "rbxassetid://9563115687",
+        ["nextTier"] = "wall2",
+        ["displayName"] = "<b><font color=\"#ffffff\">The Wall</font></b>"
+    },
+    ["placeholder3"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 1),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://8215965301",
+        ["nextTier"] = "placeholder4",
+        ["displayName"] = "<b><font color=\"#ffffff\">If you can see this,</font></b>"
+    },
+    ["placeholder4"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 1),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://8215965301",
+        ["nextTier"] = "placeholder5",
+        ["displayName"] = "<b><font color=\"#ffffff\">you are a dingus</font></b>"
+    },
+    ["placeholder5"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 1),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://8215965301",
+        ["nextTier"] = "placeholder6",
+        ["displayName"] = "<b><font color=\"#ffffff\">Placeholder 1337</font></b>"
+    },
+    ["placeholder6"] = {
+        ["value"] = v3.new(0, 0),
+        ["valueInc"] = v3.new(2, 0),
+        ["progressValue"] = v3.new(0, 0),
+        ["progressValueInc"] = v3.new(1.1, 0),
+        ["prestigePoints"] = v3.new(0, 0),
+        ["ppInc"] = v3.new(2, 0),
+        ["tierUpRequirement"] = v3.new(0, 0),
+        ["tierUpInc"] = v3.new(1, 1),
+        ["color"] = Color3.new(1, 1, 1),
+        ["texture"] = "rbxassetid://8215965301",
+        ["nextTier"] = "placeholder6",
+        ["displayName"] = "<b><font color=\"#ffffff\">Placeholder 666</font></b>"
+    }
+}
+v_u_1.Ranks = {
+    ["alpha"] = {
+        ["rankUpRequirement"] = v3.new(5, 2),
+        ["color"] = Color3.new(1, 0, 0),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(1, 0, 0)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437150376",
+        ["nextRank"] = "beta",
+        ["displayName"] = "<b>alpha</b>"
+    },
+    ["beta"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0, 0, 1),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0, 0, 1)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437150185",
+        ["nextRank"] = "gamma",
+        ["displayName"] = "<b>beta</b>"
+    },
+    ["gamma"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0, 1, 0),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0, 1, 0)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437149372",
+        ["nextRank"] = "delta",
+        ["displayName"] = "<b>gamma</b>"
+    },
+    ["delta"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0, 1, 1),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437149886",
+        ["nextRank"] = "epsilon",
+        ["displayName"] = "<b>delta</b>"
+    },
+    ["epsilon"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(1, 1, 0),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(1, 1, 0)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437149712",
+        ["nextRank"] = "zeta",
+        ["displayName"] = "<b>epsilon</b>"
+    },
+    ["zeta"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(1, 0.666667, 0),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437146797",
+        ["nextRank"] = "eta",
+        ["displayName"] = "<b>zeta</b>"
+    },
+    ["eta"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0.666667, 0, 0.498039),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0.666667, 0, 0.498039)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437149573",
+        ["nextRank"] = "theta",
+        ["displayName"] = "<b>eta</b>"
+    },
+    ["theta"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0.627451, 0, 0.647059),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0.627451, 0, 0.647059)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437147455",
+        ["nextRank"] = "iota",
+        ["displayName"] = "<b>theta</b>"
+    },
+    ["iota"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0, 1, 0.498039),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0, 1, 0.498039)), ColorSequenceKeypoint.new(1, Color3.new(0.784314, 0, 1)) }),
+        ["texture"] = "rbxassetid://8437149223",
+        ["nextRank"] = "kappa",
+        ["displayName"] = "<b>iota</b>"
+    },
+    ["kappa"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(1, 0, 1),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(1, 0, 1)), ColorSequenceKeypoint.new(1, Color3.new(0, 1, 0)) }),
+        ["texture"] = "rbxassetid://8437149111",
+        ["nextRank"] = "lambda",
+        ["displayName"] = "<b>kappa</b>"
+    },
+    ["lambda"] = {
+        ["rankUpRequirement"] = v3.new(0, 0),
+        ["rankUpInc"] = v3.new(1, 2),
+        ["color"] = Color3.new(0, 0.666667, 1),
+        ["trailGradient"] = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.new(0, 0.666667, 1)), ColorSequenceKeypoint.new(1, Color3.new(0, 1, 0)) }),
+        ["texture"] = "rbxassetid://8437148970",
+        ["nextRank"] = "lambda",
+        ["displayName"] = "<b>lambda</b>"
+    },
+    ["omega"] = {
+        ["rankUpRequirement"] = v3.new(5, 2),
+        ["color"] = Color3.new(1, 1, 1),
+        ["trailGradient"] = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.new(1, 0, 0)),
+            ColorSequenceKeypoint.new(0.16666666666666666, Color3.new(1, 0.635294, 0)),
+            ColorSequenceKeypoint.new(0.3333333333333333, Color3.new(0.952941, 1, 0)),
+            ColorSequenceKeypoint.new(0.5, Color3.new(0.14902, 1, 0)),
+            ColorSequenceKeypoint.new(0.6666666666666666, Color3.new(0, 0.952941, 1)),
+            ColorSequenceKeypoint.new(0.8333333333333334, Color3.new(0.282353, 0, 1)),
+            ColorSequenceKeypoint.new(1, Color3.new(0.85098, 0, 1))
+        }),
+        ["texture"] = "rbxassetid://8437148594",
+        ["nextRank"] = "omega",
+        ["displayName"] = "<b>omega</b>"
+    }
+}
+local v5 = "basic"
+local v6 = 1
+while true do
+    v_u_1.TierLevels[v5] = v6
+    v_u_1.LevelTiers[v6] = v5
+    if v5 == v_u_1.Types[v5].nextTier then
+        break
+    end
+    local v7 = v_u_1.Types[v5]
+    v5 = v_u_1.Types[v5].nextTier
+    local v8 = v_u_1.Types[v5]
+    v8.value = v3.multiply(v7.value, v8.valueInc)
+    v8.tierUpRequirement = v3.multiply(v7.tierUpRequirement, v8.tierUpInc)
+    v8.progressValue = v3.multiply(v7.progressValue, v8.progressValueInc)
+    if v6 >= 4 then
+        v8.prestigePoints = v3.multiply(v7.prestigePoints, v8.ppInc)
+    end
+    if v6 >= 40 then
+        v8.astralBonus = v3.new(1, v6 - 39)
+    end
+    v6 = v6 + 1
+end
+local v9 = "alpha"
+local v10 = 1
+while true do
+    v_u_1.RankLevels[v9] = v10
+    v_u_1.LevelRanks[v10] = v9
+    if v9 == v_u_1.Ranks[v9].nextRank then
+        break
+    end
+    local v11 = v_u_1.Ranks[v9]
+    v9 = v_u_1.Ranks[v9].nextRank
+    local v12 = v_u_1.Ranks[v9]
+    v12.rankUpRequirement = v3.multiply(v11.rankUpRequirement, v12.rankUpInc)
+    v10 = v10 + 1
+end
+return v_u_1
