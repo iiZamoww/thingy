@@ -1,0 +1,199 @@
+-- Decompiled with Velocity Script Decompiler
+local v1 = game:GetService("ReplicatedStorage")
+require(v1.LethalNum)
+local v_u_2 = require(v1.Format)
+require(v1.CurrencyTypes)
+require(v1.InfoStore)
+local v3 = {}
+local v21 = {
+    ["2_r0grp"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1.8,
+        ["description"] = "Increases great rift power by <font color=\"#00ff00\">+25%</font> per level",
+        ["displayName"] = "Rift Relic GRP",
+        ["upgradeType"] = "grp",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.25,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://18954793847",
+        ["bonusDesc"] = function(p4, p5)
+            -- upvalues: (copy) v_u_2
+            return "Total GRP Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p4 * p5)
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2
+    },
+    ["2_r0rf"] = {
+        ["baseCost"] = 5,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.2,
+        ["description"] = "Increases rune fragments earned by <font color=\"#00ff00\">+50%</font> per level",
+        ["displayName"] = "Rift Relic Rune Fragments",
+        ["upgradeType"] = "rf",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://14197197554",
+        ["bonusDesc"] = function(p6, p7)
+            -- upvalues: (copy) v_u_2
+            return "Total Rune Fragment Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p6 * p7)
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2
+    },
+    ["2_r0jtp"] = {
+        ["baseCost"] = 2.5,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1.2,
+        ["description"] = "Increases jungle tier progress earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Rift Relic Jungle TP",
+        ["upgradeType"] = "jtp",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://17273224255",
+        ["bonusDesc"] = function(p8, p9)
+            -- upvalues: (copy) v_u_2
+            return "Total Jungle TP Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p8 * p9)
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2
+    },
+    ["2_r0CO"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1.7,
+        ["description"] = "Increases cores earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Rift Relic Cores",
+        ["upgradeType"] = "core",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 25,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://18302271081",
+        ["bonusDesc"] = function(p10, p11)
+            -- upvalues: (copy) v_u_2
+            return "Total Cores Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p10 * p11)
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2
+    },
+    ["2_r0R"] = {
+        ["baseCost"] = 2.5,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1.2,
+        ["description"] = "Increases relic reward by <font color=\"#00ff00\">+25%</font> per level",
+        ["displayName"] = "Rift Relic Relics",
+        ["upgradeType"] = "relic",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.25,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://17844918547",
+        ["bonusDesc"] = function(p12, p13)
+            -- upvalues: (copy) v_u_2
+            return "Total Relic Reward Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p12 * p13)
+        end,
+        ["unlockText"] = "GRL 3",
+        ["unlockCondition"] = function(p14)
+            return p14.Currency.resets.rift.a >= 3
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2
+    },
+    ["2_r0R2"] = {
+        ["baseCost"] = 5,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1.2,
+        ["description"] = "Increases desert relic reward by <font color=\"#00ff00\">+25%</font> per level",
+        ["displayName"] = "Rift Relic Desert Relics",
+        ["upgradeType"] = "relic2",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.25,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://18644194116",
+        ["bonusDesc"] = function(p15, p16)
+            -- upvalues: (copy) v_u_2
+            return "Total Desert Relic Reward Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p15 * p16)
+        end,
+        ["unlockText"] = "GRL 3",
+        ["unlockCondition"] = function(p17)
+            return p17.Currency.resets.rift.a >= 3
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2
+    },
+    ["2_r0CO2"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 5,
+        ["costScaling"] = 1.7,
+        ["description"] = "Increases cores earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Rift Relic Cores II",
+        ["upgradeType"] = "core",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 25,
+        ["object"] = nil,
+        ["tier"] = "relic0",
+        ["currency"] = "relic0",
+        ["baseImg"] = "rbxassetid://18954794022",
+        ["iconImg"] = "rbxassetid://18302271081",
+        ["bonusDesc"] = function(p18, p19)
+            -- upvalues: (copy) v_u_2
+            return "Total Cores Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p18 * p19)
+        end,
+        ["unlockText"] = "GRL 3",
+        ["unlockCondition"] = function(p20)
+            return p20.Currency.resets.rift.a >= 3
+        end,
+        ["level"] = 0,
+        ["highestLevel"] = 0,
+        ["autoToggle"] = true,
+        ["location"] = "chamber2",
+        ["world"] = 2,
+        ["ti"] = "II"
+    }
+}
+v3.Upgrades = v21
+return v3
