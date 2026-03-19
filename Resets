@@ -1,0 +1,3705 @@
+-- Decompiled with Velocity Script Decompiler
+local v1 = game:GetService("ReplicatedStorage")
+local v_u_2 = require(v1.LethalNum)
+local v_u_3 = require(v1.Data)
+local v_u_4 = require(v1.Currencies)
+local v_u_5 = require(v1.Multipliers)
+local v_u_6 = require(v1.Upgrades)
+local v_u_7 = require(v1.TabManager)
+local v_u_8 = require(v1.Accomplishments)
+local v_u_9 = require(v1.GrassTypes)
+local v_u_10 = require(v1.CommonFunctions)
+local v_u_11 = require(v1.ChangeVisual)
+local v_u_12 = require(v1.Planets)
+local v_u_13 = require(v1.TreeItems)
+local v_u_14 = require(v1.LunarItems)
+require(v1.Soundificator)
+local v_u_15 = require(v1.Star)
+local v_u_16 = require(v1.CurrencyTypes)
+local v_u_17 = require(v1.Solarians)
+local v_u_18 = require(v1.Portaling)
+local v_u_19 = require(v1.SolarChallenges)
+local v_u_20 = require(v1.SingularityChart)
+local v_u_21 = require(v1.Synthesis)
+local v_u_22 = require(v1.MapTeles)
+local v_u_23 = require(v1.Notifications)
+local v_u_24 = require(v1.Fields)
+local v_u_25 = require(v1.GalaxyGen)
+local v_u_26 = require(v1.InfoStore)
+local v_u_27 = {}
+local v_u_28 = v1.Remotes:WaitForChild("TriggerReset")
+v_u_27.canReset = true
+function v_u_27.Reset(p29, p30)
+    -- upvalues: (copy) v_u_27, (copy) v_u_3, (copy) v_u_28, (copy) v_u_7
+    if v_u_27.canReset then
+        if v_u_3.ImportantData.Stats.resetActions > 0 then
+            return
+        elseif v_u_3.ImportantData.Stats.tslsu < 5 then
+            local v31 = v_u_3.ImportantData.Stats
+            v31.resetActions = v31.resetActions + 1
+            v_u_27.canReset = false
+            v_u_28:FireServer(p29, p30)
+            v_u_27.FieldClears(p29, p30)
+            v_u_27.UpdateStuff()
+            task.wait(1)
+            v_u_27.canReset = true
+            if p29 == "loop" then
+                v_u_7.menus.soulsShop.Souls1.Visible = true
+                v_u_7.menus.soulsShop.Souls2.Visible = false
+                v_u_7.menus.soulsShop.Souls3.Visible = false
+                v_u_3.ImportantData.Stats.sunrise = 1
+                v_u_3.ImportantData.Stats.souls = 1
+                v_u_3.ImportantData.Stats.chalSelected = "none"
+                task.wait(6)
+                v_u_27.ClearFieldTier()
+            end
+            v_u_27.FieldClears(p29, p30)
+        end
+    else
+        return
+    end
+end
+function v_u_27.FieldClears(p32, p33)
+    -- upvalues: (copy) v_u_27
+    if p32 == "prestige" or (p32 == "crystallize" or (p32 == "grasshop" or (p32 == "rocketPart" or (p32 == "galactic" or p32 == "supernova")))) then
+        v_u_27.ClearField("main")
+    end
+    if p32 == "anonymity" or (p32 == "liquefy" or p32 == "grassskip") then
+        v_u_27.ClearField("anti")
+    end
+    if p32 == "normality" or p32 == "grassJump" then
+        v_u_27.ClearField("un")
+    end
+    if p32 == "formRing" or (p32 == "astrolabe" or (p32 == "quadrant" or (p32 == "planetary" or p32 == "constellation"))) then
+        v_u_27.ClearField("planet")
+    end
+    if p32 == "bluestige" or (p32 == "plasma" or p32 == "grassTouch") then
+        v_u_27.ClearField("blue")
+    end
+    if p32 == "rune" or (p32 == "ruby" or (p32 == "sapphire" or p32 == "awaken")) then
+        v_u_27.ClearField("jungle")
+    end
+    if p32 == "opal" or (p32 == "bulb" or p32 == "absorb") then
+        v_u_27.ClearField("cavern")
+    end
+    if p32 == "prestigeS" or (p32 == "crystallizeS" or p32 == "grasshopS") then
+        v_u_27.ClearField("normS")
+    end
+    if p32 == "trueAwaken" or (p32 == "collapse" or (p32 == "startCC" or (p32 == "destabilize" or (p32 == "midnight2" or p32 == "rift")))) then
+        v_u_27.ClearField("jungle")
+        v_u_27.ClearField("cavern")
+        v_u_27.ClearField("understand")
+    end
+    if p32 == "break" or (p32 == "discovery" or p32 == "epiphany") then
+        v_u_27.ClearField("understand")
+    end
+    if p32 == "twilight2" or (p32 == "midnight2" or p32 == "rift") then
+        v_u_27.ClearField("desert")
+        v_u_27.ClearField("temple")
+    end
+    if p32 == "cactus1" or (p32 == "cactus2" or (p32 == "cactus3" or (p32 == "cactusTrialEnd" or p32 == "rift"))) then
+        v_u_27.ClearField("cactus")
+    end
+    if p32 == "rift" then
+        v_u_27.ClearField("rift")
+    end
+    if p32 == "quality" then
+        for v34 = 1, p33.floor or 1 do
+            v_u_27.ClearField("9_F" .. v34)
+        end
+    end
+end
+function v_u_27.ClearFieldTier()
+    -- upvalues: (copy) v_u_27
+    v_u_27.ClearField("main")
+    v_u_27.ClearField("anti")
+    v_u_27.ClearField("planet")
+end
+function v_u_27.ClearField(p35)
+    -- upvalues: (copy) v_u_24
+    local v36 = v_u_24.Fields[p35]
+    if v36 then
+        v36.counter = 0
+        for v37, _ in v36.objects do
+            v37.Transparency = 1
+            v37.CanCollide = false
+            v37.CanTouch = false
+            if v37:FindFirstChild("Temp") then
+                v37.Temp:Destroy()
+            end
+            v36.disabled[v37] = true
+            v36.objects[v37] = nil
+        end
+    end
+end
+function v_u_27.RemoveGrass()
+    -- upvalues: (copy) v_u_3
+    for v38, _ in pairs(v_u_3.ImportantData.GrassObjects.grassObjects) do
+        v38.Transparency = 1
+        v38.CanCollide = false
+        v38.CanTouch = false
+        if v38:FindFirstChild("Temp") then
+            v38.Temp:Destroy()
+        end
+        v_u_3.removeGrassObj(v38)
+        v_u_3.addDisabled(v38)
+    end
+    v_u_3.ImportantData.Dynamic.currentGrass = 0
+end
+function v_u_27.RemoveBrass()
+    -- upvalues: (copy) v_u_3
+    for v39, _ in pairs(v_u_3.ImportantData.GrassObjects.blueObjects) do
+        v39.Transparency = 1
+        v39.CanCollide = false
+        v39.CanTouch = false
+        if v39:FindFirstChild("Temp") then
+            v39.Temp:Destroy()
+        end
+        v_u_3.ImportantData.GrassObjects.blueObjects[v39] = nil
+        v_u_3.ImportantData.GrassObjects.disabledBlueObjects[v39] = true
+    end
+    v_u_3.ImportantData.Dynamic.currentBlue = 0
+end
+function v_u_27.Prestige(p40)
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_3, (copy) v_u_27, (copy) v_u_16, (copy) v_u_23, (copy) v_u_6
+    local v41 = v_u_5.getMulti().prestigeToEarn
+    if v_u_2.isGreaterE(v41, v_u_2.new(1, 0)) or v_u_3.ImportantData.Stats.totalCrystallize > 0 then
+        v_u_27.AccomplishConditions("prestige")
+        local v42 = v_u_3.ImportantData.UpgradeLevels.upgrades.keepPerks.level > 0 and v_u_3.ImportantData.Misc.toggles.keepPerksP.Visible or v_u_16.GetInfinity("pp")
+        if v_u_3.ImportantData.Stats.realm == "normal" then
+            v_u_16.AddCurrency("pp", v41)
+            if not p40 then
+                v_u_23.addCurrPopup("pp", v41)
+            end
+        end
+        if v_u_3.ImportantData.Stats.totalPrestige <= 0 and v_u_3.ImportantData.Stats.loopsTotal < 1 then
+            v_u_3.updateDisplaySettings("tiers")
+        end
+        local v43 = v_u_3.ImportantData.Stats
+        v43.currentPrestige = v43.currentPrestige + 1
+        local v44 = v_u_3.ImportantData.Stats
+        v44.totalPrestige = v44.totalPrestige + 1
+        v_u_3.ImportantData.Stats.totalGrassP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.Accomplish.timeP = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtP = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassCutP = 0
+        v_u_16.SetCurrency("grass", v_u_2.new(0, 0))
+        if not v42 and v_u_3.ImportantData.Stats.realm == "normal" then
+            v_u_16.SetCurrency("perks", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+        end
+        v_u_16.Levels.level.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.level.level = 1
+        if v_u_3.ImportantData.Stats.totalSupernova > 0 then
+            v_u_27.UpdateGH()
+        end
+        for _, v45 in pairs(v_u_6.Basic) do
+            if (v45.tier == "basic" or v45.tier == "perk") and (v45.shopType ~= "automation" and (v45.tier ~= "perk" or not v42 and v_u_3.ImportantData.Stats.realm == "normal")) then
+                v45.level = 0
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+local v_u_46 = true
+local v_u_47 = false
+function v_u_27.InnerRing()
+    -- upvalues: (copy) v_u_5, (copy) v_u_3, (copy) v_u_2, (copy) v_u_12, (ref) v_u_46, (ref) v_u_47, (copy) v_u_27, (copy) v_u_16, (copy) v_u_6
+    local v48 = v_u_5.getMulti().ringMultiToEarn
+    if v_u_3.ImportantData.Stats.highestZeroGrassskip >= 45 and (v_u_2.isGreaterE(v_u_12.Planets.planetoid[1].bestScore, v_u_2.new(5, 8)) and v_u_46) then
+        v_u_47 = true
+        v_u_27.Sacrifice()
+        v_u_46 = false
+        local v49 = v_u_3.ImportantData.Stats
+        v49.innerRingsBroken = v49.innerRingsBroken + 1
+        v_u_16.Levels.planetLevel.level = 1
+        v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+        v_u_16.SetCurrency("darkMatter", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("rings", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("stars", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("planetarium", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("astro", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("measure", v_u_2.new(0, 0))
+        v_u_12.Planets.planetoid[1].bestScore = v_u_2.new(0, 0)
+        v_u_12.Planets.planetoid[1].highestLevel = 0
+        for _, v50 in pairs(v_u_6.Basic) do
+            if (v50.tier == "darkMatter" or (v50.tier == "rings" or (v50.tier == "rings" or (v50.tier == "stars" or (v50.tier == "astro" or (v50.tier == "measure" or v50.tier == "planetarium")))))) and (v50.shopType ~= "automation" and (v50.tier ~= "stars" or v50.shopType == "ultBranch")) then
+                v50.level = 0
+            end
+        end
+        v_u_3.ImportantData.Stats.scoreRingMulti = v_u_2.add(v_u_3.ImportantData.Stats.scoreRingMulti, v48)
+        v_u_46 = true
+        v_u_47 = false
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.FormRing()
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_16, (ref) v_u_46, (copy) v_u_3, (copy) v_u_6, (copy) v_u_23, (copy) v_u_12, (copy) v_u_27
+    local v51 = v_u_5.getMulti().ringsToEarn
+    local v52 = v_u_2.floor(v_u_2.multiply(v_u_5.getMulti().resPercentage / 100, v_u_16.GetCurrencyAmt("obs")))
+    if v_u_16.GetInfinity("obs") then
+        v52 = v_u_2.new(1, 500)
+    end
+    if v_u_16.Levels.planetLevel.level >= 5 and v_u_46 then
+        v_u_46 = false
+        v_u_16.Levels.planetLevel.level = 1
+        v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+        v_u_16.SetCurrency("planetarium", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("perks2", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("astro", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("measure", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.tempGPS = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+        v_u_16.SetCurrency("obs", v_u_2.new(0, 0))
+        for _, v53 in pairs(v_u_6.Basic) do
+            if (v53.tier == "perk2" or (v53.tier == "planetarium" or (v53.tier == "astro" or v53.tier == "measure"))) and (v53.shopType ~= "automation" and (v53.tier ~= "perk2" or v_u_5.getUpgradeLevel("RSpra5") <= 0)) then
+                v53.level = 0
+            end
+        end
+        v_u_16.AddCurrency("rings", v51)
+        v_u_23.addCurrPopup("rings", v51)
+        local v54 = v_u_12.Planets.planetoid[1]
+        if v_u_2.isGreater(v51, v54.bestScore) then
+            v54.bestScore = v_u_2.new(v51.n, v51.e)
+        end
+        v_u_16.AddCurrency("res", v52)
+        v_u_23.addCurrPopup("res", v52)
+        v_u_46 = true
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Astrolabe(p55)
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_16, (ref) v_u_46, (copy) v_u_3, (copy) v_u_6, (copy) v_u_23, (copy) v_u_27
+    local v56 = v_u_5.getMulti().astroToEarn
+    if v_u_2.isGreaterE(v56, v_u_2.new(1, 0)) and (v_u_16.Levels.planetLevel.level >= 31 and v_u_46) then
+        v_u_46 = false
+        local v57 = v_u_3.ImportantData.Stats
+        v57.totalAstrolabe = v57.totalAstrolabe + 1
+        v_u_16.SetCurrency("planetarium", v_u_2.new(0, 0))
+        if v_u_5.getUpgradeLevel("RSpra1") <= 0 then
+            v_u_16.SetCurrency("perks2", v_u_2.new(0, 0))
+        end
+        v_u_16.Levels.planetLevel.level = 1
+        v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+        for _, v58 in pairs(v_u_6.Basic) do
+            if (v58.tier == "planetarium" or v58.tier == "perk2") and (v58.shopType ~= "automation" and (v58.tier ~= "perk2" or v_u_5.getUpgradeLevel("RSpra1") <= 0)) then
+                v58.level = 0
+            end
+        end
+        v_u_16.AddCurrency("astro", v56)
+        if not p55 then
+            v_u_23.addCurrPopup("astro", v56)
+        end
+        v_u_46 = true
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Quadrant(p59)
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_16, (ref) v_u_46, (copy) v_u_27, (copy) v_u_3, (copy) v_u_6, (copy) v_u_23
+    local v60 = v_u_5.getMulti().measureToEarn
+    if v_u_2.isGreaterE(v60, v_u_2.new(1, 0)) and (v_u_16.Levels.planetLevel.level >= 101 and v_u_46) then
+        v_u_27.Astrolabe(true)
+        v_u_46 = false
+        local v61 = v_u_3.ImportantData.Stats
+        v61.totalQuadrant = v61.totalQuadrant + 1
+        v_u_16.SetCurrency("astro", v_u_2.new(0, 0))
+        for _, v62 in pairs(v_u_6.Basic) do
+            if (v62.tier == "astro" or v62.tier == "perk2") and (v62.shopType ~= "automation" and (v62.tier ~= "perk2" or v_u_5.getUpgradeLevel("RSpra2") <= 0)) then
+                v62.level = 0
+            end
+        end
+        v_u_16.AddCurrency("measure", v60)
+        if not p59 then
+            v_u_23.addCurrPopup("measure", v60)
+        end
+        v_u_46 = true
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Planetary(p63)
+    -- upvalues: (copy) v_u_5, (copy) v_u_3, (copy) v_u_16, (ref) v_u_46, (copy) v_u_27, (copy) v_u_2, (copy) v_u_6, (copy) v_u_23
+    local v64 = v_u_5.getMulti().planetsToEarn
+    local v65 = 201 + v_u_3.ImportantData.Stats.currentPlanetary * 10
+    local v66 = v_u_16.Levels.planetLevel.level
+    if v_u_3.ImportantData.Stats.pDif > 0 and (v_u_16.Levels.planetLevel.level >= 201 and v_u_46) then
+        if v_u_3.ImportantData.Stats.currentPlanetary >= 2000 then
+            return
+        end
+        local v67 = v65 <= v_u_16.Levels.planetLevel.level
+        v_u_27.Quadrant(true)
+        v_u_46 = false
+        local v68 = v_u_3.ImportantData.Stats
+        v68.totalPlanetary = v68.totalPlanetary + 1
+        if v67 then
+            local v69 = 1
+            local v70 = 201 + (v_u_3.ImportantData.Stats.currentPlanetary + 1) * 10
+            if v_u_3.ImportantData.Misc.toggles.bulkPT.Visible then
+                while v70 <= v66 do
+                    v69 = v69 + 1
+                    v70 = 201 + (v_u_3.ImportantData.Stats.currentPlanetary + v69) * 10
+                end
+            end
+            local v71 = v_u_3.ImportantData.Stats
+            v71.currentPlanetary = v71.currentPlanetary + v69
+            if v_u_3.ImportantData.Stats.currentPlanetary > v_u_3.ImportantData.Stats.highestPlanetary then
+                v_u_3.ImportantData.Stats.highestPlanetary = v_u_3.ImportantData.Stats.currentPlanetary
+            end
+        end
+        v_u_16.SetCurrency("measure", v_u_2.new(0, 0))
+        for _, v72 in pairs(v_u_6.Basic) do
+            if (v72.tier == "measure" or v72.tier == "perk2") and (v72.shopType ~= "automation" and (v72.tier ~= "perk2" or v_u_5.getUpgradeLevel("RSpra3") <= 0)) then
+                v72.level = 0
+            end
+        end
+        v_u_16.AddCurrency("planets", v64)
+        if not p63 then
+            v_u_23.addCurrPopup("planets", v64)
+        end
+        v_u_46 = true
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Constellation()
+    -- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_16, (ref) v_u_46, (copy) v_u_27, (copy) v_u_6, (copy) v_u_5, (copy) v_u_23
+    local v73 = v_u_2.new(3, 0)
+    if v_u_2.isGreater(v_u_3.ImportantData.Stats.bestLineGen, v_u_2.new(1, 1)) then
+        v73 = v_u_3.ImportantData.Stats.bestLineGen
+    end
+    if v_u_3.ImportantData.Stats.pDif > 0 and (v_u_16.Levels.planetLevel.level >= 301 and v_u_46) then
+        v_u_27.Planetary(true)
+        v_u_46 = false
+        local v74 = v_u_3.ImportantData.Stats
+        v74.totalConstellation = v74.totalConstellation + 1
+        v_u_16.SetCurrency("planets", v_u_2.new(0, 0))
+        for _, v75 in pairs(v_u_6.Basic) do
+            if (v75.tier == "planetary" or v75.tier == "perk2") and (v75.shopType ~= "automation" and (v75.tier ~= "perk2" or v_u_5.getUpgradeLevel("RSpra4") <= 0)) then
+                v75.level = 0
+            end
+        end
+        v_u_16.AddCurrency("lines", v73)
+        v_u_23.addCurrPopup("lines", v73)
+        if v_u_2.isGreater(v_u_3.ImportantData.Stats.bestArcsGen, v_u_2.new(1, 1)) then
+            local v76 = v_u_3.ImportantData.Stats.bestArcsGen
+            v_u_16.AddCurrency("arcs", v76)
+            v_u_23.addCurrPopup("arcs", v76)
+        end
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+        v_u_46 = true
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Nebula()
+    -- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_16, (ref) v_u_46, (copy) v_u_27, (copy) v_u_6, (copy) v_u_5
+    v_u_2.new(1, 0)
+    if v_u_3.ImportantData.Stats.pDif <= 0 or (v_u_16.Levels.planetLevel.level < 401 or not v_u_46) then
+    end
+end
+function v_u_27.EventHorizon()
+    -- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_16, (ref) v_u_46, (copy) v_u_27, (copy) v_u_6
+    v_u_2.new(1, 0)
+    if v_u_3.ImportantData.Stats.pDif >= 4 and (v_u_16.Levels.planetLevel.level >= 601 and v_u_46) then
+        v_u_27.Supernova()
+        v_u_46 = false
+        local v77 = v_u_3.ImportantData.Stats
+        v77.totalEventHorizon = v77.totalEventHorizon + 1
+        for _, v78 in pairs(v_u_6.Basic) do
+            if v78.tier == "supernova" and v78.shopType ~= "automation" then
+                v78.level = 0
+            end
+        end
+        v_u_46 = true
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+local v_u_79 = false
+function v_u_27.Crystallize(p80)
+    -- upvalues: (ref) v_u_79, (copy) v_u_5, (copy) v_u_2, (copy) v_u_3, (copy) v_u_16, (copy) v_u_27, (copy) v_u_23, (copy) v_u_6
+    if not v_u_79 then
+        local v81 = v_u_5.getMulti().crystalsToEarn
+        if v_u_2.isGreaterE(v81, v_u_2.new(1, 0)) then
+            v_u_79 = true
+            local v82 = v_u_3.ImportantData.UpgradeLevels.upgrades.keepPerks2.level > 0 and v_u_3.ImportantData.Misc.toggles.keepPerksC.Visible or v_u_16.GetInfinity("crystals")
+            v_u_27.AccomplishConditions("crystal")
+            v_u_27.Prestige(true)
+            if v_u_3.ImportantData.Stats.realm == "normal" then
+                v_u_16.AddCurrency("crystals", v81)
+                if not p80 then
+                    v_u_23.addCurrPopup("crystals", v81)
+                end
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeC = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtC = 0
+            v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtC = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassCutC = 0
+            v_u_3.ImportantData.Stats.currentPrestige = 0
+            local v83 = v_u_3.ImportantData.Stats
+            v83.currentCrystallize = v83.currentCrystallize + 1
+            local v84 = v_u_3.ImportantData.Stats
+            v84.totalCrystallize = v84.totalCrystallize + 1
+            if v_u_3.ImportantData.Stats.loopsTotal > 0 then
+                local v85 = v_u_3.ImportantData.Stats
+                local v86 = v_u_3.ImportantData.Stats.totalCrystallize
+                v85.totalCrystallize = math.max(v86, 3)
+            end
+            v_u_16.SetCurrency("pp", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentTier = "basic"
+            v_u_3.ImportantData.Stats.infTier = 0
+            if not v82 and v_u_3.ImportantData.Stats.realm == "normal" then
+                v_u_16.SetCurrency("perks", v_u_2.new(0, 0))
+                v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+            end
+            for _, v87 in pairs(v_u_6.Basic) do
+                if (v87.tier == "prestige" or v87.tier == "perk") and (v87.shopType ~= "automation" and (v87.tier ~= "perk" or not v82 and v_u_3.ImportantData.Stats.realm == "normal")) then
+                    v87.level = 0
+                end
+            end
+            v_u_27.UpdateStuff()
+            v_u_79 = false
+        end
+    end
+end
+local v_u_88 = false
+function v_u_27.Grasshop()
+    -- upvalues: (ref) v_u_88, (copy) v_u_3, (copy) v_u_5, (copy) v_u_27, (copy) v_u_16, (copy) v_u_10, (copy) v_u_2, (copy) v_u_6, (copy) v_u_8
+    if not v_u_88 then
+        local v89 = 201 + v_u_3.ImportantData.Stats.currentGrasshop
+        if v_u_3.ImportantData.Stats.currentGrasshop > 7 then
+            v89 = 231 + (v_u_3.ImportantData.Stats.currentGrasshop - 8) * 10
+        end
+        local v90 = v_u_5.getUpgradeLevel("Sgh")
+        if v90 > 0 then
+            if v_u_3.ImportantData.Stats.currentGrasshop < 8 * v90 then
+                local v91 = not v_u_3.ImportantData.Misc.toggles.bulkGrasshop.Visible and 1 or 8 * v90 - v_u_3.ImportantData.Stats.currentGrasshop
+                local v92 = v_u_3.ImportantData.Stats
+                v92.totalGrasshop = v92.totalGrasshop + v91
+                local v93 = v_u_3.ImportantData.Stats
+                v93.currentGrasshop = v93.currentGrasshop + v91
+                v_u_27.UpdateStuff()
+                return
+            end
+            v_u_88 = false
+        end
+        if v89 <= v_u_16.Levels.level.level and v_u_3.ImportantData.Stats.currentGrasshop < 2000 then
+            v_u_88 = true
+            local v94 = v_u_16.Levels.level.level
+            local v95 = v_u_3.ImportantData.Stats.currentGrasshop > 7 and v_u_3.ImportantData.Misc.toggles.keepPerksG.Visible or v_u_16.GetInfinity("steel")
+            local v96 = v_u_10.getFadeObj()
+            if v_u_3.ImportantData.Stats.totalGrasshop < 16 and v_u_3.ImportantData.Stats.loopsTotal < 1 then
+                v96.BackgroundColor3 = Color3.new(1, 1, 1)
+                v_u_10.fade(v96, 3, true, "frame")
+                task.wait(5)
+                local v97 = Instance.new("TextLabel", v96)
+                v97.Font = "Cartoon"
+                v97.AnchorPoint = Vector2.new(0.5, 0.5)
+                v97.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+                v97.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+                v97.TextScaled = true
+                v97.BackgroundTransparency = 1
+                v97.RichText = true
+                v97.TextStrokeTransparency = 0
+                v97.TextTransparency = 1
+                v97.TextStrokeTransparency = 1
+                v97.TextColor3 = Color3.new(1, 1, 1)
+                Instance.new("UITextSizeConstraint", v97).MaxTextSize = 100
+                local v98 = "<b>"
+                local v99
+                if v_u_3.ImportantData.Stats.currentGrasshop == 0 then
+                    v99 = v98 .. "You have Grasshopped for the first time!\n\nCheck out the Grasshop Milestones board"
+                else
+                    v99 = v98 .. "You have Grasshopped\n\n<font color=\"#00ff00\">" .. v_u_3.ImportantData.Stats.currentGrasshop + 1 .. "</font>\n\ntimes"
+                end
+                v97.Text = v99 .. "</b>"
+                v_u_10.fade(v97, 2, true, "text")
+                task.wait(8)
+                v_u_10.fade(v97, 1, false, "text")
+                task.wait(2)
+                v_u_10.fade(v96, 1, false, "frame")
+            end
+            v_u_27.Crystallize(true)
+            v_u_3.ImportantData.Stats.Accomplish.timeG = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassCutG = 0
+            v_u_3.ImportantData.Stats.currentCrystallize = 0
+            local v100 = 1
+            local v101 = 201 + (v_u_3.ImportantData.Stats.currentGrasshop + 1)
+            if v_u_3.ImportantData.Stats.currentGrasshop + 1 > 7 then
+                v101 = 231 + (v_u_3.ImportantData.Stats.currentGrasshop + 1 - 8) * 10
+            end
+            if v_u_3.ImportantData.Misc.toggles.bulkGrasshop.Visible then
+                while v101 <= v94 do
+                    v100 = v100 + 1
+                    v101 = 201 + (v_u_3.ImportantData.Stats.currentGrasshop + v100)
+                    if v_u_3.ImportantData.Stats.currentGrasshop + v100 > 7 then
+                        v101 = 231 + (v_u_3.ImportantData.Stats.currentGrasshop + v100 - 8) * 10
+                    end
+                end
+            end
+            local v102 = v_u_3.ImportantData.Stats
+            v102.totalGrasshop = v102.totalGrasshop + v100
+            local v103 = v_u_3.ImportantData.Stats
+            v103.currentGrasshop = v103.currentGrasshop + v100
+            v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("crystals", v_u_2.new(0, 0))
+            if not v95 then
+                v_u_16.SetCurrency("perks", v_u_2.new(0, 0))
+                v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+            end
+            for _, v104 in pairs(v_u_6.Basic) do
+                if (v104.tier == "prestige" or (v104.tier == "crystal" or v104.tier == "perk")) and (v104.shopType ~= "automation" and (v104.tier ~= "perk" or not v95)) then
+                    v104.level = 0
+                end
+            end
+            if v_u_3.ImportantData.Stats.lowestGGrasshop > 7 then
+                local v105 = v_u_3.ImportantData.Stats.currentGrasshop > 1 and v_u_3.ImportantData.Stats.currentGrasshop or 0
+                for v106, v107 in pairs(v_u_8.Basic) do
+                    if (v107.special or 0) <= 0 then
+                        local v108 = v_u_3.ImportantData.UpgradeLevels.accomplishments[v106]
+                        local v109 = v108.level
+                        v108.level = math.min(v109, v105)
+                    end
+                end
+            end
+            v_u_27.UpdateStuff()
+            if v_u_3.ImportantData.Stats.totalGrasshop < 16 then
+                task.wait(2)
+                v_u_10.clearFadeObj(v96)
+            end
+            v_u_88 = false
+        end
+    end
+end
+function v_u_27.GrassJump()
+    -- upvalues: (ref) v_u_88, (copy) v_u_3, (copy) v_u_16, (copy) v_u_10, (copy) v_u_27, (copy) v_u_11, (copy) v_u_2, (copy) v_u_6
+    if not v_u_88 and (251 + v_u_3.ImportantData.Stats.currentGrassJump * 10 <= v_u_16.Levels.unLevel.level and (v_u_3.ImportantData.Stats.realm == "recelerated" and v_u_3.ImportantData.Stats.currentPlanetary >= 3)) then
+        if v_u_3.ImportantData.Stats.currentGrassJump >= 2000 then
+            return
+        end
+        v_u_88 = true
+        local v110 = v_u_16.Levels.unLevel.level
+        if v_u_3.ImportantData.Stats.currentGrassJump == 0 then
+            v_u_3.ImportantData.Misc.toggles.evil.Visible = false
+            local v111 = v_u_3.ImportantData.Stats
+            v111.evil = v111.evil + 1
+            local v112 = v_u_3.ImportantData.Stats
+            v112.maxEvil = v112.maxEvil + 1
+        end
+        local v113 = v_u_10.getFadeObj()
+        if v_u_3.ImportantData.Stats.totalGrassJump < 10 and v_u_3.ImportantData.Stats.loopsTotal < 1 then
+            v113.BackgroundColor3 = Color3.new(0, 0, 0)
+            v_u_10.fade(v113, 3, true, "frame")
+            task.wait(5)
+            local v114 = Instance.new("TextLabel", v113)
+            v114.Font = "Cartoon"
+            v114.AnchorPoint = Vector2.new(0.5, 0.5)
+            v114.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+            v114.Size = UDim2.new(UDim.new(0.4, 0), UDim.new(0.4, 0))
+            v114.TextScaled = true
+            v114.BackgroundTransparency = 1
+            v114.RichText = true
+            v114.TextStrokeTransparency = 0
+            v114.TextTransparency = 1
+            v114.TextStrokeTransparency = 1
+            v114.TextColor3 = Color3.new(1, 1, 1)
+            Instance.new("UITextSizeConstraint", v114).MaxTextSize = 100
+            local v115 = "<b>"
+            local v116
+            if v_u_3.ImportantData.Stats.currentGrassJump == 0 then
+                v116 = v115 .. "<font color=\"#ffffff\">You start rolling the ball. For there is no turning back.</font>"
+            else
+                v116 = v115 .. "<font color=\"#ffffff\">\n" .. v_u_3.ImportantData.Stats.currentGrassJump + 1 .. "\n</font>"
+            end
+            v114.Text = v116 .. "</b>"
+            v_u_10.fade(v114, 2, true, "text")
+            v_u_27.Vaporize()
+            local v117 = v_u_3.ImportantData.Stats
+            v117.evil = v117.evil + 1
+            v_u_11.ToEarth()
+            task.wait(8)
+            v_u_10.fade(v114, 1, false, "text")
+            task.wait(2)
+            v_u_10.fade(v113, 1, false, "frame")
+        else
+            v_u_27.Vaporize()
+            local v118 = v_u_3.ImportantData.Stats
+            v118.evil = v118.evil + 1
+        end
+        local v119 = 1
+        local v120 = 251 + (v_u_3.ImportantData.Stats.currentGrassJump + 1) * 10
+        if v_u_3.ImportantData.Misc.toggles.bulkGrassjump.Visible then
+            while v120 <= v110 do
+                v119 = v119 + 1
+                v120 = 251 + (v_u_3.ImportantData.Stats.currentGrassJump + v119) * 10
+            end
+        end
+        v_u_16.Levels.unLevel.level = 1
+        v_u_16.Levels.unLevel.progress = v_u_2.new(0, 0)
+        local v121 = v_u_3.ImportantData.Stats
+        v121.totalGrassJump = v121.totalGrassJump + v119
+        local v122 = v_u_3.ImportantData.Stats
+        v122.currentGrassJump = v122.currentGrassJump + v119
+        v_u_3.ImportantData.Stats.currentVaporize = 0
+        v_u_16.SetCurrency("clouds", v_u_2.new(0, 0))
+        for _, v123 in pairs(v_u_6.Basic) do
+            if v123.tier == "vaporize" then
+                v123.level = 0
+            end
+        end
+        v_u_27.UpdateStuff()
+        if v_u_3.ImportantData.Stats.totalGrassJump < 1000000 then
+            task.wait(2)
+            v_u_10.clearFadeObj(v113)
+        end
+        v_u_88 = false
+    end
+end
+function v_u_27.HSJ()
+    -- upvalues: (ref) v_u_88, (copy) v_u_3, (copy) v_u_16, (copy) v_u_10, (copy) v_u_27, (copy) v_u_11
+    if not v_u_88 and (1000 + v_u_3.ImportantData.Stats.currentSGJ * 4300 <= v_u_16.Levels.unLevel.level and (v_u_3.ImportantData.Stats.realm == "recelerated" and v_u_3.ImportantData.Stats.currentGrassJump >= v_u_3.ImportantData.Reqs.gj.sgj)) then
+        v_u_88 = true
+        local v124 = v_u_10.getFadeObj()
+        if v_u_3.ImportantData.Stats.loopsTotal < 1 then
+            v124.BackgroundColor3 = Color3.new(1, 1, 1)
+            v_u_10.fade(v124, 3, true, "frame")
+            task.wait(5)
+            local v125 = Instance.new("TextLabel", v124)
+            v125.Font = "Cartoon"
+            v125.AnchorPoint = Vector2.new(0.5, 0.5)
+            v125.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+            v125.Size = UDim2.new(UDim.new(0.8, 0), UDim.new(0.2, 0))
+            v125.TextScaled = true
+            v125.BackgroundTransparency = 1
+            v125.RichText = true
+            v125.TextStrokeTransparency = 0
+            v125.TextTransparency = 1
+            v125.TextStrokeTransparency = 1
+            v125.TextColor3 = Color3.new(1, 1, 1)
+            Instance.new("UITextSizeConstraint", v125).MaxTextSize = 100
+            v125.Text = "<b><font color=\"#ffffff\">Soon</font></b>"
+            v_u_10.fade(v125, 2, true, "text")
+            v_u_27.Vaporize()
+            local v126 = v_u_3.ImportantData.Stats
+            v126.evil = v126.evil + 1
+            v_u_11.ToEarth()
+            task.wait(2)
+            v124.BackgroundColor3 = Color3.new(0.682353, 1, 0)
+            v125.TextColor3 = Color3.new(0.682353, 1, 0)
+            task.wait(2)
+            v124.BackgroundColor3 = Color3.new(0, 0.952941, 1)
+            v125.TextColor3 = Color3.new(0, 0.952941, 1)
+            task.wait(2)
+            v124.BackgroundColor3 = Color3.new(0, 0, 0)
+            v125.TextColor3 = Color3.new(0, 0, 0)
+            task.wait(2)
+            v124.BackgroundColor3 = Color3.new(1, 1, 1)
+            v125.TextColor3 = Color3.new(1, 1, 1)
+            v_u_10.fade(v125, 1, false, "text")
+            task.wait(2)
+            v_u_10.fade(v124, 1, false, "frame")
+        end
+        local v127 = v_u_3.ImportantData.Stats
+        v127.currentSGJ = v127.currentSGJ + 1
+        v_u_27.UpdateStuff()
+        if v_u_3.ImportantData.Stats.loopsTotal < 1 then
+            task.wait(2)
+            v_u_10.clearFadeObj(v124)
+        end
+        v_u_88 = false
+    end
+end
+function v_u_27.Steelie(p128)
+    -- upvalues: (copy) v_u_5, (ref) v_u_88, (copy) v_u_3, (copy) v_u_16, (copy) v_u_27, (copy) v_u_2, (copy) v_u_23, (copy) v_u_6, (copy) v_u_8
+    local v129 = v_u_5.getMulti().steelToEarn
+    if not v_u_88 then
+        local v130 = v_u_3.ImportantData.Stats.currentGrasshop > 7 and v_u_3.ImportantData.Misc.toggles.keepPerksG.Visible or v_u_16.GetInfinity("steel")
+        v_u_27.AccomplishConditions("steelie")
+        v_u_27.Crystallize(true)
+        v_u_3.ImportantData.Stats.Accomplish.timeS = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassCutG = 0
+        v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.currentCrystallize = 0
+        local v131 = v_u_3.ImportantData.Stats
+        v131.totalSteelie = v131.totalSteelie + 1
+        v_u_16.AddCurrency("steel", v129)
+        if not p128 then
+            v_u_23.addCurrPopup("steel", v129)
+        end
+        v_u_16.SetCurrency("crystals", v_u_2.new(0, 0))
+        if not v130 and v_u_3.ImportantData.Stats.realm == "normal" then
+            v_u_16.SetCurrency("perks", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+        end
+        for _, v132 in pairs(v_u_6.Basic) do
+            if (v132.tier == "prestige" or (v132.tier == "crystal" or v132.tier == "perk")) and (v132.shopType ~= "automation" and (v132.tier ~= "perk" or not v130 and v_u_3.ImportantData.Stats.realm == "normal")) then
+                v132.level = 0
+            end
+        end
+        if v_u_3.ImportantData.Stats.lowestGGrasshop > 7 then
+            local v133 = v_u_3.ImportantData.Stats.currentGrasshop > 1 and v_u_3.ImportantData.Stats.currentGrasshop or 0
+            for v134, v135 in pairs(v_u_8.Basic) do
+                if (v135.special or 0) <= 0 then
+                    local v136 = v_u_3.ImportantData.UpgradeLevels.accomplishments[v134]
+                    local v137 = v136.level
+                    v136.level = math.min(v137, v133)
+                end
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Funify()
+    -- upvalues: (copy) v_u_5, (copy) v_u_3, (copy) v_u_16, (copy) v_u_27, (copy) v_u_2, (copy) v_u_23
+    local v138 = v_u_5.getMulti().funToEarn
+    if 271 + v_u_3.ImportantData.Stats.currentGFunify * 10 <= v_u_16.Levels.antiLevel.level and v_u_3.ImportantData.Stats.realm == "decelerated" then
+        v_u_27.Liquefy(true)
+        v_u_3.ImportantData.Stats.currentLiquefy = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        v_u_16.SetCurrency("oil", v_u_2.new(0, 0))
+        local v139 = v_u_3.ImportantData.Stats
+        v139.totalFunify = v139.totalFunify + 1
+        local v140 = v_u_3.ImportantData.Stats
+        v140.currentGFunify = v140.currentGFunify + 1
+        v_u_16.AddCurrency("fun", v138)
+        v_u_23.addCurrPopup("fun", v138)
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.ToggleDecelerate()
+    -- upvalues: (copy) v_u_3, (copy) v_u_5, (copy) v_u_27, (copy) v_u_16, (copy) v_u_2, (copy) v_u_6
+    local v141 = v_u_3.ImportantData.Stats.currentSGJ > 0
+    if v_u_3.ImportantData.Stats.realm == "decelerated" or v_u_3.ImportantData.Stats.realm == "recelerated" then
+        v_u_5.updateAllMultis()
+        if not v141 then
+            v_u_27.AccomplishConditions("steelie")
+            v_u_16.SetCurrency("grass", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("pp", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("crystals", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentTier = "basic"
+            v_u_3.ImportantData.Stats.infTier = 0
+            for _, v142 in pairs(v_u_6.Basic) do
+                if (v142.tier == "prestige" or v142.tier == "crystal") and v142.shopType ~= "automation" then
+                    v142.level = 0
+                end
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    else
+        if not v141 then
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassCutG = 0
+            v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("grass", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("pp", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("crystals", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtC = 0
+            v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtC = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassCutC = 0
+            v_u_3.ImportantData.Stats.totalGrassP = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtP = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassCutP = 0
+            v_u_3.ImportantData.Stats.currentPrestige = 0
+            v_u_3.ImportantData.Stats.currentCrystallize = 0
+            v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentTier = "basic"
+            v_u_3.ImportantData.Stats.infTier = 0
+            for _, v143 in pairs(v_u_6.Basic) do
+                if (v143.tier == "basic" or (v143.tier == "crystal" or v143.tier == "prestige")) and v143.shopType ~= "automation" then
+                    v143.level = 0
+                end
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Anonymity(p144)
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_27, (copy) v_u_16, (copy) v_u_23, (copy) v_u_3, (copy) v_u_6
+    local v145 = v_u_5.getMulti().anonymityToEarn
+    if v_u_2.isGreaterE(v145, v_u_2.new(0, 0)) then
+        v_u_27.AccomplishConditions("anonymity")
+        v_u_16.AddCurrency("ap", v145)
+        if not p144 then
+            v_u_23.addCurrPopup("ap", v145)
+        end
+        if v_u_3.ImportantData.Stats.realm == "decelerated" and v_u_2.isGreater(v145, v_u_3.ImportantData.Stats.lastAnonymityAP) then
+            v_u_3.ImportantData.Stats.lastAnonymityAP = v145
+        end
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtA = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        local v146 = v_u_3.ImportantData.Stats
+        v146.currentAnonymity = v146.currentAnonymity + 1
+        local v147 = v_u_3.ImportantData.Stats
+        v147.totalAnonymity = v147.totalAnonymity + 1
+        v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+        v_u_16.Levels.antiLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.antiLevel.level = 1
+        if v_u_3.ImportantData.UpgradeLevels.upgrades.antigrassSave.level <= 0 then
+            v_u_16.SetCurrency("agrass", v_u_2.new(0, 0))
+            for _, v148 in pairs(v_u_6.Basic) do
+                if v148.tier == "antigrass" then
+                    v148.level = 0
+                end
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Liquefy(p149)
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_27, (copy) v_u_16, (copy) v_u_23, (copy) v_u_3, (copy) v_u_6
+    local v150 = v_u_5.getMulti().oilToEarn
+    if v_u_2.isGreaterE(v150, v_u_2.new(0, 0)) then
+        v_u_27.AccomplishConditions("liquefy")
+        v_u_27.Anonymity(true)
+        v_u_16.AddCurrency("oil", v150)
+        if not p149 then
+            v_u_23.addCurrPopup("oil", v150)
+        end
+        if v_u_3.ImportantData.Stats.realm == "decelerated" and v_u_2.isGreater(v150, v_u_3.ImportantData.Stats.lastLiquefyOil) then
+            v_u_3.ImportantData.Stats.lastLiquefyOil = v150
+        end
+        v_u_3.ImportantData.Stats.Accomplish.anonymityBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeC = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        v_u_3.ImportantData.Stats.currentAnonymity = 0
+        local v151 = v_u_3.ImportantData.Stats
+        v151.currentLiquefy = v151.currentLiquefy + 1
+        local v152 = v_u_3.ImportantData.Stats
+        v152.totalLiquefy = v152.totalLiquefy + 1
+        v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentTier = "basic"
+        v_u_3.ImportantData.Stats.antiTier = "basic"
+        v_u_3.ImportantData.Stats.infTier = 0
+        v_u_16.SetCurrency("ap", v_u_2.new(0, 0))
+        for _, v153 in pairs(v_u_6.Basic) do
+            if v153.tier == "anonymity" then
+                v153.level = 0
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+local v_u_154 = true
+function v_u_27.RocketPart()
+    -- upvalues: (copy) v_u_3, (copy) v_u_2, (copy) v_u_16, (ref) v_u_154, (copy) v_u_27, (copy) v_u_5, (copy) v_u_23, (copy) v_u_6, (copy) v_u_4
+    local v155 = v_u_3.ImportantData.Stats.currentRocketParts
+    local v156 = v_u_2.multiply(v_u_2.new(v155 + 1, 0), v_u_2.new(1, 20))
+    local v157 = v_u_2.multiply(v_u_2.new(v155, 0), v_u_2.new(10, 0))
+    if v_u_3.ImportantData.Stats.highestZeroGrassskip >= v_u_3.ImportantData.Reqs.g then
+        if v155 > 0 then
+            v156 = v_u_2.multiply(v_u_2.new(1, 36), v_u_2.pow(v_u_2.new(1, 3), v155 - 1))
+            v157 = v_u_2.multiply(v_u_2.new(1, 6), v_u_2.pow(v_u_2.new(1, 2), v155 - 1))
+        else
+            v156 = v_u_2.new(1, 21)
+            v157 = v_u_2.new(9, 1)
+        end
+    end
+    local v158 = v_u_2.isGreaterE(v_u_16.GetCurrencyAmt("steel"), v156) and v_u_2.isGreaterE(v_u_3.ImportantData.Stats.totalGRocketFuel, v157)
+    if v158 then
+        v158 = v155 < v_u_3.ImportantData.Stats.partsRequired
+    end
+    if v158 and v_u_154 then
+        v_u_154 = false
+        v_u_27.Liquefy(true)
+        local v159 = v_u_5.getMulti().momentumToEarn
+        if v_u_3.ImportantData.Stats.bestStarTier >= 1 and v_u_2.isGreaterE(v_u_2.new(1, 0), v159) then
+            v159 = v_u_2.multiply(v159, v_u_2.new(1, 1))
+        end
+        v_u_16.AddCurrency("momentum", v159)
+        v_u_23.addCurrPopup("momentum", v159)
+        v_u_3.ImportantData.Stats.currentLiquefy = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        local v160 = v_u_3.ImportantData.Stats
+        v160.currentRocketParts = v160.currentRocketParts + 1
+        local v161 = v_u_3.ImportantData.Stats
+        v161.totalRocketParts = v161.totalRocketParts + 1
+        v_u_3.ImportantData.Stats.totalGRocketFuel = v_u_2.new(0, 0)
+        v_u_16.SetCurrency("oil", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("steel", v_u_2.new(0, 0))
+        for _, v162 in pairs(v_u_6.Basic) do
+            if v162.tier == "liquefy" then
+                v162.level = 0
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_4.updateRocketPartDisplay()
+        v_u_154 = true
+    end
+end
+function v_u_27.Grassskip()
+    -- upvalues: (copy) v_u_3, (copy) v_u_16, (copy) v_u_27, (copy) v_u_2, (copy) v_u_4
+    local v163 = 201 + v_u_3.ImportantData.Stats.currentGrassskip * 10
+    if v_u_3.ImportantData.Stats.totalGalactic > 0 and (v163 <= v_u_16.Levels.antiLevel.level and v_u_3.ImportantData.Stats.realm == "decelerated") then
+        if v_u_3.ImportantData.Stats.currentGrassskip >= 2000 then
+            return
+        end
+        local v164 = v_u_16.Levels.antiLevel.level
+        v_u_27.Liquefy(true)
+        v_u_3.ImportantData.Stats.currentLiquefy = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        v_u_16.SetCurrency("oil", v_u_2.new(0, 0))
+        local v165 = 1
+        local v166 = 201 + (v_u_3.ImportantData.Stats.currentGrassskip + 1) * 10
+        if v_u_3.ImportantData.Misc.toggles.bulkGrassskip.Visible then
+            while v166 <= v164 do
+                v165 = v165 + 1
+                v166 = 201 + (v_u_3.ImportantData.Stats.currentGrassskip + v165) * 10
+            end
+        end
+        local v167 = v_u_3.ImportantData.Stats
+        v167.currentGrassskip = v167.currentGrassskip + v165
+        local v168 = v_u_3.ImportantData.Stats
+        v168.totalGrassskip = v168.totalGrassskip + v165
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_4.updateGrassskipDisplay()
+    end
+end
+function v_u_27.Normality(p169)
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_3, (ref) v_u_47, (copy) v_u_16, (copy) v_u_23, (copy) v_u_6, (copy) v_u_27
+    local v170 = v_u_5.getMulti().normalityToEarn
+    if v_u_2.isGreaterE(v170, v_u_2.new(0, 0)) and v_u_3.ImportantData.Stats.realm == "recelerated" or v_u_47 then
+        v_u_16.AddCurrency("np", v170)
+        if not p169 then
+            v_u_23.addCurrPopup("np", v170)
+        end
+        if v_u_3.ImportantData.Stats.realm == "recelerated" and v_u_2.isGreater(v170, v_u_3.ImportantData.Stats.lastNormalityNP) then
+            v_u_3.ImportantData.Stats.lastNormalityNP = v170
+        end
+        local v171 = v_u_3.ImportantData.Stats
+        v171.currentNormality = v171.currentNormality + 1
+        local v172 = v_u_3.ImportantData.Stats
+        v172.totalNormality = v172.totalNormality + 1
+        v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("ugrass", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.currentAstralLevel = 1
+        v_u_3.ImportantData.Currencies.astralProgress = v_u_2.new(0, 0)
+        v_u_16.Levels.unLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.unLevel.level = 1
+        for _, v173 in pairs(v_u_6.Basic) do
+            if v173.tier == "ugrass" then
+                v173.level = 0
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Vaporize()
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_3, (ref) v_u_47, (copy) v_u_27, (copy) v_u_16, (copy) v_u_6
+    local v174 = v_u_5.getMulti().cloudsToEarn
+    if v_u_2.isGreaterE(v174, v_u_2.new(0, 0)) and v_u_3.ImportantData.Stats.realm == "recelerated" or v_u_47 then
+        v_u_27.Normality()
+        v_u_16.AddCurrency("clouds", v174)
+        v_u_3.ImportantData.Stats.currentNormality = 0
+        local v175 = v_u_3.ImportantData.Stats
+        v175.currentVaporize = v175.currentVaporize + 1
+        local v176 = v_u_3.ImportantData.Stats
+        v176.totalVaporize = v176.totalVaporize + 1
+        v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentTier = "basic"
+        v_u_3.ImportantData.Stats.unnaturalTier = "basic"
+        v_u_3.ImportantData.Stats.infTier = 0
+        v_u_16.SetCurrency("np", v_u_2.new(0, 0))
+        for _, v177 in pairs(v_u_6.Basic) do
+            if v177.tier == "normality" then
+                v177.level = 0
+            end
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+local v_u_178 = false
+function v_u_27.Galactic(p179, p180)
+    -- upvalues: (copy) v_u_5, (copy) v_u_3, (ref) v_u_178, (copy) v_u_10, (copy) v_u_2, (copy) v_u_16, (copy) v_u_6, (copy) v_u_8, (copy) v_u_27, (copy) v_u_23, (copy) v_u_11, (copy) v_u_4
+    local v181 = v_u_5.getMulti().starsToEarn
+    local v182 = v_u_3.ImportantData.Stats.currentRocketParts >= v_u_3.ImportantData.Stats.partsRequired
+    if v_u_3.ImportantData.Stats.highestZeroGrassskip >= v_u_3.ImportantData.Reqs.g then
+        v182 = v_u_3.ImportantData.Stats.currentRocketParts > 0
+    end
+    if v182 and not v_u_178 or p179 then
+        v_u_178 = true
+        local v183 = v_u_10.getFadeObj()
+        if v_u_3.ImportantData.Stats.totalSacrifice < 1 and (not p179 and v_u_3.ImportantData.Stats.loopsTotal < 1) then
+            v183.BackgroundColor3 = Color3.new(0, 0, 0)
+            v_u_10.fade(v183, 3, true, "frame")
+            task.wait(5)
+            local v184 = Instance.new("TextLabel", v183)
+            v184.Font = "Cartoon"
+            v184.AnchorPoint = Vector2.new(0.5, 0.5)
+            v184.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+            v184.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+            v184.TextScaled = true
+            v184.BackgroundTransparency = 1
+            v184.RichText = true
+            v184.TextStrokeTransparency = 0
+            v184.TextTransparency = 1
+            v184.TextStrokeTransparency = 1
+            v184.TextColor3 = Color3.new(0.25098, 0.000015259, 0.501961)
+            Instance.new("UITextSizeConstraint", v184).MaxTextSize = 100
+            local v185 = "<b>"
+            local v186
+            if v_u_3.ImportantData.Stats.currentGalactic == 0 then
+                v186 = v185 .. "You have left this world"
+            else
+                v186 = v185 .. "You have left\n\n<font color=\"#00ff00\">" .. v_u_3.ImportantData.Stats.currentGalactic + 1 .. "</font>\n\nworlds"
+            end
+            v184.Text = v186 .. "</b>"
+            v_u_10.fade(v184, 2, true, "text")
+            task.wait(8)
+            v_u_10.fade(v184, 1, false, "text")
+            task.wait(2)
+            v_u_10.fade(v183, 1, false, "frame")
+        end
+        if v_u_3.ImportantData.Stats.totalGalactic == 0 then
+            local v187 = v_u_3.ImportantData.Stats
+            local v188 = v_u_3.ImportantData.Stats.currentGrasshop
+            v187.lowestGGrasshop = math.max(v188, 30)
+            v_u_3.ImportantData.Stats.highestZeroGrassskip = 0
+        end
+        if v_u_3.ImportantData.Stats.loopsTotal > 0 then
+            local v189 = v_u_3.ImportantData.Stats
+            local v190 = v_u_3.ImportantData.Stats.totalGalactic
+            v189.totalGalactic = math.max(v190, 3)
+        end
+        if v_u_3.ImportantData.Stats.totalGalactic >= 1 or v_u_3.ImportantData.Stats.lowestGGrasshop <= 25 then
+            if v_u_3.ImportantData.Stats.lowestGGrasshop > v_u_3.ImportantData.Stats.currentGrasshop then
+                v_u_3.ImportantData.Stats.lowestGGrasshop = v_u_3.ImportantData.Stats.currentGrasshop
+            end
+            if v_u_3.ImportantData.Stats.currentGrassskip > v_u_3.ImportantData.Stats.highestZeroGrassskip and v_u_3.ImportantData.Stats.currentGrasshop == 0 then
+                local v191 = v_u_3.ImportantData.Stats
+                local v192 = v_u_3.ImportantData.Stats.currentGrassskip
+                v191.highestZeroGrassskip = math.min(60, v192)
+            end
+        end
+        v_u_3.ImportantData.Stats.Accomplish.anonymityBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtA = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtC = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtP = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtC = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeP = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeC = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeG = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeS = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeGl = 0
+        v_u_3.ImportantData.Stats.realm = "normal"
+        v_u_3.ImportantData.Stats.totalGRocketFuel = v_u_2.new(0, 0)
+        if v_u_5.getUpgradeLevel("RSng") <= 0 then
+            v_u_3.ImportantData.Stats.lastLiquefyOil = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.lastAnonymityAP = v_u_2.new(0, 0)
+        end
+        v_u_3.ImportantData.Stats.currentPrestige = 0
+        v_u_3.ImportantData.Stats.currentCrystallize = 0
+        v_u_3.ImportantData.Stats.currentAnonymity = 0
+        v_u_3.ImportantData.Stats.currentLiquefy = 0
+        if v_u_5.getUpgradeLevel("RSmg") <= 0 then
+            v_u_3.ImportantData.Stats.currentRocketParts = 0
+        end
+        if v_u_3.ImportantData.Stats.bestStarTier < 5 and not p180 then
+            v_u_16.SetCurrency("perks", v_u_2.new(0, 0))
+            v_u_16.Levels.level.level = 1
+            v_u_16.Levels.antiLevel.level = 1
+            v_u_16.Levels.level.progress = v_u_2.new(0, 0)
+            v_u_16.Levels.antiLevel.progress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentTier = "basic"
+            v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.infTier = 0
+            v_u_3.ImportantData.Stats.antiTier = "basic"
+        end
+        if v_u_3.ImportantData.Stats.bestStarTier < 5 and p180 then
+            v_u_16.Levels.level.level = 1
+            v_u_16.Levels.antiLevel.level = 1
+            v_u_16.Levels.level.progress = v_u_2.new(0, 0)
+            v_u_16.Levels.antiLevel.progress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentTier = "basic"
+            v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.infTier = 0
+            v_u_3.ImportantData.Stats.antiTier = "basic"
+        end
+        v_u_16.SetCurrency("agrass", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.bestCharge = v_u_2.new(0, 0)
+        if v_u_3.ImportantData.Stats.highestZeroGrassskip < v_u_3.ImportantData.Reqs.gss then
+            v_u_3.ImportantData.Stats.currentGrasshop = 0
+            v_u_3.ImportantData.Stats.currentGrassskip = 0
+        end
+        v_u_3.ImportantData.Stats.currentGFunify = 0
+        v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+        v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("grass", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("pp", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("crystals", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("steel", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("ap", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("oil", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("rocketFuel", v_u_2.new(0, 0))
+        if v_u_3.ImportantData.Stats.highestZeroGrassskip < v_u_3.ImportantData.Reqs.m then
+            v_u_16.SetCurrency("momentum", v_u_2.new(0, 0))
+        end
+        if v_u_3.ImportantData.Stats.highestZeroGrassskip < 15 then
+            v_u_16.SetCurrency("platinum", v_u_2.new(0, 0))
+        end
+        local v193 = v_u_5.getUpgradeLevel("stAuto1") > 0
+        local v194 = v_u_5.getUpgradeLevel("stAuto2a") > 0
+        local v195 = v_u_5.getUpgradeLevel("stAuto2") > 0
+        local v196 = v_u_5.getUpgradeLevel("stAuto3") > 0
+        local v197 = v_u_5.getUpgradeLevel("stAuto3a") > 0
+        local v198 = v_u_5.getUpgradeLevel("stAuto4") > 0
+        local v199 = v_u_5.getUpgradeLevel("stAuto5") > 0
+        local v200 = v_u_5.getUpgradeLevel("stAuto6") > 0
+        local v201 = v_u_5.getUpgradeLevel("stAuto7") > 0
+        for v202, v203 in pairs(v_u_6.Basic) do
+            if (v203.tier == "basic" or (v203.tier == "perk" or (v203.tier == "prestige" or (v203.tier == "platinum" or (v203.tier == "crystal" or (v203.tier == "steel" or (v203.tier == "antigrass" or (v203.tier == "anonymity" or (v203.tier == "liquefy" or v203.tier == "momentum"))))))))) and ((v203.tier ~= "perk" or (v_u_3.ImportantData.Stats.bestStarTier < 5 or not p180)) and ((v203.tier ~= "platinum" or v202 ~= "fp1") and ((v203.tier ~= "momentum" or v_u_3.ImportantData.Stats.highestZeroGrassskip < v_u_3.ImportantData.Reqs.m) and (v202 ~= "keepSpeed" and v202 ~= "platAutoCut1" and (v203.shopType ~= "automation" or v_u_3.ImportantData.Stats.bestStarTier <= 0 and not (v193 and string.find(v202, "upgradeSave")) and (not (v194 and string.find(v202, "autoCut")) and ((not v195 or not string.find(v202, "prestigeAutobuy") and v202 ~= "passivePP") and ((not v196 or not string.find(v202, "crystalAutobuy") and v202 ~= "passiveC") and not (v197 and string.find(v202, "keepPerks") or v198 and string.find(v202, "perksAutobuy")))))))))) and (v203.shopType ~= "antiantiautomation" or v_u_3.ImportantData.Stats.bestStarTier <= 0 and (not v199 or not string.find(v202, "antigrassAutobuy") and (v202 ~= "autoCutValueR" and v202 ~= "returnToTier")) and ((not v200 or not string.find(v202, "apAutobuy") and v202 ~= "antigrassSave") and not (v201 and string.find(v202, "oilAutobuy")))) then
+                v203.level = 0
+            end
+        end
+        if v_u_3.ImportantData.Stats.bestStarTier < 3 and v_u_3.ImportantData.Stats.highestZeroGrassskip < 60 then
+            for v204, v205 in pairs(v_u_8.Basic) do
+                if (v205.special or 0) <= 0 then
+                    v_u_3.ImportantData.UpgradeLevels.accomplishments[v204].level = 0
+                end
+            end
+        end
+        v_u_3.ImportantData.Stats.totalGrassP = v_u_2.new(0, 0)
+        local v206 = v_u_3.ImportantData.Stats
+        v206.currentGalactic = v206.currentGalactic + 1
+        local v207 = v_u_3.ImportantData.Stats
+        v207.totalGalactic = v207.totalGalactic + 1
+        v_u_27.UpdateGH()
+        if not p179 then
+            v_u_16.AddCurrency("stars", v181)
+            v_u_23.addCurrPopup("stars", v181)
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(535.303, 4095.329, 551.373) * CFrame.Angles(0, 0, 0))
+        end
+        v_u_11.ToSpace()
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_4.updateGalacticDisplay()
+        v_u_4.updateAstralBonuses()
+        v_u_4.getDisplay().decelerateButton.Text = v_u_3.ImportantData.Stats.realm == "decelerated" and "<b>Accelerate</b>" or "<b>Decelerate</b>"
+        v_u_4.getDisplay().recelerateButton.Text = v_u_3.ImportantData.Stats.realm == "recelerated" and "<b>Accelerate</b>" or "<b>Recelerate</b>"
+        if v_u_3.ImportantData.Stats.totalGalactic < 100000000 and not p179 then
+            task.wait(2)
+            v_u_10.clearFadeObj(v183)
+        end
+        v_u_178 = false
+    end
+end
+function v_u_27.ResetPlanetTele()
+    -- upvalues: (copy) v_u_27, (copy) v_u_3, (copy) v_u_2, (copy) v_u_11, (copy) v_u_7
+    v_u_27.Galactic(true, true)
+    v_u_3.ImportantData.Stats.tempGPS = v_u_2.new(0, 0)
+    v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+    v_u_3.ImportantData.Stats.pDif = v_u_3.ImportantData.Stats.pDif > 0 and 0 or 1
+    v_u_11.ToEarth()
+    v_u_27.RemoveGrass()
+    v_u_27.UpdateStuff()
+    v_u_7.ShowHideTabs()
+end
+function v_u_27.ResetPlanet(p208)
+    -- upvalues: (copy) v_u_27, (copy) v_u_3, (copy) v_u_2, (copy) v_u_11, (copy) v_u_7
+    v_u_27.Galactic(true, true)
+    v_u_3.ImportantData.Stats.tempGPS = v_u_2.new(0, 0)
+    v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+    v_u_3.ImportantData.Stats.pDif = v_u_3.ImportantData.Stats.pDif > 0 and 0 or 1
+    if not p208 then
+        if v_u_3.ImportantData.Stats.pDif > 0 then
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-617.495, 5060, 3308.501) * CFrame.Angles(0, 0, 0))
+        else
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-13, -18, 87) * CFrame.Angles(0, 0, 0))
+        end
+    end
+    if v_u_3.ImportantData.Stats.pDif > 0 then
+        v_u_11.ToPlanet()
+    else
+        v_u_11.ToEarth()
+    end
+    v_u_27.RemoveGrass()
+    v_u_27.UpdateStuff()
+    v_u_7.ShowHideTabs()
+end
+function v_u_27.ChangeDifficulty(p209)
+    -- upvalues: (copy) v_u_3, (copy) v_u_27
+    if v_u_3.ImportantData.Stats.pDif ~= p209 then
+        v_u_27.ResetPlanet(true)
+    end
+end
+function v_u_27.Sacrifice()
+    -- upvalues: (copy) v_u_5, (copy) v_u_3, (copy) v_u_27, (copy) v_u_2, (copy) v_u_16, (copy) v_u_6, (copy) v_u_23, (copy) v_u_4
+    local v210 = v_u_5.getMulti().darkMatterToEarn
+    if v_u_3.ImportantData.Stats.highestZeroGrassskip >= 18 and v210.n > 0 then
+        v_u_27.Galactic(true)
+        v_u_3.ImportantData.Stats.currentAstralLevel = 1
+        v_u_3.ImportantData.Currencies.astralProgress = v_u_2.new(0, 0)
+        v_u_16.SetCurrency("stars", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("sfrgt", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("fun", v_u_2.new(0, 0))
+        for _, v211 in pairs(v_u_6.Basic) do
+            if v211.tier == "fun" and (v211.shopType ~= "funnyMachine" and v_u_5.getUpgradeLevel("RSfx") <= 0) then
+                v211.level = 0
+            end
+        end
+        local v212 = v_u_3.ImportantData.Stats
+        v212.currentSacrifice = v212.currentSacrifice + 1
+        local v213 = v_u_3.ImportantData.Stats
+        v213.totalSacrifice = v213.totalSacrifice + 1
+        v_u_16.AddCurrency("darkMatter", v210)
+        v_u_23.addCurrPopup("darkMatter", v210)
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_4.updateGalacticDisplay()
+        v_u_4.updateAstralBonuses()
+    end
+end
+function v_u_27.AstralPrestige()
+    -- upvalues: (copy) v_u_3, (copy) v_u_27
+    if v_u_3.ImportantData.Stats.currentAstralLevel >= 100 then
+        v_u_3.ImportantData.Stats.currentAstralLevel = 0
+        local v214 = v_u_3.ImportantData.Stats
+        v214.currentAstralPrestige = v214.currentAstralPrestige + 1
+        if v_u_3.ImportantData.Stats.currentAstralPrestige > v_u_3.ImportantData.Stats.highestAstralPrestige then
+            v_u_3.ImportantData.Stats.highestAstralPrestige = v_u_3.ImportantData.Stats.currentAstralPrestige
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+    end
+end
+local v_u_215 = false
+local v_u_216 = true
+function v_u_27.Supernova()
+    -- upvalues: (ref) v_u_215, (copy) v_u_5, (copy) v_u_3, (ref) v_u_216, (copy) v_u_2, (copy) v_u_10, (copy) v_u_16, (copy) v_u_12, (copy) v_u_13, (copy) v_u_14, (copy) v_u_8, (copy) v_u_6, (copy) v_u_27, (copy) v_u_23, (copy) v_u_11
+    if not v_u_215 then
+        local v217 = v_u_5.getMulti().solarToEarn
+        local v218 = v_u_5.getMulti().raysToEarn
+        if v_u_3.ImportantData.Stats.starTier > 0 and (v_u_3.ImportantData.Stats.bestStarTier < 7 and v_u_216) then
+            v_u_216 = false
+            local v219 = v_u_2.pow(v_u_2.new(1, 1), v_u_3.ImportantData.Stats.starTier - 1)
+            local v220 = v_u_10.getFadeObj()
+            if v_u_3.ImportantData.Stats.bestStarTier < 100 and v_u_3.ImportantData.Stats.loopsTotal < 1 then
+                v220.BackgroundColor3 = Color3.new(0.972549, 1, 0.733333)
+                v_u_10.fade(v220, 3, true, "frame")
+                task.wait(5)
+                local v221 = Instance.new("TextLabel", v220)
+                v221.Font = "Cartoon"
+                v221.AnchorPoint = Vector2.new(0.5, 0.5)
+                v221.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+                v221.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+                v221.TextScaled = true
+                v221.BackgroundTransparency = 1
+                v221.RichText = true
+                v221.TextStrokeTransparency = 0
+                v221.TextTransparency = 1
+                v221.TextStrokeTransparency = 1
+                v221.TextColor3 = Color3.new(0.984314, 1, 0)
+                Instance.new("UITextSizeConstraint", v221).MaxTextSize = 100
+                local v222 = "<b>"
+                local v223
+                if v_u_3.ImportantData.Stats.currentSupernova == 0 then
+                    v223 = v222 .. "All of your progress disintegrates before your eyes"
+                else
+                    v223 = v222 .. "Supernova Tier: <font color=\"#00ff00\">" .. v_u_3.ImportantData.Stats.starTier .. "</font>\n\n"
+                end
+                v221.Text = v223 .. "</b>"
+                v_u_10.fade(v221, 2, true, "text")
+                task.wait(8)
+                v_u_10.fade(v221, 1, false, "text")
+                task.wait(2)
+                v_u_10.fade(v220, 1, false, "frame")
+            end
+            if v_u_3.ImportantData.Stats.starTier > v_u_3.ImportantData.Stats.bestStarTier then
+                v_u_3.ImportantData.Stats.bestStarTier = v_u_3.ImportantData.Stats.starTier
+            end
+            v_u_3.ImportantData.Stats.lowestGGrasshop = 101
+            v_u_3.ImportantData.Stats.highestZeroGrassskip = 0
+            v_u_3.ImportantData.Stats.tempGPS = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.pDif = 0
+            v_u_3.ImportantData.Stats.Accomplish.anonymityBoughtL = 0
+            v_u_3.ImportantData.Stats.Accomplish.agrassBoughtA = 0
+            v_u_3.ImportantData.Stats.Accomplish.agrassBoughtL = 0
+            v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtC = 0
+            v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtP = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtC = 0
+            v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeP = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeC = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeG = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeS = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeGl = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSn = 0
+            v_u_3.ImportantData.Stats.realm = "normal"
+            v_u_3.ImportantData.Stats.totalGRocketFuel = v_u_2.new(0, 0)
+            if v_u_3.ImportantData.Stats.bestStarTier < 3 then
+                v_u_3.ImportantData.Stats.lastLiquefyOil = v_u_2.new(0, 0)
+                v_u_3.ImportantData.Stats.lastAnonymityAP = v_u_2.new(0, 0)
+                v_u_3.ImportantData.Stats.lastNormalityNP = v_u_2.new(0, 0)
+                v_u_3.ImportantData.Stats.lastVaporizeClouds = v_u_2.new(0, 0)
+            end
+            v_u_3.ImportantData.Stats.currentPrestige = 0
+            v_u_3.ImportantData.Stats.currentCrystallize = 0
+            v_u_3.ImportantData.Stats.currentAnonymity = 0
+            v_u_3.ImportantData.Stats.currentLiquefy = 0
+            v_u_3.ImportantData.Stats.currentNormality = 0
+            v_u_3.ImportantData.Stats.currentGalactic = 0
+            v_u_3.ImportantData.Stats.currentSacrifice = 0
+            v_u_3.ImportantData.Stats.currentRocketParts = 0
+            if v_u_3.ImportantData.Stats.bestStarTier < 5 then
+                v_u_16.Levels.level.progress = v_u_2.new(0, 0)
+                v_u_16.Levels.antiLevel.progress = v_u_2.new(0, 0)
+                v_u_16.Levels.unLevel.progress = v_u_2.new(0, 0)
+                v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+                v_u_16.Levels.level.level = 1
+                v_u_16.Levels.antiLevel.level = 1
+                v_u_16.Levels.unLevel.level = 1
+                v_u_16.Levels.planetLevel.level = 1
+                v_u_3.ImportantData.Stats.currentTier = "basic"
+                v_u_3.ImportantData.Stats.antiTier = "basic"
+                v_u_3.ImportantData.Stats.unnaturalTier = "basic"
+                v_u_16.SetCurrency("perks", v_u_2.new(0, 0))
+                v_u_16.SetCurrency("perks2", v_u_2.new(0, 0))
+            end
+            v_u_16.SetCurrency("agrass", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("planetarium", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("ugrass", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.bestCharge = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.bestDarkCharge = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentGrasshop = 0
+            v_u_3.ImportantData.Stats.currentGrassskip = 0
+            v_u_3.ImportantData.Stats.currentGrassJump = 0
+            v_u_3.ImportantData.Stats.currentPlanetary = 0
+            v_u_3.ImportantData.Stats.currentGFunify = 0
+            v_u_3.ImportantData.Stats.innerRingsBroken = 0
+            v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+            local v224 = v_u_5.getUpgradeLevel("Ssm")
+            v_u_16.SetCurrency("charge", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("dcharge", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("grass", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("pp", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("crystals", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("steel", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("ap", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("oil", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("rocketFuel", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("stars", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("darkMatter", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("darkFruits", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("astro", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("measure", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("planets", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("lines", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("arcs", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("stardust", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("np", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("clouds", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("moonstone", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("obs", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("res", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("rings", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("sfrgt", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("fun", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("platinum", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("momentum", v_u_2.new(v224, 0))
+            v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Currencies.astralProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Currencies.dfProgress = 0
+            v_u_3.ImportantData.Stats.starTier = 0
+            v_u_3.ImportantData.Stats.starProgress = v_u_2.new(0, 0)
+            v_u_12.Planets.planetoid[1].bestScore = v_u_2.new(0, 0)
+            v_u_12.Planets.planetoid[1].highestLevel = 0
+            v_u_5.ClearGrid()
+            for _, v225 in pairs(v_u_13.Items) do
+                v225.level = v_u_2.new(0, 0)
+            end
+            for _, v226 in pairs(v_u_14.Items) do
+                v226.level = v_u_2.new(0, 0)
+                v226.progress = v_u_2.new(0, 0)
+                v226.activated = false
+            end
+            v_u_3.ImportantData.Stats.currentAstralPrestige = 0
+            v_u_3.ImportantData.Stats.currentAstralLevel = 1
+            if v_u_3.ImportantData.Stats.bestStarTier < 3 then
+                for v227, v228 in pairs(v_u_8.Basic) do
+                    if (v228.special or 0) <= 0 then
+                        v_u_3.ImportantData.UpgradeLevels.accomplishments[v227].level = 0
+                    end
+                end
+            end
+            if v_u_3.ImportantData.Stats.bestStarTier < 5 then
+                for _, v229 in pairs(v_u_8.Trial) do
+                    v229.level = 0
+                end
+            end
+            for _, v230 in pairs(v_u_6.Basic) do
+                if (v230.tier == "basic" or (v230.tier == "perk" or (v230.tier == "perk2" or (v230.tier == "prestige" or (v230.tier == "platinum" or (v230.tier == "crystal" or (v230.tier == "steel" or (v230.tier == "fun" or (v230.tier == "antigrass" or (v230.tier == "anonymity" or (v230.tier == "liquefy" or (v230.tier == "rocketFuel" or (v230.tier == "momentum" or (v230.tier == "moonstone" or (v230.tier == "stars" or (v230.tier == "darkMatter" or (v230.tier == "darkFruit" or (v230.tier == "ugrass" or (v230.tier == "normality" or (v230.tier == "planetarium" or (v230.tier == "observatorium" or (v230.tier == "astro" or (v230.tier == "rings" or (v230.tier == "reservatorium" or (v230.tier == "vaporize" or (v230.tier == "measure" or (v230.tier == "planetary" or (v230.tier == "constellation" or (v230.tier == "arc" or v230.tier == "nebula"))))))))))))))))))))))))))))) and (v230.shopType ~= "automation" and v230.shopType ~= "antiantiautomation" and (v230.tier ~= "moonstone" and v230.tier ~= "rocketFuel" or v_u_3.ImportantData.Stats.bestStarTier < 4)) then
+                    v230.level = 0
+                end
+            end
+            if v_u_5.getUpgradeLevel("Ssrg") > 0 then
+                v_u_3.ImportantData.Stats.fightMulti = v_u_5.getMulti().newFM
+                v_u_27.ResetSolarians()
+            end
+            local v231 = v_u_3.ImportantData.Stats
+            v231.totalSupernova = v231.totalSupernova + 1
+            local v232 = v_u_3.ImportantData.Stats
+            v232.currentSupernova = v232.currentSupernova + 1
+            v_u_27.UpdateGH()
+            v_u_3.ImportantData.Stats.solarScore = v_u_2.add(v_u_3.ImportantData.Stats.solarScore, v219)
+            v_u_16.AddCurrency("solarShards", v217)
+            v_u_23.addCurrPopup("solarShards", v217)
+            if v_u_2.isGreater(v217, v_u_3.ImportantData.Stats.bestSupernova) then
+                v_u_3.ImportantData.Stats.bestSupernova = v_u_2.copy(v217)
+            end
+            if v_u_3.ImportantData.Stats.bestStarTier >= 2 then
+                v_u_3.ImportantData.Currencies.eclipseProgress = v_u_2.add(v_u_3.ImportantData.Currencies.eclipseProgress, v218)
+            end
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-1032.682, 4399.767, -1940.549) * CFrame.Angles(0, -2.6179938779914944, 0))
+            v_u_27.UpdateStuff()
+            if v_u_3.ImportantData.Stats.bestStarTier < 100 then
+                task.wait(2)
+                v_u_10.clearFadeObj(v220)
+            end
+            v_u_216 = true
+            v_u_11.ToStar()
+            v_u_27.RemoveGrass()
+            v_u_27.UpdateStuff()
+            v_u_27.RemoveGrass()
+        end
+    end
+end
+function v_u_27.SolarReset(p233)
+    -- upvalues: (ref) v_u_216, (copy) v_u_5, (copy) v_u_3, (ref) v_u_215, (copy) v_u_18, (copy) v_u_16, (copy) v_u_23, (copy) v_u_2, (copy) v_u_6, (copy) v_u_27, (copy) v_u_4
+    if v_u_216 then
+        local v234 = v_u_5.getMulti().sunToEarn
+        local v235 = v_u_5.getSCLevel("sol") > 0
+        if (v_u_3.ImportantData.Stats.currentEclipse >= 100 or v235) and not v_u_215 then
+            if v235 and v_u_18.PortalingState.stage < 2 then
+                return
+            end
+            v_u_215 = true
+            v_u_16.AddCurrency("sunstone", v234)
+            if not p233 then
+                v_u_23.addCurrPopup("sunstone", v234)
+            end
+            if v_u_3.ImportantData.Stats.bestStarTier < 8 then
+                v_u_16.SetCurrency("remnants", v_u_2.new(0, 0))
+                local v236 = v_u_3.ImportantData.Stats
+                local v237 = v_u_3.ImportantData.Stats.bestEclipse
+                local v238 = v_u_3.ImportantData.Stats.currentEclipse
+                v236.bestEclipse = math.max(v237, v238)
+                v_u_3.ImportantData.Currencies.eclipseProgress = v_u_2.new(0, 0)
+                v_u_3.ImportantData.Stats.currentEclipse = 1
+            else
+                local v239 = v_u_3.ImportantData.Stats
+                local v240 = v_u_3.ImportantData.Stats.bestEclipse
+                local v241 = v_u_3.ImportantData.Stats.currentEclipse
+                v239.bestEclipse = math.max(v240, v241)
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeSun = 0
+            if v_u_3.ImportantData.Stats.bestStarTier < 8 then
+                for _, v242 in pairs(v_u_6.Basic) do
+                    if v242.tier == "remnant" then
+                        v242.level = 0
+                    end
+                end
+            end
+            if v_u_5.getSCLevel("sol") > 0 then
+                local v243 = v_u_3.ImportantData.Stats.fightMulti
+                v_u_3.ImportantData.Stats.fightMulti = v_u_5.getMulti().newFM
+                if v_u_5.InChallenge() and (v_u_5.GetChallenge().autoSunrise and v_u_2.isGreater(v243, v_u_3.ImportantData.Stats.fightMulti)) then
+                    v_u_3.ImportantData.Stats.fightMulti = v_u_2.copy(v243)
+                end
+                local v244 = v_u_5.getMulti().solarToEarn
+                v_u_16.AddCurrency("solarShards", v244)
+                if not p233 then
+                    v_u_23.addCurrPopup("solarShards", v244)
+                end
+                v_u_27.ResetSolarians()
+            end
+            v_u_27.UpdateStuff()
+            v_u_4.updateSolarObelisk()
+            v_u_215 = false
+        end
+    end
+end
+function v_u_27.ForceSunrise()
+    -- upvalues: (copy) v_u_18, (copy) v_u_27
+    if v_u_18.PortalingState.stage < 2 then
+        v_u_18.PortalingState.stage = 2
+    end
+    v_u_27.SolarReset()
+end
+function v_u_27.ResetSolarians()
+    -- upvalues: (copy) v_u_3, (copy) v_u_2, (copy) v_u_16, (copy) v_u_17, (copy) v_u_5, (copy) v_u_18, (copy) v_u_27
+    v_u_3.ImportantData.Stats.solarians = v_u_2.new(0, 0)
+    v_u_3.ImportantData.Stats.solarianCap = v_u_2.new(0, 0)
+    v_u_3.ImportantData.Stats.solariansProg = 0
+    v_u_16.SetCurrency("sol", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("lightLog", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("portalStones", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("fragments", v_u_2.new(0, 0))
+    if v_u_3.ImportantData.Stats.bestStarTier < 8 then
+        v_u_16.SetCurrency("grassp", v_u_2.new(0, 0))
+    end
+    v_u_16.SetCurrency("inf", v_u_2.new(0, 0))
+    for _, v245 in pairs(v_u_17.CompressionItems) do
+        v245.level = v_u_2.add(v245.level, v245.allocated)
+        v245.allocated = v_u_2.new(0, 0)
+    end
+    if v_u_5.getSCLevel("ss1") > 0 then
+        local v246 = v_u_5.getSCLevel("ss2") > 0 and 41 or 21
+        local v247 = v_u_5.getSCLevel("ss3") > 0 and 61 or v246
+        local v248 = v_u_5.getSCLevel("ss4") > 0 and 81 or v247
+        local v249 = v_u_5.getSCLevel("ss5") > 0 and 101 or v248
+        local v250 = v_u_2.pow
+        local v251 = v_u_2.new(3, 0)
+        local v252 = v249 - 1
+        local v253 = v250(v251, (math.min(100, v252)))
+        if v_u_2.isGreater(v253, v_u_3.ImportantData.Stats.fightMulti) then
+            v_u_3.ImportantData.Stats.fightMulti = v_u_2.copy(v253)
+        end
+        v_u_18.PortalingState.stage = v249
+    else
+        v_u_18.PortalingState.stage = 1
+    end
+    v_u_18.PortalingState.fighting = false
+    local v254 = v_u_5.getSCLevel("kr1") > 0 and 10 or -1
+    local v255 = v_u_5.getSCLevel("kr2") > 0 and 8 or v254
+    local v256 = v_u_5.getSCLevel("kr3") > 0 and 6 or v255
+    local v257 = v_u_5.getSCLevel("kr4") > 0 and 4 or v256
+    local v258 = v_u_5.getSCLevel("kr5") > 0 and 2 or v257
+    local v259 = v_u_5.getSCLevel("kr6") > 0 and 0 or v258
+    for v260, v261 in pairs(v_u_17.Bars) do
+        if v261.powerType == 0 or v261.powerType == 1 then
+            if v_u_3.ImportantData.Stats.bestStarTier >= 6 and (v260 == "ss" or (v260 == "line" or (v260 == "compact" or v260 == "comp"))) then
+                v261.allocated = v_u_2.new(0, 0)
+            else
+                if v261.parent ~= 7 then
+                    v261.level = v_u_2.new(0, 0)
+                    v261.totalLevel = v_u_2.new(0, 0)
+                    if v259 < 0 then
+                        v261.rank = 0
+                    else
+                        local v262 = v261.rank - v259
+                        v261.rank = math.max(0, v262)
+                        v261.level = v_u_2.new(v261.rank, 0)
+                        v261.totalLevel = v_u_2.new(v261.rank, 0)
+                    end
+                    v261.progress = v_u_2.new(0, 0)
+                    v261.rankProgress = v_u_2.new(0, 0)
+                    v261.allocated = v_u_2.new(0, 0)
+                    goto l35
+                end
+                v261.allocated = v_u_2.new(0, 0)
+            end
+        else
+            ::l35::
+            if v261.powerType == 2 then
+                v261.allocated = v_u_2.new(0, 0)
+            end
+        end
+    end
+    if v_u_3.ImportantData.Misc.toggles.starterSol.Visible then
+        local v263 = v_u_2.floor(v_u_2.multiply(v_u_3.ImportantData.Stats.solarianMax, 0.01))
+        if v_u_5.getSCLevel("auto1") > 0 then
+            v_u_17.Bars.sol.allocated = v263
+            v_u_17.Bars.ll.allocated = v263
+            v_u_17.Bars.ps.allocated = v263
+            v_u_17.Bars.f.allocated = v263
+            if v_u_3.ImportantData.Stats.bestStarTier >= 8 then
+                v_u_17.Bars.ge.allocated = v263
+            end
+            v_u_3.ImportantData.Stats.solarianCap = v_u_2.add(v_u_3.ImportantData.Stats.solarianCap, v_u_2.multiply(v_u_3.ImportantData.Stats.solarianMax, 0.04))
+        end
+        if v_u_5.getSCLevel("auto2") > 0 then
+            v_u_17.Bars.off.allocated = v263
+            v_u_17.Bars.def.allocated = v263
+            v_u_17.Bars.fm.allocated = v263
+            v_u_3.ImportantData.Stats.solarianCap = v_u_2.add(v_u_3.ImportantData.Stats.solarianCap, v_u_2.multiply(v_u_3.ImportantData.Stats.solarianMax, 0.03))
+        end
+        if v_u_5.getSCLevel("auto4") > 0 then
+            v_u_17.Bars.solU.allocated = v263
+            v_u_17.Bars.llU.allocated = v263
+            v_u_17.Bars.psU.allocated = v263
+            v_u_17.Bars.fU.allocated = v263
+            v_u_3.ImportantData.Stats.solarianCap = v_u_2.add(v_u_3.ImportantData.Stats.solarianCap, v_u_2.multiply(v_u_3.ImportantData.Stats.solarianMax, 0.04))
+        end
+    end
+    v_u_18.NewEnemyStats()
+    v_u_27.UpdateStuff()
+end
+local v_u_264 = false
+function v_u_27.Subparnova()
+    -- upvalues: (ref) v_u_264, (copy) v_u_2, (copy) v_u_3, (copy) v_u_16, (copy) v_u_27, (copy) v_u_4
+    if not v_u_264 then
+        local v265 = v_u_2.isGreaterE(v_u_3.ImportantData.Stats.starProgress, v_u_3.ImportantData.Stats.starGoal) and (v_u_3.ImportantData.Stats.currentEclipse >= v_u_3.ImportantData.Stats.eclipseReq and v_u_2.isGreaterE(v_u_16.GetCurrencyAmt("magic"), v_u_3.ImportantData.Stats.manaReq))
+        if v265 then
+            v265 = v_u_3.ImportantData.Stats.starTier >= 5
+        end
+        if v265 then
+            v_u_264 = true
+            v_u_16.SubtractCurrency("magic", v_u_3.ImportantData.Stats.manaReq)
+            local v266 = v_u_3.ImportantData.Stats
+            v266.bestStarTier = v266.bestStarTier + 1
+            v_u_27.UpdateStuff()
+            v_u_4.updateStarGoal()
+            v_u_4.UpdateSol()
+            v_u_264 = false
+        end
+    end
+end
+function v_u_27.ResetSolarians2()
+    -- upvalues: (copy) v_u_17, (copy) v_u_2, (copy) v_u_6, (copy) v_u_3, (copy) v_u_5, (copy) v_u_16, (copy) v_u_19, (copy) v_u_23
+    for _, v267 in pairs(v_u_17.SoulItems) do
+        if v267.resource == "souls" then
+            v267.level = v_u_2.new(0, 0)
+        end
+    end
+    for v268, v269 in pairs(v_u_17.CompressionItems) do
+        if v268 ~= "5" and (v268 ~= "6" and v268 ~= "7") then
+            v269.level = v_u_2.new(0, 0)
+            v269.allocated = v_u_2.new(0, 0)
+        end
+    end
+    for v270, v271 in pairs(v_u_17.CompressionBars) do
+        if v270 ~= "5" and (v270 ~= "6" and v270 ~= "7") then
+            v271.progress = v_u_2.new(0, 0)
+            v271.owned = v_u_2.new(0, 0)
+        end
+    end
+    for v272, v273 in pairs(v_u_6.Basic) do
+        if v273.shopType == "sunstone" and (v273.shopType ~= "sunstone" or (v272 == "Soff" or v272 == "Sdef")) and (v272 ~= "Soff" and v272 ~= "Sdef" or v_u_3.ImportantData.Stats.bestStarTier < 7) and v273.currency ~= "goldenStars" then
+            v273.level = 0
+        end
+    end
+    local v274 = v_u_5.getSCLevel("skr1") > 0 and 10 or -1
+    local v275 = v_u_5.getSCLevel("skr2") > 0 and 8 or v274
+    local v276 = v_u_5.getSCLevel("skr3") > 0 and 6 or v275
+    local v277 = v_u_5.getSCLevel("skr4") > 0 and 4 or v276
+    local v278 = v_u_5.getSCLevel("skr5") > 0 and 2 or v277
+    local v279 = v_u_5.getSCLevel("skr6") > 0 and 0 or v278
+    for v280, v281 in pairs(v_u_17.Bars) do
+        if v_u_3.ImportantData.Stats.bestStarTier >= 7 and (v280 == "ss" or (v280 == "line" or v280 == "compact")) then
+            v281.allocated = v_u_2.new(0, 0)
+        elseif v_u_3.ImportantData.Stats.bestStarTier >= v_u_3.ImportantData.Reqs.autofight and v280 == "comp" then
+            v281.allocated = v_u_2.new(0, 0)
+        elseif v281.powerType == 0 or (v281.powerType == 1 or v280 == "div") then
+            if v281.parent ~= 7 then
+                v281.level = v_u_2.new(0, 0)
+                v281.totalLevel = v_u_2.new(0, 0)
+                if v279 < 0 then
+                    v281.rank = 0
+                else
+                    local v282 = v281.rank - v279
+                    v281.rank = math.max(0, v282)
+                    v281.level = v_u_2.new(v281.rank, 0)
+                    v281.totalLevel = v_u_2.new(v281.rank, 0)
+                end
+                v281.progress = v_u_2.new(0, 0)
+                v281.rankProgress = v_u_2.new(0, 0)
+                v281.allocated = v_u_2.new(0, 0)
+                goto l53
+            end
+            v281.allocated = v_u_2.new(0, 0)
+        else
+            ::l53::
+            if v281.powerType == 2 then
+                v281.allocated = v_u_2.new(0, 0)
+            end
+        end
+    end
+    v_u_16.SetCurrency("grassp", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("souls", v_u_2.new(0, 0))
+    if v_u_19.Challenges.cs.completions > 0 then
+        for v283 = 1, v_u_19.Challenges.cs.completions do
+            for _, v284 in pairs(v_u_19.Challenges) do
+                if v284.tier == 1 and v284.completions < v284.maxCompletions then
+                    v284.grantReward()
+                    local v285 = v284.maxCompletions
+                    v284.completions = math.min(v285, v283)
+                end
+            end
+        end
+    end
+    v_u_16.Currencies.souls.totalAmount = v_u_2.new(1, 0)
+    local v286 = v_u_2.copy(v_u_16.GetCurrencyAmt("magic"))
+    v_u_16.SetCurrency("sunstone", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("compSol", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("magic", v_u_2.new(0, 0))
+    v_u_16.AddCurrency("dark", v286)
+    v_u_23.addCurrPopup("dark", v286)
+end
+function v_u_27.ResetSolarians3()
+    -- upvalues: (copy) v_u_17, (copy) v_u_2, (copy) v_u_20, (copy) v_u_5, (copy) v_u_3, (copy) v_u_16
+    for _, v287 in pairs(v_u_17.SoulItems) do
+        if v287.resource == "souls2" then
+            v287.level = v_u_2.new(0, 0)
+        end
+    end
+    for v288, v289 in pairs(v_u_20.Upgrades) do
+        if (v288 == "kr4" or (v288 == "kr5" or v288 == "kr6")) and ((v288 ~= "kr4" or v_u_5.getSCLevel("kkr4") <= 0) and ((v288 ~= "kr5" or v_u_5.getSCLevel("kkr5") <= 0) and (v288 ~= "kr6" or v_u_5.getSCLevel("kkr6") <= 0))) then
+            v289.level = 0
+        end
+    end
+    for _, v290 in pairs(v_u_17.CompressionItems) do
+        v290.level = v_u_2.new(0, 0)
+        v290.allocated = v_u_2.new(0, 0)
+    end
+    for _, v291 in pairs(v_u_17.CompressionBars) do
+        v291.progress = v_u_2.new(0, 0)
+        v291.owned = v_u_2.new(0, 0)
+        v291.lastProg = v_u_2.new(0, 0)
+    end
+    for v292, v293 in pairs(v_u_17.Bars) do
+        if v293.powerType == 0 or (v293.powerType == 1 or v293.powerType == 2) then
+            if v292 == "ss" or (v292 == "line" or (v292 == "compact" or (v292 == "sg" or (v292 == "dod" or (v292 == "dgold" or v292 == "dupg"))))) then
+                v293.allocated = v_u_2.new(0, 0)
+            elseif v_u_3.ImportantData.Stats.bestStarTier >= 12 and (v293.powerType == 2 and (v292 == "p1" or (v292 == "p2" or (v292 == "p3" or (v292 == "p4" or (v292 == "p5" or (v292 == "p6" or (v292 == "p7" or (v292 == "p8" or (v292 == "p9" or v292 == "p10a")))))))))) then
+                v293.allocated = v_u_2.new(0, 0)
+            elseif v_u_3.ImportantData.Stats.bestStarTier >= v_u_3.ImportantData.Reqs.restore and v293.powerType == 2 then
+                v293.allocated = v_u_2.new(0, 0)
+            elseif v292 ~= "advCol" and (v292 ~= "advForm" and v292 ~= "advSoul") or v_u_3.ImportantData.Stats.mods.hard then
+                v293.level = v_u_2.new(0, 0)
+                v293.totalLevel = v_u_2.new(0, 0)
+                v293.rank = 0
+                v293.progress = v_u_2.new(0, 0)
+                v293.rankProgress = v_u_2.new(0, 0)
+                v293.allocated = v_u_2.new(0, 0)
+            end
+        end
+    end
+    v_u_16.SetCurrency("grassp", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("souls", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("souls2", v_u_2.new(0, 0))
+    v_u_16.SetCurrency("dark", v_u_2.new(0, 0))
+end
+function v_u_27.Sunrise2(p294)
+    -- upvalues: (copy) v_u_3, (copy) v_u_18, (ref) v_u_215, (copy) v_u_16, (copy) v_u_2, (copy) v_u_6, (copy) v_u_5, (copy) v_u_23, (copy) v_u_27, (copy) v_u_4
+    if v_u_3.ImportantData.Stats.bestStarTier >= 6 and (v_u_18.PortalingState.stage >= 40 and not v_u_215) or p294 then
+        if v_u_3.ImportantData.Stats.Accomplish.timeSun2 < 120 and not p294 then
+            return
+        end
+        v_u_215 = true
+        if v_u_3.ImportantData.Stats.bestStarTier < 8 then
+            v_u_16.SetCurrency("remnants", v_u_2.new(0, 0))
+            local v295 = v_u_3.ImportantData.Stats
+            local v296 = v_u_3.ImportantData.Stats.bestEclipse
+            local v297 = v_u_3.ImportantData.Stats.currentEclipse
+            v295.bestEclipse = math.max(v296, v297)
+            v_u_3.ImportantData.Currencies.eclipseProgress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.currentEclipse = 1
+        else
+            local v298 = v_u_3.ImportantData.Stats
+            local v299 = v_u_3.ImportantData.Stats.bestEclipse
+            local v300 = v_u_3.ImportantData.Stats.currentEclipse
+            v298.bestEclipse = math.max(v299, v300)
+        end
+        v_u_3.ImportantData.Stats.Accomplish.timeSun = 0
+        if v_u_3.ImportantData.Stats.bestStarTier < 8 then
+            for _, v301 in pairs(v_u_6.Basic) do
+                if v301.tier == "remnant" then
+                    v301.level = 0
+                end
+            end
+        end
+        v_u_3.ImportantData.Stats.fightMulti = v_u_2.new(1, 0)
+        v_u_5.InChallenge()
+        local v302 = v_u_5.getMulti().souls2ToEarn
+        if not p294 or v_u_3.ImportantData.Stats.Accomplish.timeSun2 >= 120 then
+            v_u_16.AddCurrency("souls2", v302)
+            v_u_23.addCurrPopup("souls2", v302)
+        end
+        v_u_3.ImportantData.Stats.Accomplish.timeSun2 = 0
+        v_u_27.ResetSolarians()
+        v_u_27.ResetSolarians2()
+        v_u_27.UpdateStuff()
+        v_u_4.updateSolarObelisk()
+        v_u_215 = false
+    end
+end
+function v_u_27.Sunrise3(p303, p304)
+    -- upvalues: (copy) v_u_3, (copy) v_u_18, (ref) v_u_215, (copy) v_u_6, (copy) v_u_21, (copy) v_u_2, (copy) v_u_16, (copy) v_u_5, (copy) v_u_23, (copy) v_u_27, (copy) v_u_4
+    if v_u_3.ImportantData.Stats.prog >= 1 then
+        if v_u_3.ImportantData.Stats.bestStarTier >= 8 and (v_u_18.PortalingState.stage >= 150 and not v_u_215) or p303 then
+            if v_u_3.ImportantData.Stats.Accomplish.timeSun3 < 60 then
+                return
+            end
+            v_u_215 = true
+            local v305 = 150 + 10 * v_u_3.ImportantData.Stats.twilightb
+            local v306 = 0
+            local v307 = v_u_3.ImportantData.Stats.twilightb
+            local v308
+            if v_u_3.ImportantData.Stats.bestStarTier >= 13 then
+                v308 = 10
+            else
+                v308 = 15
+            end
+            while v305 <= v_u_3.ImportantData.Stats.currStage do
+                local v309 = v_u_3.ImportantData.Stats
+                v309.twilightb = v309.twilightb + 1
+                v306 = v306 + 1
+                v305 = 150 + 10 * v307 + v306 * v308
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeSun = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun2 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun3 = 0
+            for _, v310 in pairs(v_u_6.Basic) do
+                if (v310.tier == "remnant" or (v310.tier == "gold" or v310.tier == "cs")) and ((v310.tier ~= "remnant" or v_u_3.ImportantData.Stats.bestStarTier < 8) and (v310.currency ~= "goldenStars" and (v310.currency ~= "platStars" and (v310.tier ~= "cs" or v_u_3.ImportantData.Stats.bestStarTier < 14)))) then
+                    v310.level = 0
+                end
+            end
+            if v_u_3.ImportantData.Stats.bestStarTier < 14 then
+                local v311 = 1
+                for _, v312 in pairs(v_u_21.SynthesisSlots) do
+                    if v312.current == "none" or v_u_21.SynthesisItems[v312.current].multiType <= 1 then
+                        v_u_21.CompleteSynthesis(v311)
+                        v312.tier = 0
+                        v312.level = 0
+                        v312.progress = v_u_2.new(0, 0)
+                        v312.levelProgress = v_u_2.new(0, 0)
+                        v312.current = "none"
+                        if v312.obj.Crystal.Value ~= nil then
+                            v312.obj.Crystal.Value:Destroy()
+                            v312.obj.Crystal.Value = nil
+                        end
+                        v311 = v311 + 1
+                    end
+                end
+                v_u_3.ImportantData.Events.synth:Fire()
+                v_u_16.SetCurrency("cs", v_u_2.new(0, 0))
+                v_u_16.SetCurrency("fs", v_u_2.new(0, 0))
+                v_u_16.SetCurrency("gb", v_u_2.new(0, 0))
+            end
+            v_u_3.ImportantData.Stats.fightMulti = v_u_2.new(1, 0)
+            if p304 then
+                local v313 = v_u_3.ImportantData.Stats
+                v313.twilight = v313.twilight + 1
+            end
+            local v314 = v_u_5.getMulti().souls3ToEarn
+            v_u_16.AddCurrency("souls3", v314)
+            v_u_23.addCurrPopup("souls3", v314)
+            v_u_27.ResetSolarians()
+            v_u_27.ResetSolarians2()
+            v_u_27.ResetSolarians3()
+            v_u_5.ClearGrid2()
+            v_u_27.UpdateStuff()
+            v_u_4.updateSolarObelisk()
+            v_u_215 = false
+        end
+    end
+end
+function v_u_27.StartChallenge()
+    -- upvalues: (copy) v_u_3, (copy) v_u_19, (copy) v_u_27, (copy) v_u_2, (copy) v_u_17, (copy) v_u_16
+    if v_u_3.ImportantData.Stats.solChal == "none" then
+        v_u_3.ImportantData.Stats.solChal = v_u_3.ImportantData.Stats.chalSelected
+        local v315 = v_u_19.Challenges[v_u_3.ImportantData.Stats.solChal]
+        if v315 ~= nil then
+            if v315.tier == 1 then
+                v_u_27.SolarReset()
+                if v315.resetMulti then
+                    v_u_3.ImportantData.Stats.fightMulti = v_u_2.new(1, 0)
+                end
+                if v315.resetSouls then
+                    for v316, v317 in pairs(v_u_17.SoulItems) do
+                        if v317.resource == "souls" then
+                            v_u_3.ImportantData.UpgradeLevels.soulBackup[v316] = {
+                                ["level"] = v317.level
+                            }
+                        end
+                    end
+                    for _, v318 in pairs(v_u_17.SoulItems) do
+                        if v318.resource == "souls" then
+                            v318.level = v_u_2.new(0, 0)
+                        end
+                    end
+                    v_u_3.ImportantData.Stats.soulsStored = v_u_16.GetCurrencyAmt("souls")
+                    v_u_16.SetCurrency("souls", v_u_2.new(0, 0))
+                end
+                if v315.startSouls then
+                    v_u_16.SetCurrency("souls", v315.startSoulsAmnt)
+                end
+            end
+            if v315.tier == 2 then
+                v_u_27.Sunrise2(true)
+            end
+            if v315.tier == 3 then
+                v_u_27.Sunrise3(true)
+            end
+        end
+    end
+end
+function v_u_27.EndChallenge()
+    -- upvalues: (copy) v_u_3, (copy) v_u_19, (copy) v_u_17, (copy) v_u_16, (copy) v_u_2, (copy) v_u_27, (copy) v_u_4, (copy) v_u_18
+    if v_u_3.ImportantData.Stats.solChal ~= "none" then
+        local v319 = v_u_3.ImportantData.Stats.solChal
+        v_u_3.ImportantData.Stats.chalSelected = v319
+        v_u_3.ImportantData.Stats.solChal = "none"
+        local v320 = v_u_19.Challenges[v319]
+        if v320 ~= nil and (v320.tier == 1 and v320.resetSouls) then
+            for v321, v322 in pairs(v_u_3.ImportantData.UpgradeLevels.soulBackup) do
+                v_u_17.SoulItems[v321].level = v322.level
+            end
+            v_u_3.ImportantData.UpgradeLevels.soulBackup = {}
+            v_u_16.SetCurrency("souls", v_u_2.new(0, 0))
+            v_u_16.ReAddCurrency("souls", v_u_3.ImportantData.Stats.soulsStored)
+            v_u_3.ImportantData.Stats.chalSouls = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.soulsStored = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.soulsTotal = v_u_2.new(0, 0)
+        end
+        v_u_27.UpdateStuff()
+        v_u_4.UpdateSolarChallenges()
+        v_u_18.NewEnemyStats()
+    end
+end
+function v_u_27.ClearChallenge()
+    -- upvalues: (copy) v_u_3, (copy) v_u_19, (copy) v_u_16, (copy) v_u_2, (copy) v_u_27
+    if v_u_3.ImportantData.Stats.solChal ~= "none" then
+        local v323 = v_u_3.ImportantData.Stats.solChal
+        local v324 = false
+        local v325 = v_u_19.Challenges[v323]
+        if v325 ~= nil then
+            local v326 = v_u_3.ImportantData.Stats.bestStarTier >= 6 and v325.tier == 1 and true or v324
+            if v_u_3.ImportantData.Stats.bestStarTier >= 10 and v325.tier == 2 and true or v326 then
+                while v325.clearCondition() and v325.completions < v325.maxCompletions do
+                    v325.grantReward()
+                    v325.completions = v325.completions + 1
+                end
+            else
+                v325.grantReward()
+                v325.completions = v325.completions + 1
+            end
+            if v325.tier == 1 and v325.resetSouls then
+                v_u_16.SetCurrency("souls", v_u_2.new(0, 0))
+            end
+        end
+        v_u_27.EndChallenge()
+    end
+end
+local v_u_327 = false
+function v_u_27.Centralize(p328)
+    -- upvalues: (ref) v_u_327, (copy) v_u_3, (copy) v_u_10, (copy) v_u_11, (copy) v_u_27, (copy) v_u_16, (copy) v_u_2, (copy) v_u_4, (copy) v_u_23, (copy) v_u_22
+    if not v_u_327 then
+        v_u_327 = true
+        if v_u_3.ImportantData.Stats.loopsTotal < 1 then
+            local v329 = v_u_10.getFadeObj()
+            v329.BackgroundColor3 = Color3.new(0, 0, 0)
+            v_u_10.fade(v329, 3, true, "frame")
+            task.wait(5)
+            if v_u_3.ImportantData.Stats.prog < 1 then
+                local v330 = Instance.new("TextLabel", v329)
+                v330.Font = "Cartoon"
+                v330.AnchorPoint = Vector2.new(0.5, 0.5)
+                v330.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+                v330.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.2, 0))
+                v330.TextScaled = true
+                v330.BackgroundTransparency = 1
+                v330.RichText = true
+                v330.TextStrokeTransparency = 0
+                v330.TextTransparency = 1
+                v330.TextStrokeTransparency = 1
+                v330.TextColor3 = Color3.new(1, 1, 1)
+                Instance.new("UITextSizeConstraint", v330).MaxTextSize = 100
+                v330.Text = "<b>As you say your last goodbye,\nmemories come rushing back</b>"
+                v_u_10.fade(v330, 2, true, "text")
+                task.wait(7)
+                v_u_10.fade(v330, 1, false, "text")
+                task.wait(3)
+            end
+            local v331 = Instance.new("TextLabel", v329)
+            v331.Font = "Cartoon"
+            v331.AnchorPoint = Vector2.new(0.5, 0.5)
+            v331.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+            v331.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.3, 0))
+            v331.TextScaled = true
+            v331.BackgroundTransparency = 1
+            v331.RichText = true
+            v331.TextStrokeTransparency = 0
+            v331.TextTransparency = 1
+            v331.TextStrokeTransparency = 1
+            v331.TextColor3 = Color3.new(1, 1, 1)
+            Instance.new("UITextSizeConstraint", v331).MaxTextSize = 100
+            local v332 = "<b>"
+            local v333 = "<b>"
+            if p328 == "pp" then
+                v332 = v332 .. "Do you remember the time you did your first prestige?\n\nIt feels so long ago now..."
+                v333 = v333 .. "That was where your journey began"
+            end
+            if p328 == "crystals" then
+                v332 = v332 .. "How about crystallize?\n\nYou sacrificed so much for so little"
+                v333 = v333 .. "But that was just scratching the surface"
+            end
+            if p328 == "steel" then
+                v332 = v332 .. "Remember when you first unlocked the factory?\n\nYou must have been wondering what that had to do with cutting grass"
+                v333 = v333 .. "This is his world"
+            end
+            if p328 == "agrass" then
+                v332 = v332 .. "Having to slow down everything must have been so strange at time\n\nHow would this help me? You wondered"
+                v333 = v333 .. "Look how far you have come now"
+            end
+            if p328 == "ap" then
+                v332 = v332 .. "Another reset disappears...\n\nWhat is going to happen when it is all gone?"
+                v333 = v333 .. "At least this one was forgettable..."
+            end
+            if p328 == "oil" then
+                v332 = v332 .. "One of the resources required for rocket fuel\n\nThis was the first step towards building your rocket!"
+                v333 = v333 .. "Will the rocket eventually disappear too?"
+            end
+            if p328 == "rocketFuel" then
+                v332 = v332 .. "Rocket fuel before charge???\n\nThis is truly the strangest of times..."
+                v333 = v333 .. "The refinery sees its last use"
+                v_u_3.ImportantData.Misc.toggles.rocketFuel.Visible = false
+            end
+            if p328 == "charge" then
+                v332 = v332 .. "The driving force for early progression\n\nYou needed it for everything until the very end"
+                v333 = v333 .. "Now you need it no more"
+            end
+            if p328 == "platinum" then
+                v332 = v332 .. "Once brought joy and then sadness\n\nA blessing and then a curse"
+                v333 = v333 .. "The last platinum grows"
+            end
+            if p328 == "stars" then
+                v332 = v332 .. "From days, to hours, to minutes, to seconds\n\nWhat was once a monumental moment had become just a small step"
+                v333 = v333 .. "That step is now gone"
+            end
+            if p328 == "fun" then
+                v332 = v332 .. "How wonderful it was to experience fun for the first time!\n\nThose memories will have to be cherished for days to come..."
+                v333 = v333 .. "Because now, there is no more fun"
+            end
+            if p328 == "darkMatter" then
+                v332 = v332 .. "..."
+                v333 = v333 .. "The darkness consumes you"
+                v329.BackgroundColor3 = Color3.new(1, 1, 1)
+                v331.TextColor3 = Color3.new(0, 0, 0)
+                v_u_11.ToVoid()
+                v_u_3.ImportantData.Misc.toggles.ui.Visible = false
+                v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(18270.248, 9238.999, -9861.357) * CFrame.Angles(0, 0, 0))
+            end
+            if p328 == "sfrgt" then
+                v332 = v332 .. "20"
+            end
+            if p328 == "momentum" then
+                v332 = v332 .. "19"
+            end
+            if p328 == "ugrass" then
+                v332 = v332 .. "18"
+            end
+            if p328 == "np" then
+                v332 = v332 .. "17"
+            end
+            if p328 == "clouds" then
+                v332 = v332 .. "16"
+            end
+            if p328 == "moonstone" then
+                v332 = v332 .. "15"
+            end
+            if p328 == "darkFruits" then
+                v332 = v332 .. "14"
+            end
+            if p328 == "rings" then
+                v332 = v332 .. "13"
+            end
+            if p328 == "planetarium" then
+                v332 = v332 .. "12"
+            end
+            if p328 == "astro" then
+                v332 = v332 .. "11"
+            end
+            if p328 == "measure" then
+                v332 = v332 .. "10"
+            end
+            if p328 == "planets" then
+                v332 = v332 .. "9"
+            end
+            if p328 == "lines" then
+                v332 = v332 .. "8"
+            end
+            if p328 == "arcs" then
+                v332 = v332 .. "7"
+            end
+            if p328 == "obs" then
+                v332 = v332 .. "6"
+            end
+            if p328 == "res" then
+                v332 = v332 .. "5"
+            end
+            if p328 == "dcharge" then
+                v332 = v332 .. "4"
+            end
+            if p328 == "stardust" then
+                v332 = v332 .. "3"
+            end
+            if p328 == "perks2" then
+                v332 = v332 .. "2"
+                v_u_27.ChangeDifficulty(0)
+            end
+            if p328 == "perks" then
+                v332 = v332 .. "1"
+            end
+            v_u_16.Currencies[p328].infinity = true
+            v_u_16.AddCurrency("singularity", v_u_2.new(1, 0))
+            for _, v334 in pairs(v_u_3.ImportantData.Stats.currPins) do
+                if v334.curr == p328 then
+                    v_u_4.PinCurrency(p328)
+                end
+            end
+            if v_u_3.ImportantData.Stats.currDisplay == p328 then
+                v_u_4.ChangeCurrDisplay(p328)
+            end
+            local v335 = v_u_3.ImportantData.Stats.Accomplish
+            v335.fsTime = v335.fsTime + 604800
+            v331.Text = v332 .. "</b>"
+            v_u_10.fade(v331, 2, true, "text")
+            task.wait(7)
+            v329.BackgroundColor3 = Color3.new(0, 0, 0)
+            v331.TextColor3 = Color3.new(1, 1, 1)
+            v_u_10.fade(v331, 1, false, "text")
+            task.wait(3)
+            if v_u_3.ImportantData.Stats.prog < 1 then
+                local v336 = Instance.new("TextLabel", v329)
+                v336.Font = "Cartoon"
+                v336.AnchorPoint = Vector2.new(0.5, 0.5)
+                v336.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+                v336.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.3, 0))
+                v336.TextScaled = true
+                v336.BackgroundTransparency = 1
+                v336.RichText = true
+                v336.TextStrokeTransparency = 0
+                v336.TextTransparency = 1
+                v336.TextStrokeTransparency = 1
+                v336.TextColor3 = Color3.new(1, 1, 1)
+                Instance.new("UITextSizeConstraint", v336).MaxTextSize = 100
+                v336.Text = v333 .. "</b>"
+                v_u_10.fade(v336, 2, true, "text")
+                task.wait(4)
+                v_u_10.fade(v336, 1, false, "text")
+                task.wait(2)
+            end
+            v_u_10.fade(v329, 1, false, "frame")
+            task.wait(2)
+            v_u_10.clearFadeObj(v329)
+        else
+            if p328 == "darkMatter" and not v_u_2.isGreaterE(v_u_16.GetCurrencyTotal("gg"), v_u_2.new(1, 0)) then
+                v_u_16.AddCurrency("gg", v_u_2.new(1, 0))
+                v_u_23.addCurrPopup("gg", v_u_2.new(1, 0))
+            end
+            v_u_16.Currencies[p328].infinity = true
+            v_u_16.AddCurrency("singularity", v_u_2.new(1, 0))
+            v_u_23.addCurrPopup("singularity", v_u_2.new(1, 0))
+            for _, v337 in pairs(v_u_3.ImportantData.Stats.currPins) do
+                if v337.curr == p328 then
+                    v_u_4.PinCurrency(p328)
+                end
+            end
+            if v_u_3.ImportantData.Stats.currDisplay == p328 then
+                v_u_4.ChangeCurrDisplay(p328)
+            end
+            local v338 = v_u_3.ImportantData.Stats.Accomplish
+            v338.fsTime = v338.fsTime + 604800
+        end
+        v_u_22.AutoRemovePins()
+        v_u_327 = false
+    end
+end
+local v_u_339 = true
+function v_u_27.EndGame(p340)
+    -- upvalues: (copy) v_u_3, (ref) v_u_339, (copy) v_u_5, (copy) v_u_27, (copy) v_u_10, (copy) v_u_4, (copy) v_u_21, (copy) v_u_2, (copy) v_u_16, (copy) v_u_6, (copy) v_u_17, (copy) v_u_20, (copy) v_u_19, (copy) v_u_12, (copy) v_u_13, (copy) v_u_14, (copy) v_u_8, (copy) v_u_7, (copy) v_u_23, (copy) v_u_18, (copy) v_u_22, (copy) v_u_11
+    if (v_u_3.ImportantData.Stats.bestStage >= 1000 and true or p340 > 1) and v_u_339 then
+        if p340 == 2 and v_u_3.ImportantData.Stats.loops < 10 then
+            return
+        end
+        if p340 == 3 and v_u_3.ImportantData.Stats.loops2 < 10 then
+            return
+        end
+        if p340 == 4 and v_u_3.ImportantData.Stats.loops3 < 10 then
+            return
+        end
+        if p340 == 5 and v_u_3.ImportantData.Stats.loops4 < 10 then
+            return
+        end
+        local v341 = v_u_5.getMulti().loop1Earn
+        local v342 = v_u_5.getMulti().loop2Earn
+        local v343 = v_u_5.getMulti().loop3Earn
+        local v344 = v_u_5.getMulti().loop4Earn
+        v_u_339 = false
+        v_u_27.RemoveGrass()
+        local v345 = p340 ~= 1 or v_u_3.ImportantData.Stats.loopsTotal2 <= 0
+        if p340 == 2 and v_u_3.ImportantData.Stats.loopsTotal3 > 0 then
+            v345 = false
+        end
+        if p340 == 3 and v_u_3.ImportantData.Stats.loopsTotal4 > 0 then
+            v345 = false
+        end
+        if p340 == 4 and v_u_3.ImportantData.Stats.loopsTotal5 > 0 then
+            v345 = false
+        end
+        if p340 == 5 and v_u_3.ImportantData.Stats.loopsTotal5 > 10 then
+            v345 = false
+        end
+        local v346 = v_u_10.getFadeObj()
+        local v347 = nil
+        if v345 then
+            v346.BackgroundColor3 = Color3.new(0, 0, 0)
+            v_u_10.fade(v346, 3, true, "frame")
+            task.wait(5)
+            v347 = Instance.new("TextLabel", v346)
+            v347.Font = "Cartoon"
+            v347.AnchorPoint = Vector2.new(0.5, 0.5)
+            v347.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+            v347.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+            v347.TextScaled = true
+            v347.BackgroundTransparency = 1
+            v347.RichText = true
+            v347.TextStrokeTransparency = 0
+            v347.TextTransparency = 1
+            v347.TextStrokeTransparency = 1
+            Instance.new("UITextSizeConstraint", v347).MaxTextSize = 100
+            if p340 == 1 then
+                v347.TextColor3 = Color3.new(1, 1, 1)
+                v347.Text = "<b>The end has come\n\nLoops: " .. v_u_3.ImportantData.Stats.loops + v_u_5.getMulti().loop1Earn .. "</b>"
+            end
+            if p340 == 2 then
+                v347.TextColor3 = Color3.new(0, 1, 0)
+                v347.Text = "<b>The end has come again\n\nMega Loops: " .. v_u_3.ImportantData.Stats.loops2 + v_u_5.getMulti().loop2Earn .. "</b>"
+            end
+            if p340 == 3 then
+                v347.TextColor3 = Color3.new(0, 1, 1)
+                v347.Text = "<b>The end has come once again\n\nSuper Mega Loops: " .. v_u_3.ImportantData.Stats.loops3 + v_u_5.getMulti().loop3Earn .. "</b>"
+            end
+            if p340 == 4 then
+                v347.TextColor3 = Color3.new(1, 0, 1)
+                v347.Text = "<b>You can quit anytime\n\nSuper Ultra Mega Loops: " .. v_u_3.ImportantData.Stats.loops4 + v_u_5.getMulti().loop4Earn .. "</b>"
+            end
+            if p340 == 5 then
+                v347.TextColor3 = Color3.new(1, 0, 0)
+                v347.Text = "<b>Touch grass\n\nOmega Loops: " .. v_u_3.ImportantData.Stats.loops5 + 1 .. "</b>"
+            end
+            v_u_10.fade(v347, 2, true, "text")
+            task.wait(6)
+            if v_u_3.ImportantData.Stats.currDisplay ~= "none" then
+                v_u_4.ChangeCurrDisplay(v_u_3.ImportantData.Stats.currDisplay)
+            end
+            if v_u_3.ImportantData.Stats.levelDisplay ~= "none" then
+                v_u_4.ChangeLevelDisplay(v_u_3.ImportantData.Stats.levelDisplay)
+            end
+            v_u_3.ImportantData.Stats.cLock = false
+            v_u_3.updateTierSettings("auto")
+            if not v_u_3.ImportantData.Misc.displaySettings.loops.Visible then
+                v_u_3.updateDisplaySettings("tiers")
+            end
+            task.wait(2)
+        else
+            if v_u_3.ImportantData.Stats.currDisplay ~= "none" then
+                v_u_4.ChangeCurrDisplay(v_u_3.ImportantData.Stats.currDisplay)
+            end
+            if v_u_3.ImportantData.Stats.levelDisplay ~= "none" then
+                v_u_4.ChangeLevelDisplay(v_u_3.ImportantData.Stats.levelDisplay)
+            end
+            v_u_3.ImportantData.Stats.cLock = false
+        end
+        v_u_27.RemoveGrass()
+        local v348 = 1
+        for _, v349 in pairs(v_u_21.SynthesisSlots) do
+            v_u_21.CompleteSynthesis(v348)
+            v349.tier = 0
+            v349.level = 0
+            v349.progress = v_u_2.new(0, 0)
+            v349.levelProgress = v_u_2.new(0, 0)
+            v349.current = "none"
+            if v349.obj.Crystal.Value ~= nil then
+                v349.obj.Crystal.Value:Destroy()
+                v349.obj.Crystal.Value = nil
+            end
+            v348 = v348 + 1
+        end
+        v_u_3.ImportantData.Events.synth:Fire()
+        for v350, v351 in pairs(v_u_16.Currencies) do
+            if v350 ~= "flowers" and (v350 ~= "mp" and (v350 ~= "arrow" and (v350 ~= "gold" and (v350 ~= "shard" and (v350 ~= "loop1" and (v350 ~= "loop2" and (v350 ~= "loop3" and (v350 ~= "loop4" and (v350 ~= "loop5" and (p340 > 2 or v350 ~= "lcharge")))))))))) and (p340 > 3 or v350 ~= "brass" and (v350 ~= "ir" and (v350 ~= "blue" and v350 ~= "plasma"))) then
+                v351.amount = v_u_2.new(0, 0)
+                v351.totalAmount = v_u_2.new(0, 0)
+                v351.infinity = false
+            end
+        end
+        for v352, v353 in pairs(v_u_6.Basic) do
+            if v353.currency ~= "mp" and (v353.tier ~= "flower" and (v353.tier ~= "flower2" and (v353.tier ~= "blautomation" and (v352 ~= "keepSpeed" and (v353.tier ~= "arrow" and (p340 > 2 or v353.tier ~= "lime")))))) and ((p340 > 3 or v353.tier ~= "brass" and (v353.tier ~= "ir" and (v353.tier ~= "blue" and v353.tier ~= "plasma"))) and (v353.tier ~= "loop" or p340 ~= 1 and (p340 ~= 2 or v353.currency ~= "loop2" and (v353.currency ~= "loop3" and (v353.currency ~= "loop4" and v353.currency ~= "loop5"))) and ((p340 ~= 3 or v353.currency ~= "loop3" and (v353.currency ~= "loop4" and v353.currency ~= "loop5")) and ((p340 ~= 4 or v353.currency ~= "loop4" and v353.currency ~= "loop5") and ((p340 ~= 5 or v353.currency ~= "loop5") and (v352 ~= "l1a" and (v352 ~= "l1b" and v352 ~= "l1c"))))))) then
+                v353.level = 0
+            end
+        end
+        for _, v354 in pairs(v_u_17.SoulItems) do
+            v354.level = v_u_2.new(0, 0)
+        end
+        for _, v355 in pairs(v_u_20.Upgrades) do
+            v355.level = 0
+        end
+        for _, v356 in pairs(v_u_19.Challenges) do
+            v356.completions = 0
+        end
+        for _, v357 in pairs(v_u_17.CompressionItems) do
+            v357.level = v_u_2.new(0, 0)
+            v357.allocated = v_u_2.new(0, 0)
+        end
+        for _, v358 in pairs(v_u_17.CompressionBars) do
+            v358.progress = v_u_2.new(0, 0)
+            v358.owned = v_u_2.new(0, 0)
+            v358.lastProg = v_u_2.new(0, 0)
+        end
+        for v359, v360 in pairs(v_u_17.Bars) do
+            if v359 == "dod" or (v359 == "dgold" or v359 == "dupg") then
+                v360.allocated = v_u_2.new(0, 0)
+            else
+                v360.level = v_u_2.new(0, 0)
+                v360.totalLevel = v_u_2.new(0, 0)
+                v360.rank = 0
+                v360.progress = v_u_2.new(0, 0)
+                v360.rankProgress = v_u_2.new(0, 0)
+                v360.allocated = v_u_2.new(0, 0)
+            end
+        end
+        v_u_3.ImportantData.Stats.lowestGGrasshop = 101
+        v_u_3.ImportantData.Stats.highestZeroGrassskip = 0
+        v_u_3.ImportantData.Stats.tempGPS = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.pDif = 0
+        v_u_3.ImportantData.Stats.Accomplish.anonymityBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtA = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtC = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtP = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtC = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeP = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeC = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeG = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeS = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeGl = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeSn = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeSun2 = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeSun3 = 0
+        v_u_3.ImportantData.Stats.totalGrassP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.realm = "normal"
+        v_u_3.ImportantData.Stats.totalGRocketFuel = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastLiquefyOil = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastAnonymityAP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastNormalityNP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastVaporizeClouds = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentPrestige = 0
+        v_u_3.ImportantData.Stats.currentCrystallize = 0
+        v_u_3.ImportantData.Stats.currentAnonymity = 0
+        v_u_3.ImportantData.Stats.currentLiquefy = 0
+        v_u_3.ImportantData.Stats.currentNormality = 0
+        v_u_3.ImportantData.Stats.currentGalactic = 0
+        v_u_3.ImportantData.Stats.currentSacrifice = 0
+        v_u_3.ImportantData.Stats.totalPrestige = 0
+        v_u_3.ImportantData.Stats.totalCrystallize = 0
+        v_u_3.ImportantData.Stats.totalGrasshop = 0
+        v_u_3.ImportantData.Stats.totalSteelie = 0
+        v_u_3.ImportantData.Stats.totalAnonymity = 0
+        v_u_3.ImportantData.Stats.totalLiquefy = 0
+        v_u_3.ImportantData.Stats.totalGalactic = 0
+        v_u_3.ImportantData.Stats.totalFunify = 0
+        v_u_3.ImportantData.Stats.totalSacrifice = 0
+        v_u_3.ImportantData.Stats.totalGrassskip = 0
+        v_u_3.ImportantData.Stats.totalAstrolabe = 0
+        v_u_3.ImportantData.Stats.totalQuadrant = 0
+        v_u_3.ImportantData.Stats.totalPlanetary = 0
+        v_u_3.ImportantData.Stats.totalConstellation = 0
+        v_u_3.ImportantData.Stats.totalNebula = 0
+        v_u_3.ImportantData.Stats.totalSupernova = 0
+        v_u_3.ImportantData.Stats.totalGrassJump = 0
+        v_u_3.ImportantData.Stats.totalNormality = 0
+        v_u_3.ImportantData.Stats.totalRocketParts = 0
+        v_u_3.ImportantData.Stats.currentRocketParts = 0
+        v_u_3.ImportantData.Stats.highestPlanetary = 0
+        v_u_3.ImportantData.Stats.savedTrialLevels = {}
+        v_u_16.Levels.level.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.antiLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.unLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.level.level = 1
+        v_u_16.Levels.antiLevel.level = 1
+        v_u_16.Levels.unLevel.level = 1
+        v_u_16.Levels.planetLevel.level = 1
+        v_u_16.Levels.level.highestLevel = 1
+        v_u_16.Levels.antiLevel.highestLevel = 1
+        v_u_16.Levels.unLevel.highestLevel = 1
+        v_u_16.Levels.planetLevel.highestLevel = 1
+        v_u_16.Levels.astral.highestLevel = 1
+        v_u_16.Levels.stage.highestLevel = 1
+        for _, v361 in pairs(v_u_16.Multis) do
+            v361.multi = v_u_2.new(0, 0)
+        end
+        v_u_3.ImportantData.Stats.bestCharge = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestDarkCharge = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentGrasshop = 0
+        v_u_3.ImportantData.Stats.currentGrassskip = 0
+        v_u_3.ImportantData.Stats.currentGrassJump = 0
+        v_u_3.ImportantData.Stats.currentPlanetary = 0
+        v_u_3.ImportantData.Stats.currentSGJ = 0
+        v_u_3.ImportantData.Stats.prog = 0
+        v_u_3.ImportantData.Stats.currentGFunify = 0
+        v_u_3.ImportantData.Stats.innerRingsBroken = 0
+        v_u_3.ImportantData.Stats.bestStarTier = 0
+        v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Currencies.dfProgress = 0
+        v_u_3.ImportantData.Stats.starTier = 0
+        v_u_3.ImportantData.Stats.starProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.visualST = -1
+        v_u_12.Planets.planetoid[1].bestScore = v_u_2.new(0, 0)
+        v_u_12.Planets.planetoid[1].highestLevel = 0
+        v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.infTier = 0
+        v_u_3.ImportantData.Stats.currentTier = "basic"
+        v_u_3.ImportantData.Stats.antiTier = "basic"
+        v_u_3.ImportantData.Stats.unnaturalTier = "basic"
+        v_u_3.ImportantData.Stats.highestTier = 0
+        for _, v362 in pairs(v_u_13.Items) do
+            v362.level = v_u_2.new(0, 0)
+        end
+        for _, v363 in pairs(v_u_14.Items) do
+            v363.level = v_u_2.new(0, 0)
+            v363.progress = v_u_2.new(0, 0)
+            v363.activated = false
+        end
+        v_u_3.ImportantData.Currencies.astralProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.highestAstralPrestige = 0
+        v_u_3.ImportantData.Stats.currentAstralPrestige = 0
+        v_u_3.ImportantData.Stats.currentAstralLevel = 1
+        for v364, v365 in pairs(v_u_8.Basic) do
+            local v366 = v_u_3.ImportantData.UpgradeLevels.accomplishments[v364]
+            if p340 > 3 or (v365.special or 0) <= 0 then
+                v366.level = 0
+            end
+        end
+        for _, v367 in pairs(v_u_8.Trial) do
+            v367.level = 0
+        end
+        v_u_3.ImportantData.Stats.fightMulti = v_u_2.new(1, 0)
+        v_u_3.ImportantData.Stats.currentSupernova = 0
+        v_u_27.UpdateGH()
+        v_u_3.ImportantData.Stats.solarScore = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestSupernova = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Currencies.eclipseProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentEclipse = 1
+        v_u_3.ImportantData.Stats.bestEclipse = 1
+        v_u_3.ImportantData.Stats.highestEclipse = 1
+        v_u_3.ImportantData.Stats.twilight = 0
+        v_u_3.ImportantData.Stats.twilightb = 0
+        v_u_3.ImportantData.Stats.soulsTS = v_u_2.new(1, 0)
+        v_u_3.ImportantData.Stats.soulG = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.soulsStored = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.sunrise = 1
+        v_u_3.ImportantData.Stats.souls = 1
+        v_u_7.menus.soulsShop.Souls1.Visible = true
+        v_u_7.menus.soulsShop.Souls2.Visible = false
+        v_u_7.menus.soulsShop.Souls3.Visible = false
+        v_u_3.ImportantData.Stats.solChal = "none"
+        if p340 == 1 then
+            local v368 = v_u_3.ImportantData.Stats
+            v368.loops = v368.loops + v341
+            local v369 = v_u_3.ImportantData.Stats
+            v369.loopsTotal = v369.loopsTotal + v341
+            v_u_16.AddCurrency("loop1", v_u_2.new(v341, 0))
+            v_u_23.addCurrPopup("loop1", v_u_2.new(v341, 0))
+            if v_u_3.ImportantData.Stats.totalBluestige > 0 then
+                v_u_27.AccomplishConditions("bluestige", 1)
+            end
+        end
+        if p340 == 2 then
+            local v370 = v_u_3.ImportantData.Stats
+            v370.loops2 = v370.loops2 + v342
+            local v371 = v_u_3.ImportantData.Stats
+            v371.loopsTotal2 = v371.loopsTotal2 + v342
+            v_u_16.AddCurrency("loop2", v_u_2.new(v342, 0))
+            v_u_23.addCurrPopup("loop2", v_u_2.new(v342, 0))
+            v_u_3.ImportantData.Stats.loops = 0
+            if v_u_3.ImportantData.Stats.loopsTotal3 > 0 then
+                v_u_16.AddCurrency("arrow", v_u_2.copy(v_u_16.GetCurrencyAmt("loop1")))
+                v_u_23.addCurrPopup("arrow", v_u_2.copy(v_u_16.GetCurrencyAmt("loop1")))
+            end
+            v_u_16.SetCurrency("loop1", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("lcharge", v_u_2.new(0, 0))
+            if v_u_3.ImportantData.Stats.totalBluestige > 0 then
+                v_u_27.AccomplishConditions("bluestige", 2)
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeSun5 = 0
+        end
+        if p340 == 3 then
+            local v372 = v_u_3.ImportantData.Stats
+            v372.loops3 = v372.loops3 + v343
+            local v373 = v_u_3.ImportantData.Stats
+            v373.loopsTotal3 = v373.loopsTotal3 + v343
+            v_u_16.AddCurrency("loop3", v_u_2.new(v343, 0))
+            v_u_23.addCurrPopup("loop3", v_u_2.new(v343, 0))
+            v_u_3.ImportantData.Stats.loops = 0
+            v_u_3.ImportantData.Stats.loops2 = 0
+            if v_u_3.ImportantData.Stats.loopsTotal3 > 0 then
+                local v374 = v_u_2.copy(v_u_16.GetCurrencyAmt("loop1"))
+                local v375 = v_u_2.add(v374, v_u_2.multiply(v_u_16.GetCurrencyAmt("loop2"), 10))
+                v_u_16.AddCurrency("arrow", v375)
+                v_u_23.addCurrPopup("arrow", v375)
+            end
+            v_u_16.SetCurrency("loop1", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("loop2", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("lcharge", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.bestLimeCharge = v_u_2.new(0, 0)
+            if v_u_3.ImportantData.Stats.totalBluestige > 0 then
+                v_u_27.AccomplishConditions("bluestige", 3)
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeSun5 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun6 = 0
+        end
+        if p340 == 4 then
+            local v376 = v_u_3.ImportantData.Stats
+            v376.loops4 = v376.loops4 + v344
+            local v377 = v_u_3.ImportantData.Stats
+            v377.loopsTotal4 = v377.loopsTotal4 + v344
+            v_u_16.AddCurrency("loop4", v_u_2.new(v344, 0))
+            v_u_23.addCurrPopup("loop4", v_u_2.new(v344, 0))
+            v_u_3.ImportantData.Stats.loops = 0
+            v_u_3.ImportantData.Stats.loops2 = 0
+            v_u_3.ImportantData.Stats.loops3 = 0
+            local v378 = v_u_2.copy(v_u_16.GetCurrencyAmt("loop1"))
+            local v379 = v_u_2.add(v378, v_u_2.multiply(v_u_16.GetCurrencyAmt("loop2"), 10))
+            local v380 = v_u_2.add(v379, v_u_2.multiply(v_u_16.GetCurrencyAmt("loop3"), 100))
+            v_u_16.AddCurrency("arrow", v380)
+            v_u_23.addCurrPopup("arrow", v380)
+            v_u_16.SetCurrency("loop1", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("loop2", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("loop3", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("lcharge", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.bestLimeCharge = v_u_2.new(0, 0)
+            v_u_16.Levels.blevel.level = 1
+            v_u_16.Levels.blevel.progress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.bluestige = 0
+            v_u_3.ImportantData.Stats.plasma = 0
+            if v_u_3.ImportantData.Stats.totalBluestige > 0 then
+                v_u_27.AccomplishConditions("bluestige", 4)
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeSun5 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun6 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun7 = 0
+            v_u_27.RemoveBrass()
+        end
+        if p340 == 5 then
+            local v381 = v_u_3.ImportantData.Stats
+            v381.loops5 = v381.loops5 + 1
+            local v382 = v_u_3.ImportantData.Stats
+            v382.loopsTotal5 = v382.loopsTotal5 + 1
+            v_u_16.AddCurrency("loop5", v_u_2.new(1, 0))
+            v_u_23.addCurrPopup("loop5", v_u_2.new(1, 0))
+            v_u_3.ImportantData.Stats.loops = 0
+            v_u_3.ImportantData.Stats.loops2 = 0
+            v_u_3.ImportantData.Stats.loops3 = 0
+            v_u_3.ImportantData.Stats.loops4 = 0
+            local v383 = v_u_2.copy(v_u_16.GetCurrencyAmt("loop1"))
+            local v384 = v_u_2.add(v383, v_u_2.multiply(v_u_16.GetCurrencyAmt("loop2"), 10))
+            local v385 = v_u_2.add(v384, v_u_2.multiply(v_u_16.GetCurrencyAmt("loop3"), 100))
+            local v386 = v_u_2.add(v385, v_u_2.multiply(v_u_16.GetCurrencyAmt("loop4"), 1000))
+            v_u_16.AddCurrency("arrow", v386)
+            v_u_23.addCurrPopup("arrow", v386)
+            v_u_16.SetCurrency("loop1", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("loop2", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("loop3", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("loop4", v_u_2.new(0, 0))
+            v_u_16.SetCurrency("lcharge", v_u_2.new(0, 0))
+            v_u_3.ImportantData.Stats.bestLimeCharge = v_u_2.new(0, 0)
+            v_u_16.Levels.blevel.level = 1
+            v_u_16.Levels.blevel.progress = v_u_2.new(0, 0)
+            v_u_3.ImportantData.Stats.bluestige = 0
+            v_u_3.ImportantData.Stats.plasma = 0
+            if v_u_3.ImportantData.Stats.totalBluestige > 0 then
+                v_u_27.AccomplishConditions("bluestige", 5)
+            end
+            v_u_3.ImportantData.Stats.Accomplish.timeSun5 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun6 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun7 = 0
+            v_u_3.ImportantData.Stats.Accomplish.timeSun8 = 0
+            v_u_27.RemoveBrass()
+        end
+        v_u_3.ImportantData.Stats.bestStage = 1
+        v_u_18.PortalingState.stage = 1
+        v_u_18.NewEnemyStats()
+        v_u_5.ClearGrid3()
+        v_u_3.ImportantData.Stats.unlockSelected = "none"
+        v_u_20.UpdateSelected()
+        for v387, v388 in pairs(v_u_6.Basic) do
+            if v388.tier == "loop" then
+                if p340 > 1 and v387 == "l1a" then
+                    v388.level = 0
+                end
+                if p340 > 2 and v387 == "l1b" then
+                    v388.level = 0
+                end
+                if p340 > 3 and v387 == "l1c" then
+                    v388.level = 0
+                end
+            end
+        end
+        v_u_3.ImportantData.Stats.Accomplish.timeSun4 = 0
+        v_u_22.AutoRemovePins()
+        for _, v389 in pairs(v_u_3.ImportantData.Stats.currPins) do
+            if v389.curr ~= "none" then
+                v_u_4.PinCurrency(v389.curr)
+            end
+        end
+        for _, v390 in pairs(v_u_3.ImportantData.Stats.levelPins) do
+            if v390.level ~= "none" then
+                v_u_4.PinLevel(v390.level)
+            end
+        end
+        for _, v391 in pairs(v_u_3.ImportantData.Stats.multiPins) do
+            v391.multi = "none"
+        end
+        v_u_4.UpdateMultiPin()
+        v_u_4.UpdatePins()
+        v_u_27.UpdateStuff()
+        if v345 then
+            v_u_11.ToEarth()
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-13, -18, 87) * CFrame.Angles(0, -2.6179938779914944, 0))
+            v_u_10.fade(v347, 1, false, "text")
+            task.wait(2)
+            v_u_10.fade(v346, 1, false, "frame")
+            task.wait(1)
+            v_u_10.clearFadeObj(v346)
+        end
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_27.RemoveGrass()
+        v_u_339 = true
+    end
+end
+function v_u_27.TrueEndGame()
+    -- upvalues: (copy) v_u_3, (ref) v_u_339, (copy) v_u_27, (copy) v_u_10, (copy) v_u_4, (copy) v_u_21, (copy) v_u_2, (copy) v_u_16, (copy) v_u_6, (copy) v_u_17, (copy) v_u_20, (copy) v_u_19, (copy) v_u_25, (copy) v_u_18, (copy) v_u_12, (copy) v_u_5, (copy) v_u_13, (copy) v_u_14, (copy) v_u_8, (copy) v_u_7, (copy) v_u_22, (copy) v_u_11
+    if v_u_3.ImportantData.Stats.loops5 >= 10 and v_u_339 then
+        v_u_339 = false
+        v_u_27.RemoveGrass()
+        local v392 = v_u_10.getFadeObj()
+        v392.BackgroundColor3 = Color3.new(0, 0, 0)
+        v_u_10.fade(v392, 3, true, "frame")
+        task.wait(5)
+        local v393 = Instance.new("TextLabel", v392)
+        v393.Font = "Cartoon"
+        v393.AnchorPoint = Vector2.new(0.5, 0.5)
+        v393.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+        v393.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+        v393.TextScaled = true
+        v393.BackgroundTransparency = 1
+        v393.RichText = true
+        v393.TextStrokeTransparency = 0
+        v393.TextTransparency = 1
+        v393.TextStrokeTransparency = 1
+        Instance.new("UITextSizeConstraint", v393).MaxTextSize = 100
+        v393.TextColor3 = Color3.new(1, 0, 0)
+        v393.Text = "<b>Why are you still here\n\nTrue End: " .. v_u_3.ImportantData.Stats.loops6 + 1 .. "</b>"
+        v_u_10.fade(v393, 2, true, "text")
+        task.wait(6)
+        if v_u_3.ImportantData.Stats.currDisplay ~= "none" then
+            v_u_4.ChangeCurrDisplay(v_u_3.ImportantData.Stats.currDisplay)
+        end
+        if v_u_3.ImportantData.Stats.levelDisplay ~= "none" then
+            v_u_4.ChangeLevelDisplay(v_u_3.ImportantData.Stats.levelDisplay)
+        end
+        v_u_3.ImportantData.Stats.cLock = false
+        v_u_3.updateTierSettings("auto")
+        v_u_3.updateDisplaySettings("tiers")
+        task.wait(2)
+        v_u_27.RemoveGrass()
+        local v394 = 1
+        for _, v395 in pairs(v_u_21.SynthesisSlots) do
+            v_u_21.CompleteSynthesis(v394)
+            v395.tier = 0
+            v395.level = 0
+            v395.progress = v_u_2.new(0, 0)
+            v395.levelProgress = v_u_2.new(0, 0)
+            v395.current = "none"
+            if v395.obj.Crystal.Value ~= nil then
+                v395.obj.Crystal.Value:Destroy()
+                v395.obj.Crystal.Value = nil
+            end
+            v394 = v394 + 1
+        end
+        v_u_3.ImportantData.Events.synth:Fire()
+        for v396, v397 in pairs(v_u_16.Currencies) do
+            if v396 ~= "flowers" then
+                v397.amount = v_u_2.new(0, 0)
+                v397.totalAmount = v_u_2.new(0, 0)
+                v397.infinity = false
+            end
+        end
+        for _, v398 in pairs(v_u_6.Basic) do
+            if v398.tier ~= "flower" and v398.tier ~= "flower2" then
+                v398.level = 0
+            end
+        end
+        for _, v399 in pairs(v_u_17.SoulItems) do
+            v399.level = v_u_2.new(0, 0)
+        end
+        for _, v400 in pairs(v_u_20.Upgrades) do
+            v400.level = 0
+        end
+        for _, v401 in pairs(v_u_19.Challenges) do
+            v401.completions = 0
+        end
+        for _, v402 in pairs(v_u_17.CompressionItems) do
+            v402.level = v_u_2.new(0, 0)
+            v402.allocated = v_u_2.new(0, 0)
+        end
+        for _, v403 in pairs(v_u_17.CompressionBars) do
+            v403.progress = v_u_2.new(0, 0)
+            v403.owned = v_u_2.new(0, 0)
+            v403.lastProg = v_u_2.new(0, 0)
+        end
+        for _, v404 in pairs(v_u_17.Bars) do
+            v404.level = v_u_2.new(0, 0)
+            v404.totalLevel = v_u_2.new(0, 0)
+            v404.rank = 0
+            v404.progress = v_u_2.new(0, 0)
+            v404.rankProgress = v_u_2.new(0, 0)
+            v404.allocated = v_u_2.new(0, 0)
+        end
+        for _, v405 in pairs(v_u_3.ImportantData.UpgradeLevels.dungeonStats) do
+            v405.highestCleared = 0
+            v405.timesCleared = 0
+            v405.timesClearedD = 0
+            v405.pity = 0
+        end
+        for _, v406 in pairs(v_u_3.ImportantData.Dynamic.inventory) do
+            if v406.obj ~= nil then
+                v406.obj:Destroy()
+            end
+        end
+        v_u_3.ImportantData.Dynamic.inventory = {}
+        for _, v407 in pairs(v_u_25.Items) do
+            if v407.itemType ~= 9 then
+                v407.discovered = false
+                v407.ml = 0
+                v407.mp = 0
+                v407.filter = false
+            end
+        end
+        v_u_3.ImportantData.Stats.lowestGGrasshop = 101
+        v_u_3.ImportantData.Stats.highestZeroGrassskip = 0
+        v_u_3.ImportantData.Stats.tempGPS = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.pDif = 0
+        v_u_3.ImportantData.Stats.Accomplish.anonymityBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtA = 0
+        v_u_3.ImportantData.Stats.Accomplish.agrassBoughtL = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtC = 0
+        v_u_3.ImportantData.Stats.Accomplish.prestigeBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.crystalBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtP = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtC = 0
+        v_u_3.ImportantData.Stats.Accomplish.grassBoughtG = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeA = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeP = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeC = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeG = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeS = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeGl = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeSn = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeSun2 = 0
+        v_u_3.ImportantData.Stats.Accomplish.timeSun3 = 0
+        v_u_3.ImportantData.Stats.totalGrassP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.realm = "normal"
+        v_u_3.ImportantData.Stats.totalGRocketFuel = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastLiquefyOil = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastAnonymityAP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastNormalityNP = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.lastVaporizeClouds = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentPrestige = 0
+        v_u_3.ImportantData.Stats.currentCrystallize = 0
+        v_u_3.ImportantData.Stats.currentAnonymity = 0
+        v_u_3.ImportantData.Stats.currentLiquefy = 0
+        v_u_3.ImportantData.Stats.currentNormality = 0
+        v_u_3.ImportantData.Stats.currentGalactic = 0
+        v_u_3.ImportantData.Stats.currentSacrifice = 0
+        v_u_3.ImportantData.Stats.totalPrestige = 0
+        v_u_3.ImportantData.Stats.totalCrystallize = 0
+        v_u_3.ImportantData.Stats.totalGrasshop = 0
+        v_u_3.ImportantData.Stats.totalSteelie = 0
+        v_u_3.ImportantData.Stats.totalAnonymity = 0
+        v_u_3.ImportantData.Stats.totalLiquefy = 0
+        v_u_3.ImportantData.Stats.totalGalactic = 0
+        v_u_3.ImportantData.Stats.totalFunify = 0
+        v_u_3.ImportantData.Stats.totalSacrifice = 0
+        v_u_3.ImportantData.Stats.totalGrassskip = 0
+        v_u_3.ImportantData.Stats.totalAstrolabe = 0
+        v_u_3.ImportantData.Stats.totalQuadrant = 0
+        v_u_3.ImportantData.Stats.totalPlanetary = 0
+        v_u_3.ImportantData.Stats.totalConstellation = 0
+        v_u_3.ImportantData.Stats.totalNebula = 0
+        v_u_3.ImportantData.Stats.totalSupernova = 0
+        v_u_3.ImportantData.Stats.totalGrassJump = 0
+        v_u_3.ImportantData.Stats.totalNormality = 0
+        v_u_3.ImportantData.Stats.totalRocketParts = 0
+        v_u_3.ImportantData.Stats.currentRocketParts = 0
+        v_u_3.ImportantData.Stats.highestPlanetary = 0
+        v_u_18.PortalingState.stage = 1
+        v_u_3.ImportantData.Stats.bestStage = 1
+        v_u_3.ImportantData.Stats.savedTrialLevels = {}
+        v_u_16.Levels.level.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.antiLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.unLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.level.level = 1
+        v_u_16.Levels.antiLevel.level = 1
+        v_u_16.Levels.unLevel.level = 1
+        v_u_16.Levels.planetLevel.level = 1
+        v_u_16.Levels.level.highestLevel = 1
+        v_u_16.Levels.antiLevel.highestLevel = 1
+        v_u_16.Levels.unLevel.highestLevel = 1
+        v_u_16.Levels.planetLevel.highestLevel = 1
+        v_u_16.Levels.astral.highestLevel = 1
+        v_u_16.Levels.stage.highestLevel = 1
+        for _, v408 in pairs(v_u_16.Multis) do
+            v408.multi = v_u_2.new(0, 0)
+        end
+        v_u_3.ImportantData.Stats.bestCharge = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestDarkCharge = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentGrasshop = 0
+        v_u_3.ImportantData.Stats.currentGrassskip = 0
+        v_u_3.ImportantData.Stats.currentGrassJump = 0
+        v_u_3.ImportantData.Stats.currentPlanetary = 0
+        v_u_3.ImportantData.Stats.currentSGJ = 0
+        v_u_3.ImportantData.Stats.prog = 0
+        v_u_3.ImportantData.Stats.currentGFunify = 0
+        v_u_3.ImportantData.Stats.innerRingsBroken = 0
+        v_u_3.ImportantData.Stats.bestStarTier = 0
+        v_u_3.ImportantData.Stats.gps = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.perksSpent = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Currencies.dfProgress = 0
+        v_u_3.ImportantData.Stats.starTier = 0
+        v_u_3.ImportantData.Stats.starProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.visualST = -1
+        v_u_12.Planets.planetoid[1].bestScore = v_u_2.new(0, 0)
+        v_u_12.Planets.planetoid[1].highestLevel = 0
+        v_u_3.ImportantData.Currencies.tierProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.infTier = 0
+        v_u_3.ImportantData.Stats.currentTier = "basic"
+        v_u_3.ImportantData.Stats.antiTier = "basic"
+        v_u_3.ImportantData.Stats.unnaturalTier = "basic"
+        v_u_3.ImportantData.Stats.highestTier = 0
+        v_u_3.ImportantData.Stats.highestAntiTier = 0
+        v_u_3.ImportantData.Stats.highestUnnaturalTier = 0
+        v_u_3.ImportantData.Stats.highestSpeed = 16
+        v_u_3.ImportantData.Stats.cr = 1
+        v_u_5.ClearGrid3()
+        v_u_3.ImportantData.Stats.unlockSelected = "none"
+        v_u_20.UpdateSelected()
+        for _, v409 in pairs(v_u_13.Items) do
+            v409.level = v_u_2.new(0, 0)
+        end
+        for _, v410 in pairs(v_u_14.Items) do
+            v410.level = v_u_2.new(0, 0)
+            v410.progress = v_u_2.new(0, 0)
+            v410.activated = false
+        end
+        v_u_3.ImportantData.Currencies.astralProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.highestAstralPrestige = 0
+        v_u_3.ImportantData.Stats.currentAstralPrestige = 0
+        v_u_3.ImportantData.Stats.currentAstralLevel = 1
+        v_u_3.ImportantData.Stats.highestAstralLevel = 1
+        for v411, _ in pairs(v_u_8.Basic) do
+            v_u_3.ImportantData.UpgradeLevels.accomplishments[v411].level = 0
+        end
+        for _, v412 in pairs(v_u_8.Trial) do
+            v412.level = 0
+        end
+        v_u_3.ImportantData.Stats.fightMulti = v_u_2.new(1, 0)
+        v_u_3.ImportantData.Stats.currentSupernova = 0
+        v_u_27.UpdateGH()
+        v_u_3.ImportantData.Stats.solarScore = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestSupernova = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Currencies.eclipseProgress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentEclipse = 1
+        v_u_3.ImportantData.Stats.bestEclipse = 1
+        v_u_3.ImportantData.Stats.highestEclipse = 1
+        v_u_3.ImportantData.Stats.twilight = 0
+        v_u_3.ImportantData.Stats.twilightb = 0
+        v_u_3.ImportantData.Stats.soulsTS = v_u_2.new(1, 0)
+        v_u_3.ImportantData.Stats.soulG = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.soulsStored = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.solChal = "none"
+        v_u_3.ImportantData.Stats.sunrise = 1
+        v_u_3.ImportantData.Stats.souls = 1
+        v_u_7.menus.soulsShop.Souls1.Visible = true
+        v_u_7.menus.soulsShop.Souls2.Visible = false
+        v_u_7.menus.soulsShop.Souls3.Visible = false
+        v_u_3.ImportantData.Stats.loops = 0
+        v_u_3.ImportantData.Stats.loops2 = 0
+        v_u_3.ImportantData.Stats.loops3 = 0
+        v_u_3.ImportantData.Stats.loops4 = 0
+        v_u_3.ImportantData.Stats.loops5 = 0
+        v_u_3.ImportantData.Stats.loopsTotal = 0
+        v_u_3.ImportantData.Stats.loopsTotal2 = 0
+        v_u_3.ImportantData.Stats.loopsTotal3 = 0
+        v_u_3.ImportantData.Stats.loopsTotal4 = 0
+        v_u_3.ImportantData.Stats.loopsTotal5 = 0
+        v_u_3.ImportantData.Stats.bestLimeCharge = v_u_2.new(0, 0)
+        v_u_16.Levels.blevel.level = 1
+        v_u_16.Levels.blevel.progress = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bluestige = 0
+        v_u_3.ImportantData.Stats.totalBluestige = 0
+        v_u_3.ImportantData.Stats.plasma = 0
+        v_u_3.ImportantData.Stats.totalPlasma = 0
+        v_u_3.ImportantData.Stats.currentGrassTouch = 0
+        v_u_3.ImportantData.Stats.totalGrassTouch = 0
+        local v413 = v_u_3.ImportantData.Stats
+        v413.loops6 = v413.loops6 + 1
+        v_u_3.ImportantData.Stats.Accomplish.timeSun4 = 0
+        v_u_22.AutoRemovePins()
+        for _, v414 in pairs(v_u_3.ImportantData.Stats.currPins) do
+            if v414.curr ~= "none" then
+                v_u_4.PinCurrency(v414.curr)
+            end
+        end
+        for _, v415 in pairs(v_u_3.ImportantData.Stats.levelPins) do
+            if v415.level ~= "none" then
+                v_u_4.PinLevel(v415.level)
+            end
+        end
+        for _, v416 in pairs(v_u_3.ImportantData.Stats.multiPins) do
+            v416.multi = "none"
+        end
+        v_u_4.UpdateMultiPin()
+        v_u_4.UpdatePins()
+        v_u_27.UpdateStuff()
+        v_u_11.ToEarth()
+        v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-13, -18, 87) * CFrame.Angles(0, -2.6179938779914944, 0))
+        v_u_10.fade(v393, 1, false, "text")
+        task.wait(2)
+        v_u_10.fade(v392, 1, false, "frame")
+        task.wait(1)
+        v_u_10.clearFadeObj(v392)
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_27.RemoveGrass()
+        v_u_27.RemoveBrass()
+        v_u_339 = true
+    end
+end
+function v_u_27.PlanetaryTrial()
+    -- upvalues: (copy) v_u_3, (copy) v_u_27, (copy) v_u_16, (copy) v_u_6, (copy) v_u_5, (copy) v_u_2, (copy) v_u_11, (copy) v_u_12, (copy) v_u_13
+    if v_u_3.ImportantData.Stats.pTrial > 0 then
+        v_u_27.CompleteTrials()
+        v_u_16.SetCurrency("rings", v_u_3.ImportantData.Stats.trialSaves.rings)
+        v_u_16.SetCurrency("lines", v_u_3.ImportantData.Stats.trialSaves.lines)
+        v_u_16.SetCurrency("arcs", v_u_3.ImportantData.Stats.trialSaves.arcs)
+        v_u_16.SetCurrency("dcharge", v_u_3.ImportantData.Stats.trialSaves.dcharge)
+        v_u_3.ImportantData.Stats.currentPlanetary = v_u_3.ImportantData.Stats.trialSaves.pt
+        for v417, v418 in pairs(v_u_3.ImportantData.Stats.savedTrialLevels) do
+            v_u_6.Basic[v417].level = v418
+        end
+        v_u_5.LoadGridTrial()
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.copy(v_u_3.ImportantData.Stats.bestLineGenT)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.copy(v_u_3.ImportantData.Stats.bestArcsGenT)
+        v_u_16.SetCurrency("obs", v_u_3.ImportantData.Stats.obsT)
+        v_u_3.ImportantData.Stats.pTrial = 0
+        v_u_11.ToPlanet()
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_27.RemoveGrass()
+        v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-617.495, 5060, 3308.501) * CFrame.Angles(0, 0, 0))
+    else
+        v_u_5.SaveGridTrial()
+        if v_u_3.ImportantData.Stats.bestStarTier < 5 then
+            v_u_5.ClearGrid()
+        end
+        v_u_3.ImportantData.Stats.trialSaves = {
+            ["rings"] = v_u_16.GetCurrencyAmt("rings"),
+            ["lines"] = v_u_16.GetCurrencyAmt("lines"),
+            ["arcs"] = v_u_16.GetCurrencyAmt("arcs"),
+            ["dcharge"] = v_u_16.GetCurrencyAmt("dcharge"),
+            ["pt"] = v_u_3.ImportantData.Stats.currentPlanetary
+        }
+        v_u_16.Levels.planetLevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.planetLevel.level = 1
+        v_u_16.SetCurrency("perks2", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.bestDarkCharge = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.currentPlanetary = 0
+        v_u_16.SetCurrency("dcharge", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.bestLineGenT = v_u_2.copy(v_u_3.ImportantData.Stats.bestLineGen)
+        v_u_3.ImportantData.Stats.bestArcsGenT = v_u_2.copy(v_u_3.ImportantData.Stats.bestArcsGen)
+        v_u_3.ImportantData.Stats.obsT = v_u_2.copy(v_u_16.GetCurrencyAmt("obs"))
+        v_u_16.SetCurrency("planetarium", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("astro", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("measure", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("planets", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("lines", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("arcs", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("obs", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("rings", v_u_2.new(0, 0))
+        v_u_3.ImportantData.Stats.bestLineGen = v_u_2.new(0, 0)
+        v_u_3.ImportantData.Stats.bestArcsGen = v_u_2.new(0, 0)
+        v_u_12.Planets.planetoid[1].bestScore = v_u_2.new(0, 0)
+        v_u_12.Planets.planetoid[1].highestLevel = 0
+        v_u_3.ImportantData.Currencies.astralProgress = v_u_2.new(0, 0)
+        for _, v419 in pairs(v_u_13.Items) do
+            v419.obj.InvestButton.Visible = true
+        end
+        local v420 = v_u_3.ImportantData.Misc.toggles
+        v420.bulkGrasshop.Visible = false
+        v420.bulkGrassskip.Visible = false
+        v420.bulkGrassjump.Visible = false
+        for v421, v422 in pairs(v_u_6.Basic) do
+            if (v422.tier == "perk2" or (v422.tier == "planetarium" or (v422.tier == "observatorium" or (v422.tier == "astro" or (v422.tier == "rings" or (v422.tier == "measure" or v422.tier == "planetary")))))) and (v422.upgradeType == "pt" or (v422.upgradeType == "cp" or (v422.upgradeType == "astro" or (v422.upgradeType == "measure" or (v422.upgradeType == "obs" or (v422.upgradeType == "grassCap2" or (v422.upgradeType == "grassGrowSpeed" or v421 == "rl"))))))) then
+                v_u_3.ImportantData.Stats.savedTrialLevels[v421] = v422.level
+                v422.level = 0
+            end
+        end
+        v_u_3.ImportantData.Stats.Accomplish.planetariumBought = 0
+        v_u_3.ImportantData.Stats.Accomplish.perks2Bought = 0
+        v_u_3.ImportantData.Stats.Accomplish.ringBought = 0
+        v_u_3.ImportantData.Stats.Accomplish.astroBought = 0
+        v_u_3.ImportantData.Stats.Accomplish.measureBought = 0
+        v_u_3.ImportantData.Stats.Accomplish.planetBought = 0
+        v_u_3.ImportantData.Stats.Accomplish.obsBought = 0
+        v_u_3.ImportantData.Stats.Accomplish.rein = 0
+        v_u_3.ImportantData.Stats.Accomplish.stab = 0
+        v_u_3.ImportantData.Stats.pTrial = 1
+        v_u_3.ImportantData.Stats.pTime = 600
+        v_u_27.RemoveGrass()
+        v_u_27.UpdateStuff()
+        v_u_27.RemoveGrass()
+        v_u_3.ImportantData.Stats.pDif = 1
+        v_u_11.ToPlanet()
+        v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-617.495, 5060, 3308.501) * CFrame.Angles(0, 0, 0))
+    end
+end
+function v_u_27.Bluestige()
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_16, (copy) v_u_23, (copy) v_u_3, (copy) v_u_6, (copy) v_u_27
+    local v423 = v_u_5.getMulti().blue
+    if v_u_2.isGreaterE(v423, v_u_2.new(1, 0)) then
+        v_u_16.AddCurrency("blue", v423)
+        v_u_23.addCurrPopup("blue", v423)
+        local v424 = v_u_3.ImportantData.Stats
+        v424.bluestige = v424.bluestige + 1
+        local v425 = v_u_3.ImportantData.Stats
+        v425.totalBluestige = v425.totalBluestige + 1
+        v_u_16.SetCurrency("brass", v_u_2.new(0, 0))
+        v_u_16.Levels.blevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.blevel.level = 1
+        for _, v426 in pairs(v_u_6.Basic) do
+            if v426.tier == "brass" then
+                v426.level = 0
+            end
+        end
+        v_u_27.RemoveBrass()
+        v_u_27.UpdateStuff()
+    end
+end
+function v_u_27.Plasma()
+    -- upvalues: (copy) v_u_5, (copy) v_u_2, (copy) v_u_16, (copy) v_u_23, (copy) v_u_3, (copy) v_u_6, (copy) v_u_27
+    local v427 = v_u_5.getMulti().plasma
+    if v_u_2.isGreaterE(v427, v_u_2.new(1, 0)) then
+        v_u_16.AddCurrency("plasma", v427)
+        v_u_23.addCurrPopup("plasma", v427)
+        v_u_3.ImportantData.Stats.bluestige = 0
+        local v428 = v_u_3.ImportantData.Stats
+        v428.plasma = v428.plasma + 1
+        local v429 = v_u_3.ImportantData.Stats
+        v429.totalPlasma = v429.totalPlasma + 1
+        v_u_16.SetCurrency("brass", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("blue", v_u_2.new(0, 0))
+        v_u_16.Levels.blevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.blevel.level = 1
+        for _, v430 in pairs(v_u_6.Basic) do
+            if v430.tier == "brass" or v430.tier == "blue" then
+                v430.level = 0
+            end
+        end
+        v_u_27.RemoveBrass()
+        v_u_27.UpdateStuff()
+    end
+end
+local v_u_431 = false
+function v_u_27.GrassTouch()
+    -- upvalues: (ref) v_u_431, (copy) v_u_3, (copy) v_u_16, (copy) v_u_2, (copy) v_u_6, (copy) v_u_27
+    if not v_u_431 and 200 + v_u_3.ImportantData.Stats.currentGrassTouch * 25 <= v_u_16.Levels.blevel.level then
+        v_u_431 = true
+        local v432 = v_u_3.ImportantData.Stats
+        v432.currentGrassTouch = v432.currentGrassTouch + 1
+        local v433 = v_u_3.ImportantData.Stats
+        v433.totalGrassTouch = v433.totalGrassTouch + 1
+        v_u_3.ImportantData.Stats.bluestige = 0
+        v_u_3.ImportantData.Stats.plasma = 0
+        v_u_16.SetCurrency("brass", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("blue", v_u_2.new(0, 0))
+        v_u_16.SetCurrency("plasma", v_u_2.new(0, 0))
+        v_u_16.Levels.blevel.progress = v_u_2.new(0, 0)
+        v_u_16.Levels.blevel.level = 1
+        for _, v434 in pairs(v_u_6.Basic) do
+            if v434.tier == "brass" or (v434.tier == "blue" or v434.tier == "plasma") then
+                v434.level = 0
+            end
+        end
+        v_u_27.RemoveBrass()
+        v_u_27.UpdateStuff()
+        v_u_431 = false
+    end
+end
+function v_u_27.GLG()
+    -- upvalues: (ref) v_u_178, (copy) v_u_10, (copy) v_u_2, (copy) v_u_16, (copy) v_u_3, (copy) v_u_11
+    v_u_178 = true
+    local v435 = v_u_10.getFadeObj()
+    v435.BackgroundColor3 = Color3.new(0, 0, 0)
+    v_u_10.fade(v435, 3, true, "frame")
+    task.wait(5)
+    local v436 = Instance.new("TextLabel", v435)
+    v436.Font = "Cartoon"
+    v436.AnchorPoint = Vector2.new(0.5, 0.5)
+    v436.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+    v436.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+    v436.TextScaled = true
+    v436.BackgroundTransparency = 1
+    v436.RichText = true
+    v436.TextStrokeTransparency = 0
+    v436.TextTransparency = 1
+    v436.TextStrokeTransparency = 1
+    v436.TextColor3 = Color3.new(0.501961, 0.501961, 0.501961)
+    Instance.new("UITextSizeConstraint", v436).MaxTextSize = 100
+    v436.Text = "<b>You have left this world</b>"
+    v_u_10.fade(v436, 2, true, "text")
+    task.wait(8)
+    v_u_10.fade(v436, 1, false, "text")
+    task.wait(2)
+    v_u_10.fade(v435, 1, false, "frame")
+    if not v_u_2.isGreaterE(v_u_16.GetCurrencyTotal("gg"), v_u_2.new(1, 0)) then
+        v_u_16.AddCurrency("gg", v_u_2.new(1, 0))
+    end
+    v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(-1165.397, 4404.25, -1573.75) * CFrame.Angles(0, 0, 0))
+    v_u_11.ToStar()
+    v_u_3.ImportantData.Misc.toggles.ui.Visible = true
+    v_u_10.clearFadeObj(v435)
+    v_u_178 = false
+end
+local v_u_437 = false
+function v_u_27.FTGrassland()
+    -- upvalues: (ref) v_u_437, (copy) v_u_3, (copy) v_u_10, (copy) v_u_11, (copy) v_u_16, (copy) v_u_2, (copy) v_u_27, (copy) v_u_22
+    if not v_u_437 then
+        v_u_437 = true
+        if v_u_3.ImportantData.Stats.loopsTotal < 1 then
+            local v438 = v_u_10.getFadeImg()
+            v438.ImageColor3 = Color3.new(1, 1, 1)
+            v438.Image = "rbxassetid://12399461749"
+            v_u_10.fade(v438, 3, true, "image")
+            task.wait(5)
+            local v439 = Instance.new("TextLabel", v438)
+            v439.Font = "Cartoon"
+            v439.AnchorPoint = Vector2.new(0.5, 0.5)
+            v439.Position = UDim2.new(UDim.new(0.5, 0), UDim.new(0.5, 0))
+            v439.Size = UDim2.new(UDim.new(0.9, 0), UDim.new(0.4, 0))
+            v439.TextScaled = true
+            v439.BackgroundTransparency = 1
+            v439.RichText = true
+            v439.TextStrokeTransparency = 0
+            v439.TextTransparency = 1
+            v439.TextStrokeTransparency = 1
+            v439.TextColor3 = Color3.new(1, 1, 1)
+            Instance.new("UITextSizeConstraint", v439).MaxTextSize = 100
+            v439.Text = "<b>You get whisked away to a whimsical land...</b>"
+            v_u_10.fade(v439, 2, true, "text")
+            task.wait(8)
+            v_u_10.fade(v439, 1, false, "text")
+            v_u_11.ToGrassland()
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(26763.648, 9351.752, -31026.291) * CFrame.Angles(0, 1.5707963267948966, 0))
+            task.wait(2)
+            v_u_10.fade(v438, 1, false, "image")
+            local v440 = v_u_3.ImportantData.Stats
+            local v441 = v_u_3.ImportantData.Stats.prog
+            v440.prog = math.max(v441, 1)
+            for _, v_u_442 in pairs(v_u_3.ImportantData.UpgradeLevels.upgrades) do
+                local v443, v444 = pcall(function()
+                    -- upvalues: (copy) v_u_442
+                    v_u_442.Parent.Variables.Autobuy.Value = true
+                end)
+                if not v443 then
+                    print(v444)
+                end
+            end
+            v_u_3.ImportantData.Misc.toggles.autoGrasshop.Visible = true
+            v_u_3.ImportantData.Misc.toggles.autoGrassskip.Visible = true
+            v_u_3.ImportantData.Misc.toggles.autoGrassjump.Visible = true
+            v_u_3.ImportantData.Stats.realm = "normal"
+            v_u_16.Currencies.ap.totalAmount = v_u_2.copy(v_u_16.Currencies.ap.centralize)
+            v_u_27.UpdateStuff()
+            task.wait(2)
+            v_u_10.clearFadeObj(v438)
+        else
+            v_u_11.ToGrassland()
+            v_u_3.ImportantData.Misc.player.Character:PivotTo(CFrame.new(26763.648, 9351.752, -31026.291) * CFrame.Angles(0, 1.5707963267948966, 0))
+            local v445 = v_u_3.ImportantData.Stats
+            local v446 = v_u_3.ImportantData.Stats.prog
+            v445.prog = math.max(v446, 1)
+            for _, v_u_447 in pairs(v_u_3.ImportantData.UpgradeLevels.upgrades) do
+                local v448, v449 = pcall(function()
+                    -- upvalues: (copy) v_u_447
+                    v_u_447.Parent.Variables.Autobuy.Value = true
+                end)
+                if not v448 then
+                    print(v449)
+                end
+            end
+            v_u_3.ImportantData.Misc.toggles.autoGrasshop.Visible = true
+            v_u_3.ImportantData.Misc.toggles.autoGrassskip.Visible = true
+            v_u_3.ImportantData.Misc.toggles.autoGrassjump.Visible = true
+            v_u_3.ImportantData.Stats.realm = "normal"
+            v_u_27.UpdateStuff()
+        end
+        v_u_22.AutoRemovePins()
+        v_u_437 = false
+    end
+end
+function v_u_27.ActivateSynthesis()
+    -- upvalues: (copy) v_u_3, (copy) v_u_7, (copy) v_u_27
+    local v450 = v_u_3.ImportantData.Stats
+    local v451 = v_u_3.ImportantData.Stats.prog
+    v450.prog = math.max(v451, 2)
+    v_u_7.UpdateSynth()
+    v_u_27.UpdateStuff()
+end
+function v_u_27.UpdateGH()
+    -- upvalues: (copy) v_u_5, (copy) v_u_3, (copy) v_u_6, (copy) v_u_2
+    local v452 = v_u_5.getUpgradeLevel("Sgs")
+    if v452 > 0 then
+        local v453 = v_u_3.ImportantData.Stats
+        local v454 = 4 * v452
+        local v455 = v_u_3.ImportantData.Stats.currentGrassskip
+        v453.currentGrassskip = math.max(v454, v455)
+    end
+    local v456 = v_u_5.getUpgradeLevel("Spt")
+    if v456 > 0 then
+        local v457 = v_u_3.ImportantData.Stats
+        local v458 = 2 * v456
+        local v459 = v_u_3.ImportantData.Stats.currentPlanetary
+        v457.currentPlanetary = math.max(v458, v459)
+    end
+    local v460 = v_u_5.getUpgradeLevel("Sgj")
+    if v460 > 0 then
+        local v461 = v_u_3.ImportantData.Stats
+        local v462 = 2 * v460
+        local v463 = v_u_3.ImportantData.Stats.currentGrassJump
+        v461.currentGrassJump = math.max(v462, v463)
+    end
+    local v464 = v_u_5.getUpgradeLevel("Sagh")
+    if v464 > 0 then
+        local v465 = v_u_3.ImportantData.Stats
+        local v466 = 30 - v464 * 3
+        local v467 = v_u_3.ImportantData.Stats.lowestGGrasshop
+        local v468 = math.min(0, v466, v467)
+        v465.lowestGGrasshop = math.max(v468)
+        if v464 > 10 then
+            local v469 = v_u_3.ImportantData.Stats
+            local v470 = 3 * (v464 - 10)
+            local v471 = v_u_3.ImportantData.Stats.highestZeroGrassskip
+            local v472 = math.max(v470, v471)
+            v469.highestZeroGrassskip = math.min(60, v472)
+        end
+    end
+    local v473 = v_u_5.getUpgradeLevel("Sast")
+    if v473 > 0 then
+        local v474 = v_u_3.ImportantData.Stats
+        local v475 = v_u_3.ImportantData.Stats.currentAstralPrestige
+        v474.currentAstralPrestige = math.max(v473, v475)
+    end
+    if v_u_3.ImportantData.Stats.bestStarTier >= 1 then
+        for _, v476 in pairs(v_u_6.Basic) do
+            if v476.shopType == "autoBranch" then
+                v476.level = v476.object.Variables.LevelCap.Value
+            end
+        end
+    end
+    if v_u_3.ImportantData.Stats.bestStarTier >= 2 then
+        for v477, v478 in pairs(v_u_6.Basic) do
+            if string.find(v477, "generatorSteel") or string.find(v477, "RSrg") then
+                v478.level = v478.object.Variables.LevelCap.Value
+            end
+        end
+    end
+    local v479 = v_u_5.getUpgradeLevel("Ssch")
+    if v479 > 0 then
+        local v480 = v_u_2.pow(v_u_2.new(1, 2), v479)
+        for _, v481 in pairs(v_u_6.Basic) do
+            if v481.shopType == "progBranch" or v481.shopType == "speedBranch" then
+                local v482 = v_u_2.new(v481.baseCost, v481.baseCostExponent)
+                if v_u_2.isGreater(v480, v482) then
+                    v481.level = v481.object.Variables.LevelCap.Value
+                end
+            end
+        end
+    end
+    local v483 = v_u_5.getUpgradeLevel("Sres")
+    if v483 > 0 then
+        local v484 = v_u_2.pow(v_u_2.new(1, 3), v483)
+        for _, v485 in pairs(v_u_6.Basic) do
+            if v485.tier == "reservatorium" then
+                local v486 = v_u_2.new(v485.baseCost, v485.baseCostExponent)
+                if v_u_2.isGreaterE(v484, v486) then
+                    v485.level = v485.object.Variables.LevelCap.Value
+                end
+            end
+        end
+    end
+    local v487 = v_u_5.getUpgradeLevel("Srng")
+    if v487 > 0 then
+        local v488 = v_u_2.pow(v_u_2.new(1, 3), v487)
+        for _, v489 in pairs(v_u_6.Basic) do
+            if v489.tier == "rings" and v489.currency == "rings" then
+                local v490 = v_u_2.new(v489.baseCost, v489.baseCostExponent)
+                if v_u_2.isGreaterE(v488, v490) then
+                    v489.level = v489.object.Variables.LevelCap.Value
+                end
+            end
+        end
+    end
+    if v_u_5.getUpgradeLevel("Ssm") > 0 then
+        for _, v491 in pairs(v_u_6.Basic) do
+            if v491.tier == "momentum" then
+                local v492 = v_u_2.new(v491.baseCost, v491.baseCostExponent)
+                if v_u_2.isGreaterE(v_u_2.new(1, 0), v492) then
+                    v491.level = v491.object.Variables.LevelCap.Value
+                end
+            end
+        end
+    end
+    if v_u_5.getUpgradeLevel("Ssm") > 0 then
+        local v493 = v_u_6.Basic.launchPad
+        local v494 = v_u_6.Basic.launchPad.level
+        local v495 = v_u_5.getUpgradeLevel("Ssm") * 10
+        v493.level = math.max(v494, v495)
+    end
+    if v_u_5.getUpgradeLevel("Sbr") > 0 then
+        v_u_3.ImportantData.Stats.innerRingsBroken = 1
+    end
+end
+function v_u_27.AccomplishConditions(p496, p497)
+    -- upvalues: (copy) v_u_3, (copy) v_u_27, (copy) v_u_9, (copy) v_u_8
+    local v498 = p497 or 0
+    if v_u_3.ImportantData.Stats.totalCrystallize < 3 and v_u_3.ImportantData.Stats.loopsTotal < 1 then
+        return
+    end
+    local v499
+    if p496 == "prestige" or p496 == "steelie" then
+        v499 = v_u_27.Levels.level
+    else
+        if p496 == "anonymity" or p496 == "liquefy" then
+            local _ = v_u_27.Levels.antiLevel
+        end
+        v499 = (p496 == "bluestige" or p496 == "plasma") and 1000000000 or v_u_9.TierLevels[v_u_3.ImportantData.Stats.currentTier]
+    end
+    for v500, v501 in pairs(v_u_8.Basic) do
+        if v500 ~= "impossible" and (v498 <= 0 or (v501.special or 0) == v498) and v501.tier == p496 then
+            local v502 = v_u_3.ImportantData.UpgradeLevels.accomplishments[v500]
+            if v502.level < v502.maxLevel then
+                local v503 = v501.goals[v502.level]
+                while v503 <= v499 and v501.condition(v502.level) do
+                    v502.level = v502.level + 1
+                    if v502.level >= v502.maxLevel then
+                        break
+                    end
+                    v503 = v501.goals[v502.level]
+                end
+            end
+        end
+    end
+    v_u_3.ImportantData.Stats.accomplishmentsCleared = v_u_8.getAccomplishmentsCleared()
+end
+function v_u_27.CompleteTrials()
+    -- upvalues: (copy) v_u_8, (copy) v_u_16, (copy) v_u_4
+    for _, v504 in pairs(v_u_8.Trial) do
+        if v504.obj.Visible and v504.condition() then
+            local v505 = v_u_16.Levels.planetLevel.level
+            if v504.level < v505 then
+                local v506 = v504.maxLevel
+                v504.level = math.min(v505, v506)
+            end
+        end
+    end
+    v_u_4.UpdateTrialTotals()
+end
+function v_u_27.UpdateStuff()
+    -- upvalues: (copy) v_u_27, (copy) v_u_3, (copy) v_u_4, (copy) v_u_15, (copy) v_u_21, (copy) v_u_7
+    v_u_27.LoopUnlocks()
+    v_u_3.updateColliderSize()
+    v_u_4.updateGHMilestones()
+    v_u_4.updateGSMilestones()
+    v_u_4.updateGJMilestones()
+    v_u_4.updateAGHMilestones()
+    v_u_4.updatePTGMilestones()
+    v_u_4.updatePLMilestones()
+    v_u_4.updateSNMilestones()
+    v_u_4.GTMilestones()
+    v_u_4.UpdateAPDesc()
+    v_u_3.ImportantData.Events.updateUpgrades:Fire()
+    v_u_4.updateGrass()
+    v_u_4.updateGrassCap()
+    v_u_4.UpdateLevelBars()
+    v_u_4.updateRocketPartDisplay()
+    v_u_4.updatePlatinum()
+    v_u_4.updateStardust()
+    v_u_4.updateBlackholes()
+    v_u_4.UpdateSolarChallenges()
+    v_u_4.updateSNDisplay()
+    v_u_4.UpdateFeatureList()
+    v_u_15.UpdateStarColors()
+    v_u_21.UpdateSyn()
+    v_u_7.UpdateSynth()
+    v_u_4.allCurrencies()
+    v_u_7.ShowHideTabs()
+    v_u_4.UpdateGameProgress()
+    v_u_3.ImportantData.Events.updateTree:Fire()
+    v_u_3.ImportantData.Events.reconnectAutobuyers:Fire()
+end
+function v_u_27.LoopUnlocks()
+    -- upvalues: (copy) v_u_26, (copy) v_u_5
+    if v_u_26.Resets.loop1.b > 0 then
+        if v_u_5.getUpgradeLevel("l2d") > 0 then
+            v_u_5.SetUpgradeLevel("l2c", 1)
+            v_u_5.SetUpgradeLevel("l3c", 1)
+        end
+        if v_u_5.getUpgradeLevel("l2c") > 0 then
+            v_u_5.SetUpgradeLevel("l2b", 1)
+            v_u_5.SetUpgradeLevel("l3b", 1)
+        end
+        if v_u_5.getUpgradeLevel("l2b") > 0 then
+            v_u_5.SetUpgradeLevel("l2a", 1)
+            v_u_5.SetUpgradeLevel("l3a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l2a") > 0 then
+            v_u_5.SetUpgradeLevel("l1", 1)
+            v_u_5.SetUpgradeLevel("l2", 1)
+            v_u_5.SetUpgradeLevel("stAuto3b", 1)
+            v_u_5.SetUpgradeLevel("stBulkGS", 1)
+        end
+        if v_u_5.getUpgradeLevel("l1") > 0 then
+            v_u_5.SetUpgradeLevel("upgradeSave1-3", 1)
+            v_u_5.SetUpgradeLevel("upgradeSave4-6", 1)
+            v_u_5.SetUpgradeLevel("prestigeAutobuy1", 1)
+            v_u_5.SetUpgradeLevel("prestigeAutobuy2", 1)
+            v_u_5.SetUpgradeLevel("prestigeAutobuy3", 1)
+            v_u_5.SetUpgradeLevel("crystalAutobuy1", 1)
+            v_u_5.SetUpgradeLevel("crystalAutobuy2", 1)
+            v_u_5.SetUpgradeLevel("perksAutobuy1", 1)
+            v_u_5.SetUpgradeLevel("perksAutobuy2", 1)
+            v_u_5.SetUpgradeLevel("factoryAuto", 1)
+            v_u_5.SetUpgradeLevel("foundryAuto", 1)
+            v_u_5.SetUpgradeLevel("generatorAuto", 1)
+            v_u_5.SetUpgradeLevel("assemblerAuto", 1)
+            v_u_5.SetUpgradeLevel("oilRigAuto", 1)
+            v_u_5.SetUpgradeLevel("RSsaa", 1)
+            v_u_5.SetUpgradeLevel("RSma2", 1)
+            v_u_5.SetUpgradeLevel("stAuto7a", 1)
+            v_u_5.SetUpgradeLevel("stAuto5a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l2") > 0 then
+            v_u_5.SetUpgradeLevel("antigrassAutobuy1", 1)
+            v_u_5.SetUpgradeLevel("antigrassAutobuy2", 1)
+            v_u_5.SetUpgradeLevel("apAutobuy1", 1)
+            v_u_5.SetUpgradeLevel("apAutobuy2", 1)
+            v_u_5.SetUpgradeLevel("oilAutobuy1", 1)
+            v_u_5.SetUpgradeLevel("oilAutobuy2", 1)
+            v_u_5.SetUpgradeLevel("oilAutobuy3", 1)
+            v_u_5.SetUpgradeLevel("Sfma", 1)
+            v_u_5.SetUpgradeLevel("Sfda", 1)
+            v_u_5.SetUpgradeLevel("RSsfa", 1)
+        end
+        if v_u_5.getUpgradeLevel("l3a") > 0 then
+            v_u_5.SetUpgradeLevel("l3", 1)
+        end
+        if v_u_5.getUpgradeLevel("l3") > 0 then
+            v_u_5.SetUpgradeLevel("RSua", 1)
+            v_u_5.SetUpgradeLevel("RSna", 1)
+            v_u_5.SetUpgradeLevel("RSca", 1)
+            v_u_5.SetUpgradeLevel("RSdma2", 1)
+            v_u_5.SetUpgradeLevel("Sdfa", 1)
+            v_u_5.SetUpgradeLevel("RSuta", 1)
+        end
+        if v_u_5.getUpgradeLevel("l3b") > 0 then
+            v_u_5.SetUpgradeLevel("l4a", 1)
+            v_u_5.SetUpgradeLevel("l5a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l4a") > 0 then
+            v_u_5.SetUpgradeLevel("l4", 1)
+        end
+        if v_u_5.getUpgradeLevel("l4") > 0 then
+            v_u_5.SetUpgradeLevel("RSpta", 1)
+            v_u_5.SetUpgradeLevel("RSaa", 1)
+            v_u_5.SetUpgradeLevel("RSmea", 1)
+            v_u_5.SetUpgradeLevel("Sorb", 1)
+            v_u_5.SetUpgradeLevel("Sp2a", 1)
+            v_u_5.SetUpgradeLevel("Soba", 1)
+        end
+        if v_u_5.getUpgradeLevel("l5a") > 0 then
+            v_u_5.SetUpgradeLevel("l5", 1)
+        end
+        if v_u_5.getUpgradeLevel("l5") > 0 then
+            v_u_5.SetUpgradeLevel("Sla", 1)
+            v_u_5.SetUpgradeLevel("Sara", 1)
+            v_u_5.SetUpgradeLevel("Sr3a", 1)
+            v_u_5.SetUpgradeLevel("Sstra", 1)
+        end
+        if v_u_5.getUpgradeLevel("l3c") > 0 then
+            v_u_5.SetUpgradeLevel("l4b", 1)
+        end
+        if v_u_5.getUpgradeLevel("l4b") > 0 then
+            v_u_5.SetUpgradeLevel("l6a", 1)
+            v_u_5.SetUpgradeLevel("Srema", 1)
+            v_u_5.SetUpgradeLevel("Srema2", 1)
+            v_u_5.SetUpgradeLevel("Srema3", 1)
+        end
+        if v_u_5.getUpgradeLevel("l6a") > 0 then
+            v_u_5.SetUpgradeLevel("l6", 1)
+            v_u_5.SetUpgradeLevel("l7", 1)
+        end
+        if v_u_5.getUpgradeLevel("l3d") > 0 then
+            v_u_5.SetUpgradeLevel("l4c", 1)
+        end
+        if v_u_5.getUpgradeLevel("l4c") > 0 then
+            v_u_5.SetUpgradeLevel("l5b", 1)
+        end
+        if v_u_5.getUpgradeLevel("l5b") > 0 then
+            v_u_5.SetUpgradeLevel("l7a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l7a") > 0 then
+            v_u_5.SetUpgradeLevel("l8", 1)
+        end
+        if v_u_5.getUpgradeLevel("l6d") > 0 then
+            v_u_5.SetUpgradeLevel("l5c", 1)
+        end
+        if v_u_5.getUpgradeLevel("l5c") > 0 then
+            v_u_5.SetUpgradeLevel("l6b", 1)
+            v_u_5.SetUpgradeLevel("Sray", 1)
+            v_u_5.SetUpgradeLevel("Sstar", 1)
+            v_u_5.SetUpgradeLevel("Simp", 1)
+            v_u_5.SetUpgradeLevel("GSsw", 5)
+            v_u_5.SetUpgradeLevel("GSso", 5)
+            v_u_5.SetUpgradeLevel("SSray", 10)
+            v_u_5.SetUpgradeLevel("SSimp", 10)
+        end
+        if v_u_5.getUpgradeLevel("l6b") > 0 then
+            v_u_5.SetUpgradeLevel("l8a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l8a") > 0 then
+            v_u_5.SetUpgradeLevel("l9", 1)
+        end
+        if v_u_5.getUpgradeLevel("l9") > 0 then
+            v_u_5.SetUpgradeLevel("Sprism", 1)
+        end
+        if v_u_5.getUpgradeLevel("l7d") > 0 then
+            v_u_5.SetUpgradeLevel("l6c", 1)
+        end
+        if v_u_5.getUpgradeLevel("l6c") > 0 then
+            v_u_5.SetUpgradeLevel("l8b", 1)
+        end
+        if v_u_5.getUpgradeLevel("l8b") > 0 then
+            v_u_5.SetUpgradeLevel("l10a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l10c") > 0 then
+            v_u_5.SetUpgradeLevel("l9b", 1)
+        end
+        if v_u_5.getUpgradeLevel("l5d") > 0 then
+            v_u_5.SetUpgradeLevel("l9c", 1)
+        end
+        if v_u_5.getUpgradeLevel("l9c") > 0 then
+            v_u_5.SetUpgradeLevel("l7b", 1)
+        end
+        if v_u_5.getUpgradeLevel("l7b") > 0 then
+            v_u_5.SetUpgradeLevel("l9a", 1)
+        end
+        if v_u_5.getUpgradeLevel("l9a") > 0 then
+            v_u_5.SetUpgradeLevel("l10", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc1") > 0 then
+            v_u_5.SetUpgradeLevel("grassUpgradesEL", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc2") > 0 then
+            v_u_5.SetUpgradeLevel("prestigeUpgradesEL", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc3") > 0 then
+            v_u_5.SetUpgradeLevel("crystalUpgradesEL", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc5") > 0 then
+            v_u_5.SetUpgradeLevel("antigrassUpgradesEL", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc6") > 0 then
+            v_u_5.SetUpgradeLevel("anonymityUpgradesEL", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc7") > 0 then
+            v_u_5.SetUpgradeLevel("oilUpgradesEL", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc8") > 0 then
+            v_u_5.SetUpgradeLevel("RSua3", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc9") > 0 then
+            v_u_5.SetUpgradeLevel("RSna3", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc10") > 0 then
+            v_u_5.SetUpgradeLevel("RSca3", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc11") > 0 then
+            v_u_5.SetUpgradeLevel("RSptel", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc12") > 0 then
+            v_u_5.SetUpgradeLevel("RSael", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc13") > 0 then
+            v_u_5.SetUpgradeLevel("RSmea3", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc14") > 0 then
+            v_u_5.SetUpgradeLevel("RSdma3", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc15") > 0 then
+            v_u_5.SetUpgradeLevel("RSma3", 1)
+        end
+        if v_u_5.getUpgradeLevel("lc16") > 0 then
+            v_u_5.SetUpgradeLevel("stAuto5a", 1)
+        end
+    end
+end
+return v_u_27
