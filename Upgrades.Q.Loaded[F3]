@@ -1,1 +1,1267 @@
-
+-- Decompiled with Velocity Script Decompiler
+local v1 = game:GetService("ReplicatedStorage")
+require(v1.LethalNum)
+local v_u_2 = require(v1.Format)
+require(v1.CurrencyTypes)
+require(v1.InfoStore)
+local v3 = {}
+local v139 = {
+    ["9_F3ACS"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 7,
+        ["costScaling"] = 12,
+        ["description"] = "Increases diamond field auto cut speed by <font color=\"#00ff00\">1</font> grass per second",
+        ["displayName"] = "Diamond Autocut",
+        ["upgradeType"] = "F3ACS",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 25,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p4, p5)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Field Autocut Speed Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(math.max(0, p4) * p5) .. "/s"
+        end,
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3ACV"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 11,
+        ["costScaling"] = 1200,
+        ["description"] = "Increases diamond field auto cut amount by <font color=\"#00ff00\">1</font>",
+        ["displayName"] = "Diamond Autocut Amount",
+        ["upgradeType"] = "F3ACM",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 3,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://8566935398",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p6, p7)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Field Autocut Amount Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(p6 * p7)
+        end,
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3GAB"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 7,
+        ["costScaling"] = 1,
+        ["description"] = "Autobuys diamond grass upgrades",
+        ["displayName"] = "Diamond Grass Upgrade Autobuyer",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-3",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3PAB"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 7,
+        ["costScaling"] = 1,
+        ["description"] = "Autobuys diamond perk upgrades",
+        ["displayName"] = "Diamond Perk Upgrade Autobuyer",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977016",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L1AB"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 11,
+        ["costScaling"] = 1,
+        ["description"] = "Autobuys awesome upgrades",
+        ["displayName"] = "Awesome Upgrade Autobuyer",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L2AB"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 8,
+        ["costScaling"] = 1,
+        ["description"] = "Autobuys diamond water upgrades",
+        ["displayName"] = "Diamond Water Upgrade Autobuyer",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976649",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L1G"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 6,
+        ["costScaling"] = 1.8,
+        ["description"] = "Passively generates <font color=\"#00ff00\">1%</font> of awesome points you would earn from awesomeify per second\nIncreases by <font color=\"#00ff00\">1%</font> per level after the first, up to <font color=\"#00ff00\">10%</font>",
+        ["displayName"] = "Awesome Point Generation",
+        ["upgradeType"] = "9_F3-3gen",
+        ["bonusType"] = "addn",
+        ["bonusPerLevel"] = 0.01,
+        ["shopType"] = "basic",
+        ["levelCap"] = 10,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["extraImg"] = "rbxassetid://84792792258729",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1,
+        ["bonusDesc"] = function(p8, p9)
+            -- upvalues: (copy) v_u_2
+            return "Total Passive Awesome Points Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(100 * (p8 * p9)) .. "%"
+        end
+    },
+    ["9_F3L3AB"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 11,
+        ["costScaling"] = 1,
+        ["description"] = "Autobuys diamond steel upgrades",
+        ["displayName"] = "Diamond Steel Upgrade Autobuyer",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976223",
+        ["extraImg"] = "rbxassetid://8566935562",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L2G"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 14,
+        ["costScaling"] = 1.8,
+        ["description"] = "Passively generates <font color=\"#00ff00\">1%</font> of diamond water you would earn from diamondefy per second\nIncreases by <font color=\"#00ff00\">1%</font> per level after the first, up to <font color=\"#00ff00\">10%</font>",
+        ["displayName"] = "Diamond Water Generation",
+        ["upgradeType"] = "9_F3-4gen",
+        ["bonusType"] = "addn",
+        ["bonusPerLevel"] = 0.01,
+        ["shopType"] = "basic",
+        ["levelCap"] = 10,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976649",
+        ["extraImg"] = "rbxassetid://84792792258729",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1,
+        ["bonusDesc"] = function(p10, p11)
+            -- upvalues: (copy) v_u_2
+            return "Total Passive Diamond Water Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(100 * (p10 * p11)) .. "%"
+        end
+    },
+    ["9_F3GEL"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 17,
+        ["costScaling"] = 1,
+        ["description"] = "Diamond grass upgrades no longer spend diamond grass",
+        ["displayName"] = "Diamond Grass EL",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["extraImg"] = "rbxassetid://9308320928",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3PEL"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 20,
+        ["costScaling"] = 1,
+        ["description"] = "Diamond perk upgrades no longer spend diamond perks",
+        ["displayName"] = "Diamond Perks EL",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977016",
+        ["extraImg"] = "rbxassetid://9308320928",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L1EL"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 23,
+        ["costScaling"] = 1,
+        ["description"] = "Awesome point upgrades no longer spend awesome points",
+        ["displayName"] = "Awesome Points EL",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["extraImg"] = "rbxassetid://9308320928",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L3G"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 25,
+        ["costScaling"] = 1.8,
+        ["description"] = "Passively generates <font color=\"#00ff00\">1%</font> of diamond steel you would earn from diamond steelie per second\nIncreases by <font color=\"#00ff00\">1%</font> per level after the first, up to <font color=\"#00ff00\">10%</font>",
+        ["displayName"] = "Diamond Steel Generation",
+        ["upgradeType"] = "9_F3-6gen",
+        ["bonusType"] = "addn",
+        ["bonusPerLevel"] = 0.01,
+        ["shopType"] = "basic",
+        ["levelCap"] = 10,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976223",
+        ["extraImg"] = "rbxassetid://84792792258729",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1,
+        ["bonusDesc"] = function(p12, p13)
+            -- upvalues: (copy) v_u_2
+            return "Total Passive Diamond Steel Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(100 * (p12 * p13)) .. "%"
+        end
+    },
+    ["9_F3L2EL"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 26,
+        ["costScaling"] = 1,
+        ["description"] = "Diamond Water upgrades no longer spend diamond water",
+        ["displayName"] = "Diamond Water EL",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976649",
+        ["extraImg"] = "rbxassetid://9308320928",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3L3EL"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 29,
+        ["costScaling"] = 1,
+        ["description"] = "Diamond Steel upgrades no longer spend diamond steel",
+        ["displayName"] = "Diamond Steel EL",
+        ["upgradeType"] = "none",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 1,
+        ["object"] = nil,
+        ["tier"] = "9_F3Auto",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976223",
+        ["extraImg"] = "rbxassetid://9308320928",
+        ["location"] = "9_F3",
+        ["world"] = 9,
+        ["imp"] = 1
+    },
+    ["9_F3GS"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 4,
+        ["costScaling"] = 1.41,
+        ["description"] = "Increases diamond field grass grow speed by <font color=\"#00ff00\">10%</font> per level",
+        ["displayName"] = "Diamond Grow Speed",
+        ["upgradeType"] = "F3GS",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.1,
+        ["levelCap"] = 1000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C1",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://8566934867",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3GAB",
+        ["autoBuyPass"] = "9_F3GAB",
+        ["ELReq"] = "9_F3GEL",
+        ["bonusDesc"] = function(p14, p15)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Field Grow Speed Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p14 * p15)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3GC"] = {
+        ["baseCost"] = 2.5,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1.22,
+        ["description"] = "Increases diamond field grass cap by <font color=\"#00ff00\">1</font> per level",
+        ["displayName"] = "Diamond Grass Cap",
+        ["upgradeType"] = "F3GC",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 95,
+        ["object"] = nil,
+        ["tier"] = "9_F3C1",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://8567180935",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3GAB",
+        ["autoBuyPass"] = "9_F3GAB",
+        ["ELReq"] = "9_F3GEL",
+        ["bonusDesc"] = function(p16, p17)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Field Grass Cap Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(p16 * p17)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3GV"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1.18,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+100%</font> per level\nDiamond grass value is <font color=\"#00ff00\">Doubled</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Grass Value",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 2,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C1",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3GAB",
+        ["autoBuyPass"] = "9_F3GAB",
+        ["ELReq"] = "9_F3GEL",
+        ["bonusDesc"] = function(p18, p19)
+            -- upvalues: (copy) v_u_2
+            local v20 = v_u_2.Format
+            local v21 = 1 + p18 * p19
+            local v22 = p18 / 25
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v20(v21 * 2 ^ math.floor(v22))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3XP"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 5,
+        ["costScaling"] = 1.18,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+100%</font> per level\nDiamond experience gain is <font color=\"#00ff00\">Doubled</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond XP",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 2,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C1",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3GAB",
+        ["autoBuyPass"] = "9_F3GAB",
+        ["ELReq"] = "9_F3GEL",
+        ["bonusDesc"] = function(p23, p24)
+            -- upvalues: (copy) v_u_2
+            local v25 = v_u_2.Format
+            local v26 = 1 + p23 * p24
+            local v27 = p23 / 25
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v25(v26 * 2 ^ math.floor(v27))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3L1"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 10,
+        ["costScaling"] = 1.23,
+        ["description"] = "Increases awesome points earned by <font color=\"#00ff00\">+10%</font>\nIncreases awesome points earned by <font color=\"#00ff00\">25%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Awesome Points",
+        ["upgradeType"] = "9_F3-3",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.25,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C1",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3GAB",
+        ["autoBuyPass"] = "9_F3GAB",
+        ["ELReq"] = "9_F3GEL",
+        ["bonusDesc"] = function(p28, p29)
+            -- upvalues: (copy) v_u_2
+            local v30 = v_u_2.Format
+            local v31 = 1 + p28 * p29
+            local v32 = p28 / 25
+            return "Total Awesome Points Bonus: <font color=\"#00ffff\">x" .. v30(v31 * 1.25 ^ math.floor(v32))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3CS"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 6,
+        ["costScaling"] = 3,
+        ["description"] = "Increases diamond field grass cut range by <font color=\"#00ff00\">1</font> per level",
+        ["displayName"] = "Diamond Grass Cut Range",
+        ["upgradeType"] = "9_F3CS",
+        ["bonusType"] = "add",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["object"] = nil,
+        ["levelCap"] = 8,
+        ["tier"] = "9_F3C1",
+        ["currency"] = "9_F3-1",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://8566934968",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3GAB",
+        ["autoBuyPass"] = "9_F3GAB",
+        ["ELReq"] = "9_F3GEL",
+        ["bonusDesc"] = function(p33, p34)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Field Range Bonus: <font color=\"#00ffff\">+" .. v_u_2.Format(p33 * p34)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3GV2"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 5,
+        ["costScaling"] = 1.2,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+50%</font> per level\nDiamond grass value is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Perks Diamond Grass Value",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C2",
+        ["currency"] = "9_F3-2",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3PAB",
+        ["autoBuyPass"] = "9_F3PAB",
+        ["ELReq"] = "9_F3PEL",
+        ["bonusDesc"] = function(p35, p36)
+            -- upvalues: (copy) v_u_2
+            local v37 = v_u_2.Format
+            local v38 = 1 + p35 * p36
+            local v39 = p35 / 25
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v37(v38 * 1.5 ^ math.floor(v39))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3XP2"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 4,
+        ["costScaling"] = 1.2,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+25%</font> per level\nDiamond experience gain is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Perks Diamond XP",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.25,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C2",
+        ["currency"] = "9_F3-2",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3PAB",
+        ["autoBuyPass"] = "9_F3PAB",
+        ["ELReq"] = "9_F3PEL",
+        ["bonusDesc"] = function(p40, p41)
+            -- upvalues: (copy) v_u_2
+            local v42 = v_u_2.Format
+            local v43 = 1 + p40 * p41
+            local v44 = p40 / 25
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v42(v43 * 1.5 ^ math.floor(v44))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3L12"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 6,
+        ["costScaling"] = 1.22,
+        ["description"] = "Increases awesome points earned by <font color=\"#00ff00\">+20%</font>\nIncreases awesome points earned by <font color=\"#00ff00\">25%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Perks Awesome Points",
+        ["upgradeType"] = "9_F3-3",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.2,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.25,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C2",
+        ["currency"] = "9_F3-2",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3PAB",
+        ["autoBuyPass"] = "9_F3PAB",
+        ["ELReq"] = "9_F3PEL",
+        ["bonusDesc"] = function(p45, p46)
+            -- upvalues: (copy) v_u_2
+            local v47 = v_u_2.Format
+            local v48 = 1 + p45 * p46
+            local v49 = p45 / 25
+            return "Total Awesome Points Bonus: <font color=\"#00ffff\">x" .. v47(v48 * 1.25 ^ math.floor(v49))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3L2"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 10,
+        ["costScaling"] = 1.22,
+        ["description"] = "Increases diamond water earned by <font color=\"#00ff00\">+20%</font>\nIncreases diamond water earned by <font color=\"#00ff00\">25%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Perks Diamond Water",
+        ["upgradeType"] = "9_F3-4",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.2,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.25,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C2",
+        ["currency"] = "9_F3-2",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976649",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3PAB",
+        ["autoBuyPass"] = "9_F3PAB",
+        ["ELReq"] = "9_F3PEL",
+        ["bonusDesc"] = function(p50, p51)
+            -- upvalues: (copy) v_u_2
+            local v52 = v_u_2.Format
+            local v53 = 1 + p50 * p51
+            local v54 = p50 / 25
+            return "Total Diamond Water Bonus: <font color=\"#00ffff\">x" .. v52(v53 * 1.25 ^ math.floor(v54))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3GV3"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.21,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+50%</font> per level\nDiamond grass value is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Awesome Diamond Grass Value",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C3",
+        ["currency"] = "9_F3-3",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L1AB",
+        ["autoBuyPass"] = "9_F3L1AB",
+        ["ELReq"] = "9_F3L1EL",
+        ["bonusDesc"] = function(p55, p56)
+            -- upvalues: (copy) v_u_2
+            local v57 = v_u_2.Format
+            local v58 = 1 + p55 * p56
+            local v59 = p55 / 25
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v57(v58 * 1.5 ^ math.floor(v59))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3XP3"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.21,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+50%</font> per level\nDiamond experience gain is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Awesome Diamond XP",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C3",
+        ["currency"] = "9_F3-3",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L1AB",
+        ["autoBuyPass"] = "9_F3L1AB",
+        ["ELReq"] = "9_F3L1EL",
+        ["bonusDesc"] = function(p60, p61)
+            -- upvalues: (copy) v_u_2
+            local v62 = v_u_2.Format
+            local v63 = 1 + p60 * p61
+            local v64 = p60 / 25
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v62(v63 * 1.5 ^ math.floor(v64))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3P"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1.31,
+        ["description"] = "Increases diamond perks earned by <font color=\"#00ff00\">+50%</font> per level\nDiamond perks earned is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Awesome Diamond Perks",
+        ["upgradeType"] = "9_F3-2",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C3",
+        ["currency"] = "9_F3-3",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977016",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L1AB",
+        ["autoBuyPass"] = "9_F3L1AB",
+        ["ELReq"] = "9_F3L1EL",
+        ["bonusDesc"] = function(p65, p66)
+            -- upvalues: (copy) v_u_2
+            local v67 = v_u_2.Format
+            local v68 = 1 + p65 * p66
+            local v69 = p65 / 25
+            return "Total Diamond Perks Bonus: <font color=\"#00ffff\">x" .. v67(v68 * 1.5 ^ math.floor(v69))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3L21"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 6,
+        ["costScaling"] = 1.31,
+        ["description"] = "Increases diamond water earned by <font color=\"#00ff00\">+50%</font>\nIncreases diamond water earned by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Awesome Diamond Water",
+        ["upgradeType"] = "9_F3-4",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C3",
+        ["currency"] = "9_F3-3",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976649",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L1AB",
+        ["autoBuyPass"] = "9_F3L1AB",
+        ["ELReq"] = "9_F3L1EL",
+        ["bonusDesc"] = function(p70, p71)
+            -- upvalues: (copy) v_u_2
+            local v72 = v_u_2.Format
+            local v73 = 1 + p70 * p71
+            local v74 = p70 / 25
+            return "Total Diamond Water Bonus: <font color=\"#00ffff\">x" .. v72(v73 * 1.5 ^ math.floor(v74))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3GV4"] = {
+        ["baseCost"] = 1.2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.21,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+100%</font> per level\nDiamond grass value is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Water Diamond Grass Value",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C4",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L2AB",
+        ["autoBuyPass"] = "9_F3L2AB",
+        ["ELReq"] = "9_F3L2EL",
+        ["bonusDesc"] = function(p75, p76)
+            -- upvalues: (copy) v_u_2
+            local v77 = v_u_2.Format
+            local v78 = 1 + p75 * p76
+            local v79 = p75 / 25
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v77(v78 * 1.5 ^ math.floor(v79))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3XP4"] = {
+        ["baseCost"] = 3.2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.21,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+100%</font> per level\nDiamond experience gain is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Water Diamond XP",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C4",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L2AB",
+        ["autoBuyPass"] = "9_F3L2AB",
+        ["ELReq"] = "9_F3L2EL",
+        ["bonusDesc"] = function(p80, p81)
+            -- upvalues: (copy) v_u_2
+            local v82 = v_u_2.Format
+            local v83 = 1 + p80 * p81
+            local v84 = p80 / 25
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v82(v83 * 1.5 ^ math.floor(v84))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3P2"] = {
+        ["baseCost"] = 6,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.31,
+        ["description"] = "Increases diamond perks earned by <font color=\"#00ff00\">+100%</font> per level\nDiamond perks earned is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Water Diamond Perks",
+        ["upgradeType"] = "9_F3-2",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C4",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977016",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L2AB",
+        ["autoBuyPass"] = "9_F3L2AB",
+        ["ELReq"] = "9_F3L2EL",
+        ["bonusDesc"] = function(p85, p86)
+            -- upvalues: (copy) v_u_2
+            local v87 = v_u_2.Format
+            local v88 = 1 + p85 * p86
+            local v89 = p85 / 25
+            return "Total Diamond Perks Bonus: <font color=\"#00ffff\">x" .. v87(v88 * 1.5 ^ math.floor(v89))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PL"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 12,
+        ["description"] = "Increases diamond moon value by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Water Diamond Moon",
+        ["upgradeType"] = "9_F3-5",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 9,
+        ["object"] = nil,
+        ["tier"] = "9_F3C4",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976466",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L2AB",
+        ["autoBuyPass"] = "9_F3L2AB",
+        ["ELReq"] = "9_F3L2EL",
+        ["bonusDesc"] = function(p90, p91)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Moon Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p90 * p91)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3L31"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 9,
+        ["costScaling"] = 1.31,
+        ["description"] = "Increases diamond steel earned by <font color=\"#00ff00\">+50%</font>\nIncreases diamond steel earned by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Water Diamond Steel",
+        ["upgradeType"] = "9_F3-6",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C4",
+        ["currency"] = "9_F3-4",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976223",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L2AB",
+        ["autoBuyPass"] = "9_F3L2AB",
+        ["ELReq"] = "9_F3L2EL",
+        ["bonusDesc"] = function(p92, p93)
+            -- upvalues: (copy) v_u_2
+            local v94 = v_u_2.Format
+            local v95 = 1 + p92 * p93
+            local v96 = p92 / 25
+            return "Total Diamond Steel Bonus: <font color=\"#00ffff\">x" .. v94(v95 * 1.5 ^ math.floor(v96))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3GV5"] = {
+        ["baseCost"] = 1.2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.21,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+100%</font> per level\nDiamond grass value is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Steel Diamond Grass Value",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C6",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L3AB",
+        ["autoBuyPass"] = "9_F3L3AB",
+        ["ELReq"] = "9_F3L3EL",
+        ["bonusDesc"] = function(p97, p98)
+            -- upvalues: (copy) v_u_2
+            local v99 = v_u_2.Format
+            local v100 = 1 + p97 * p98
+            local v101 = p97 / 25
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v99(v100 * 1.5 ^ math.floor(v101))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3XP5"] = {
+        ["baseCost"] = 3.2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.21,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+100%</font> per level\nDiamond experience gain is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Steel Diamond XP",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C6",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L3AB",
+        ["autoBuyPass"] = "9_F3L3AB",
+        ["ELReq"] = "9_F3L3EL",
+        ["bonusDesc"] = function(p102, p103)
+            -- upvalues: (copy) v_u_2
+            local v104 = v_u_2.Format
+            local v105 = 1 + p102 * p103
+            local v106 = p102 / 25
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v104(v105 * 1.5 ^ math.floor(v106))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3P3"] = {
+        ["baseCost"] = 6,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1.31,
+        ["description"] = "Increases diamond perks earned by <font color=\"#00ff00\">+100%</font> per level\nDiamond perks earned is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Steel Diamond Perks",
+        ["upgradeType"] = "9_F3-2",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C6",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977016",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L3AB",
+        ["autoBuyPass"] = "9_F3L3AB",
+        ["ELReq"] = "9_F3L3EL",
+        ["bonusDesc"] = function(p107, p108)
+            -- upvalues: (copy) v_u_2
+            local v109 = v_u_2.Format
+            local v110 = 1 + p107 * p108
+            local v111 = p107 / 25
+            return "Total Diamond Perks Bonus: <font color=\"#00ffff\">x" .. v109(v110 * 1.5 ^ math.floor(v111))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PL3"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 12,
+        ["description"] = "Increases diamond moon value by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Steel Diamond Moon",
+        ["upgradeType"] = "9_F3-5",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 9,
+        ["object"] = nil,
+        ["tier"] = "9_F3C6",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976466",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L3AB",
+        ["autoBuyPass"] = "9_F3L3AB",
+        ["ELReq"] = "9_F3L3EL",
+        ["bonusDesc"] = function(p112, p113)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Moon Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p112 * p113)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3F4G"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 4,
+        ["costScaling"] = 1.31,
+        ["description"] = "Increases mystical grass value by <font color=\"#00ff00\">+100%</font> per level\nMystical grass value is increased by <font color=\"#00ff00\">50%</font> every <font color=\"#ffff00\">25</font> levels",
+        ["displayName"] = "Diamond Steel Mystical Grass Value",
+        ["upgradeType"] = "9_F4-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelsPerMilestone"] = 25,
+        ["bonusPerMilestone"] = 1.5,
+        ["levelCap"] = 10000,
+        ["object"] = nil,
+        ["tier"] = "9_F3C6",
+        ["currency"] = "9_F3-6",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409974048",
+        ["location"] = "9_F3",
+        ["autoBuyReq"] = "9_F3L3AB",
+        ["autoBuyPass"] = "9_F3L3AB",
+        ["ELReq"] = "9_F3L3EL",
+        ["bonusDesc"] = function(p114, p115)
+            -- upvalues: (copy) v_u_2
+            local v116 = v_u_2.Format
+            local v117 = 1 + p114 * p115
+            local v118 = p114 / 25
+            return "Total Mystical Grass Bonus: <font color=\"#00ffff\">x" .. v116(v117 * 1.5 ^ math.floor(v118))
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PGV"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond Grass Value",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p119, p120)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p119 * p120)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PXP"] = {
+        ["baseCost"] = 2,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond XP",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p121, p122)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p121 * p122)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PP"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 1,
+        ["costScaling"] = 1,
+        ["description"] = "Increases diamond perks earned by <font color=\"#00ff00\">+50%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond Perks",
+        ["upgradeType"] = "9_F3-2",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977016",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p123, p124)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Perks Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p123 * p124)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PL1"] = {
+        ["baseCost"] = 1,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1,
+        ["description"] = "Increases awesome points earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Awesome Points",
+        ["upgradeType"] = "9_F3-3",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p125, p126)
+            -- upvalues: (copy) v_u_2
+            return "Total Awesome Points Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p125 * p126)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PGV2"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1,
+        ["description"] = "Increases diamond grass value by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond Grass Value II",
+        ["upgradeType"] = "9_F3-1",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977253",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p127, p128)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Grass Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p127 * p128)
+        end,
+        ["world"] = 9,
+        ["ti"] = "II"
+    },
+    ["9_F3PXP2"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1,
+        ["description"] = "Increases Diamond XP gained by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond XP II",
+        ["upgradeType"] = "F3XP",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409977523",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p129, p130)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond XP Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p129 * p130)
+        end,
+        ["world"] = 9,
+        ["ti"] = "II"
+    },
+    ["9_F3PL2"] = {
+        ["baseCost"] = 6,
+        ["baseCostExponent"] = 2,
+        ["costScaling"] = 1,
+        ["description"] = "Increases diamond water earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond Water",
+        ["upgradeType"] = "9_F3-4",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976649",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p131, p132)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Water Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p131 * p132)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PL12"] = {
+        ["baseCost"] = 1.2,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1,
+        ["description"] = "Increases awesome points earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Awesome Points II",
+        ["upgradeType"] = "9_F3-3",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976804",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p133, p134)
+            -- upvalues: (copy) v_u_2
+            return "Total Awesome Points Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p133 * p134)
+        end,
+        ["world"] = 9,
+        ["ti"] = "II"
+    },
+    ["9_F3PL31"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 3,
+        ["costScaling"] = 1,
+        ["description"] = "Increases diamond steel earned by <font color=\"#00ff00\">+50%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond Steel",
+        ["upgradeType"] = "9_F3-6",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 0.5,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976223",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p135, p136)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Steel Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p135 * p136)
+        end,
+        ["world"] = 9
+    },
+    ["9_F3PL32"] = {
+        ["baseCost"] = 4,
+        ["baseCostExponent"] = 8,
+        ["costScaling"] = 1,
+        ["description"] = "Increases diamond steel earned by <font color=\"#00ff00\">+100%</font> per level",
+        ["displayName"] = "Diamond Moon Diamond Steel II",
+        ["upgradeType"] = "9_F3-6",
+        ["shopType"] = "basic",
+        ["bonusPerLevel"] = 1,
+        ["levelCap"] = 100,
+        ["object"] = nil,
+        ["tier"] = "9_F3C5",
+        ["currency"] = "9_F3-5",
+        ["baseImg"] = "rbxassetid://18409977696",
+        ["iconImg"] = "rbxassetid://18409976223",
+        ["location"] = "9_F3",
+        ["bonusDesc"] = function(p137, p138)
+            -- upvalues: (copy) v_u_2
+            return "Total Diamond Steel Bonus: <font color=\"#00ffff\">x" .. v_u_2.Format(1 + p137 * p138)
+        end,
+        ["world"] = 9,
+        ["ti"] = "II"
+    }
+}
+v3.Upgrades = v139
+return v3
