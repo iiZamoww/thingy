@@ -1,0 +1,1246 @@
+-- Decompiled with Velocity Script Decompiler
+local v1 = game:GetService("ReplicatedStorage")
+local v_u_2 = require(v1.LethalNum)
+local v_u_3 = require(v1.InfoStore)
+local v_u_4 = require(v1.Data)
+local v_u_5 = {}
+local v6 = {
+    ["none"] = {
+        ["display"] = "Safe Zone",
+        ["recPower"] = v_u_2.new(1.5, 2),
+        ["maxLevels"] = 0,
+        ["health"] = v_u_2.new(1, 4),
+        ["healthScaling"] = 1.8,
+        ["powBlock"] = v_u_2.new(1, 2),
+        ["powBlockScaling"] = 1.8,
+        ["reward"] = v_u_2.new(1, 1),
+        ["rewardScaling"] = 1.7,
+        ["drops"] = {},
+        ["unlockReq"] = function(_)
+            return true
+        end,
+        ["order"] = 0,
+        ["safeZone"] = true,
+        ["location"] = "any",
+        ["powerType"] = "location"
+    },
+    ["start"] = {
+        ["display"] = "Relic Chamber",
+        ["recPower"] = v_u_2.new(1, 2),
+        ["maxLevels"] = 40,
+        ["health"] = v_u_2.new(1, 4),
+        ["healthScaling"] = 2,
+        ["powBlock"] = v_u_2.new(9, 1),
+        ["powBlockScaling"] = 2,
+        ["reward"] = v_u_2.new(1, 1),
+        ["rewardScaling"] = 1.7,
+        ["drops"] = {},
+        ["unlockReq"] = function(_)
+            return true
+        end,
+        ["order"] = 1,
+        ["location"] = "temple",
+        ["powerType"] = "tap"
+    }
+}
+local v7 = {
+    ["display"] = "Jungle Chamber",
+    ["recPower"] = v_u_2.new(5, 2),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(1, 5),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(4, 2),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(2, 1),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "jungle",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 2,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.jc = v7
+local v9 = {
+    ["display"] = "Cavern Chamber",
+    ["recPower"] = v_u_2.new(1, 4),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(2, 6),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(9, 3),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1.2, 2),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "cavern",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 3",
+    ["unlockReq"] = function(p8)
+        -- upvalues: (copy) v_u_3
+        if p8 then
+            return p8.Currency.resets.trueAwaken.a >= 3
+        else
+            return v_u_3.Resets.trueAwaken.a >= 3
+        end
+    end,
+    ["order"] = 3,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.pc = v9
+local v11 = {
+    ["display"] = "Power Chamber",
+    ["recPower"] = v_u_2.new(1, 5),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(3, 7),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(7, 4),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(3, 2),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "power",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(2, 0),
+            ["amountScaling"] = v_u_2.new(2, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 4",
+    ["unlockReq"] = function(p10)
+        -- upvalues: (copy) v_u_3
+        if p10 then
+            return p10.Currency.resets.trueAwaken.a >= 4
+        else
+            return v_u_3.Resets.trueAwaken.a >= 4
+        end
+    end,
+    ["order"] = 4,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.cc = v11
+local v13 = {
+    ["display"] = "Creation Chamber",
+    ["recPower"] = v_u_2.new(3, 5),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(9, 7),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(2.7, 5),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1.5, 3),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "ce",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(2, 0),
+            ["amountScaling"] = v_u_2.new(2, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 5",
+    ["unlockReq"] = function(p12)
+        -- upvalues: (copy) v_u_3
+        if p12 then
+            return p12.Currency.resets.trueAwaken.a >= 5
+        else
+            return v_u_3.Resets.trueAwaken.a >= 5
+        end
+    end,
+    ["order"] = 5,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.ce = v13
+local v15 = {
+    ["display"] = "Purity Chamber",
+    ["recPower"] = v_u_2.new(1.5, 6),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(4.5, 8),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(1.3, 6),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(7, 3),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "pot",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "Pure",
+    ["unlockReq"] = function(p14)
+        -- upvalues: (copy) v_u_3
+        if p14 then
+            return p14.UpgradeLevels.cc.p.c
+        else
+            return v_u_3.Store.purity
+        end
+    end,
+    ["order"] = 6,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.purity = v15
+local v17 = {
+    ["display"] = "Life Chamber",
+    ["recPower"] = v_u_2.new(2, 8),
+    ["maxLevels"] = 50,
+    ["health"] = v_u_2.new(6, 10),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(1.5, 8),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1.2, 6),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "heart",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(3, 0),
+            ["amountScaling"] = v_u_2.new(2, 0)
+        },
+        {
+            ["id"] = "regen",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 3),
+            ["amountScaling"] = v_u_2.new(1.5, 0)
+        }
+    },
+    ["unlockDesc"] = "Heart",
+    ["unlockReq"] = function(p16)
+        -- upvalues: (copy) v_u_3
+        if p16 then
+            return p16.UpgradeLevels.cc.r.c
+        else
+            return v_u_3.Store.regen
+        end
+    end,
+    ["order"] = 7,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.life = v17
+local v19 = {
+    ["display"] = "Abstract Chamber",
+    ["recPower"] = v_u_2.new(2.5, 10),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(5, 12),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(2, 10),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 7),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "int",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 10",
+    ["unlockReq"] = function(p18)
+        -- upvalues: (copy) v_u_3
+        if p18 then
+            return p18.Currency.resets.trueAwaken.a >= 10
+        else
+            return v_u_3.Resets.trueAwaken.a >= 10
+        end
+    end,
+    ["order"] = 8,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.int = v19
+local v21 = {
+    ["display"] = "Deserted Chamber",
+    ["recPower"] = v_u_2.new(1, 12),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(2, 14),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(9, 11),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 8),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "desert",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 12",
+    ["unlockReq"] = function(p20)
+        -- upvalues: (copy) v_u_3
+        if p20 then
+            return p20.Currency.resets.trueAwaken.a >= 12
+        else
+            return v_u_3.Resets.trueAwaken.a >= 12
+        end
+    end,
+    ["order"] = 9,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.desert = v21
+local v23 = {
+    ["display"] = "Sandstorm Chamber",
+    ["recPower"] = v_u_2.new(1, 13),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(5, 15),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(9, 12),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 9),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "ssp",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "???",
+    ["unlockReq"] = function(p22)
+        -- upvalues: (copy) v_u_3
+        if p22 then
+            return p22.Currency.resets.sandstorm.a >= 5
+        else
+            return v_u_3.Resets.sandstorm.a >= 5
+        end
+    end,
+    ["order"] = 9,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.ss = v23
+local v25 = {
+    ["display"] = "Great Chamber",
+    ["recPower"] = v_u_2.new(1, 14),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(5, 16),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(9, 13),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 12),
+    ["rewardScaling"] = 1.5,
+    ["drops"] = {
+        {
+            ["id"] = "pot2",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        },
+        {
+            ["id"] = "pot",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(2, 1),
+            ["amountScaling"] = v_u_2.new(2, 1)
+        }
+    },
+    ["unlockDesc"] = "Great",
+    ["unlockReq"] = function(p24)
+        -- upvalues: (copy) v_u_3
+        if p24 then
+            return p24.UpgradeLevels.cc.g.c
+        else
+            return v_u_3.Store.great
+        end
+    end,
+    ["order"] = 10,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.great = v25
+local v27 = {
+    ["display"] = "Rad Chamber",
+    ["recPower"] = v_u_2.new(5, 14),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(2.5, 17),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(4, 14),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 13),
+    ["rewardScaling"] = 1.5,
+    ["drops"] = {
+        {
+            ["id"] = "jungle",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(3, 2),
+            ["amountScaling"] = v_u_2.new(3, 2)
+        },
+        {
+            ["id"] = "cavern",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(3, 2),
+            ["amountScaling"] = v_u_2.new(3, 2)
+        },
+        {
+            ["id"] = "int",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(3, 2),
+            ["amountScaling"] = v_u_2.new(3, 2)
+        },
+        {
+            ["id"] = "desert",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1.5, 1),
+            ["amountScaling"] = v_u_2.new(1.5, 1)
+        }
+    },
+    ["unlockDesc"] = "Great",
+    ["unlockReq"] = function(p26)
+        -- upvalues: (copy) v_u_3
+        if p26 then
+            return p26.UpgradeLevels.cc.g.c
+        else
+            return v_u_3.Store.great
+        end
+    end,
+    ["order"] = 11,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.rad = v27
+local v29 = {
+    ["display"] = "Temple Chamber",
+    ["recPower"] = v_u_2.new(1, 22),
+    ["maxLevels"] = 40,
+    ["health"] = v_u_2.new(3, 24),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(8, 21),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 14),
+    ["rewardScaling"] = 1.5,
+    ["drops"] = {
+        {
+            ["id"] = "temple",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 22",
+    ["unlockReq"] = function(p28)
+        -- upvalues: (copy) v_u_3
+        if p28 then
+            return p28.Currency.resets.trueAwaken.a >= 22
+        else
+            return v_u_3.Resets.trueAwaken.a >= 22
+        end
+    end,
+    ["order"] = 12,
+    ["location"] = "temple",
+    ["powerType"] = "tap"
+}
+v6.temple = v29
+local v30 = {
+    ["display"] = "The Dunes",
+    ["recPower"] = v_u_2.new(1, 1),
+    ["maxLevels"] = 50,
+    ["health"] = v_u_2.new(5, 2),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(5, 0),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 9),
+    ["rewardScaling"] = 1.7,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(5, 0),
+            ["amountScaling"] = v_u_2.new(2, 0)
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 1,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.start2 = v30
+local v31 = {
+    ["display"] = "The Cactus",
+    ["recPower"] = v_u_2.new(1, 2),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 4),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(9, 1),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 12),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(7, 1),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "cactus",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 2,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.cactus = v31
+local v32 = {
+    ["display"] = "The Oasis",
+    ["recPower"] = v_u_2.new(1, 3),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 5),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(9, 2),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 13),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(5, 2),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "water",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 3,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.water = v32
+local v33 = {
+    ["display"] = "The Dooms",
+    ["recPower"] = v_u_2.new(2, 3),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(2, 5),
+    ["healthScaling"] = 5,
+    ["powBlock"] = v_u_2.new(1.8, 3),
+    ["powBlockScaling"] = 5,
+    ["reward"] = v_u_2.new(2, 13),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 3),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "doom",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 1),
+            ["amountScaling"] = v_u_2.new(2, 0)
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 4,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.doom = v33
+local v35 = {
+    ["display"] = "The Stars",
+    ["recPower"] = v_u_2.new(1, 6),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 8),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(8, 5),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 15),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 6),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "sf",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 22",
+    ["unlockReq"] = function(p34)
+        -- upvalues: (copy) v_u_3
+        if p34 then
+            return p34.Currency.resets.trueAwaken.a >= 22
+        else
+            return v_u_3.Resets.trueAwaken.a >= 22
+        end
+    end,
+    ["order"] = 5,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.night = v35
+local v37 = {
+    ["display"] = "The Remains",
+    ["recPower"] = v_u_2.new(1, 8),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 10),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(8, 7),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 17),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 8),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "bone",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "Found",
+    ["unlockReq"] = function(p36)
+        -- upvalues: (copy) v_u_3
+        if p36 then
+            return p36.UpgradeLevels.cc.f.c
+        else
+            return v_u_3.Store.found
+        end
+    end,
+    ["order"] = 6,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.remain = v37
+local v39 = {
+    ["display"] = "The Twilight",
+    ["recPower"] = v_u_2.new(1, 10),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 12),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(8, 9),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 19),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 10),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "twi",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "???",
+    ["unlockReq"] = function(p38)
+        -- upvalues: (copy) v_u_3
+        if p38 then
+            return p38.Currency.resets.midnight2.a >= 1
+        else
+            return v_u_3.Resets.midnight2.a >= 1
+        end
+    end,
+    ["order"] = 7,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.twi = v39
+local v41 = {
+    ["display"] = "The Midnight",
+    ["recPower"] = v_u_2.new(1, 13),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 15),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(8, 12),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 22),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 13),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "mid",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "TAL 36",
+    ["unlockReq"] = function(p40)
+        -- upvalues: (copy) v_u_3
+        if p40 then
+            return p40.Currency.resets.trueAwaken.a >= 36
+        else
+            return v_u_3.Resets.trueAwaken.a >= 36
+        end
+    end,
+    ["order"] = 8,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.mid = v41
+local v43 = {
+    ["display"] = "The Gnarly",
+    ["recPower"] = v_u_2.new(1, 6),
+    ["maxLevels"] = 10,
+    ["health"] = v_u_2.new(1, 8),
+    ["healthScaling"] = 2,
+    ["powBlock"] = v_u_2.new(8, 5),
+    ["powBlockScaling"] = 2,
+    ["reward"] = v_u_2.new(1, 16),
+    ["rewardScaling"] = 1.6,
+    ["drops"] = {
+        {
+            ["id"] = "relic2",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(1, 8),
+            ["amountScaling"] = v_u_2.new(1.6, 0)
+        },
+        {
+            ["id"] = "cactus",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 3),
+            ["amountScaling"] = v_u_2.new(1, 3)
+        },
+        {
+            ["id"] = "water",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 3),
+            ["amountScaling"] = v_u_2.new(1, 3)
+        },
+        {
+            ["id"] = "sf",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(5, 0),
+            ["amountScaling"] = v_u_2.new(5, 0)
+        },
+        {
+            ["id"] = "bone",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(1, 0)
+        }
+    },
+    ["unlockDesc"] = "???",
+    ["unlockReq"] = function(p42)
+        -- upvalues: (copy) v_u_3
+        if p42 then
+            return p42.Currency.resets.rift.a >= 2
+        else
+            return v_u_3.Resets.rift.a >= 2
+        end
+    end,
+    ["order"] = 9,
+    ["respawn"] = 1,
+    ["location"] = "desert",
+    ["powerType"] = "ssp"
+}
+v6.gnarly = v43
+local v44 = {
+    ["display"] = "Rift 0",
+    ["recPower"] = v_u_2.new(1, 2),
+    ["maxLevels"] = 50,
+    ["health"] = v_u_2.new(1, 2),
+    ["healthScaling"] = 10,
+    ["powBlock"] = v_u_2.new(5, 1),
+    ["powBlockScaling"] = 10,
+    ["reward"] = v_u_2.new(1, 0),
+    ["rewardScaling"] = 1,
+    ["drops"] = {
+        {
+            ["id"] = "relic0",
+            ["typ"] = "currency",
+            ["amount"] = v_u_2.new(5, 0),
+            ["amountScaling"] = v_u_2.new(7, 0)
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 1,
+    ["respawn"] = 1,
+    ["location"] = "chamber2",
+    ["powerType"] = "grp"
+}
+v6.start0 = v44
+local v45 = {
+    ["display"] = "Rift 1",
+    ["recPower"] = v_u_2.new(1, 2),
+    ["maxLevels"] = 50,
+    ["health"] = v_u_2.new(5, 2),
+    ["healthScaling"] = 10,
+    ["powBlock"] = v_u_2.new(5, 1),
+    ["powBlockScaling"] = 10,
+    ["reward"] = v_u_2.new(1, 0),
+    ["rewardScaling"] = 1,
+    ["drops"] = {
+        {
+            ["id"] = "rift1a",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(5, 0),
+            ["scalingType"] = "pow"
+        }
+    },
+    ["unlockReq"] = function(_)
+        return true
+    end,
+    ["order"] = 2,
+    ["respawn"] = 1,
+    ["location"] = "chamber2",
+    ["powerType"] = "grp"
+}
+v6.rift1 = v45
+local v47 = {
+    ["display"] = "Rift 2",
+    ["recPower"] = v_u_2.new(1, 2),
+    ["maxLevels"] = 50,
+    ["health"] = v_u_2.new(5, 3),
+    ["healthScaling"] = 10,
+    ["powBlock"] = v_u_2.new(9, 1),
+    ["powBlockScaling"] = 10,
+    ["reward"] = v_u_2.new(1, 0),
+    ["rewardScaling"] = 1,
+    ["drops"] = {
+        {
+            ["id"] = "rift2",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(5, 0),
+            ["scalingType"] = "pow"
+        }
+    },
+    ["unlockDesc"] = "GRL 2",
+    ["unlockReq"] = function(p46)
+        -- upvalues: (copy) v_u_3
+        if p46 then
+            return p46.Currency.resets.rift.a >= 2
+        else
+            return v_u_3.Resets.rift.a >= 2
+        end
+    end,
+    ["order"] = 3,
+    ["respawn"] = 1,
+    ["location"] = "chamber2",
+    ["powerType"] = "grp"
+}
+v6.rift2 = v47
+local v49 = {
+    ["display"] = "Rift 3",
+    ["recPower"] = v_u_2.new(1, 3),
+    ["maxLevels"] = 50,
+    ["health"] = v_u_2.new(5, 4),
+    ["healthScaling"] = 10,
+    ["powBlock"] = v_u_2.new(9, 2),
+    ["powBlockScaling"] = 10,
+    ["reward"] = v_u_2.new(1, 0),
+    ["rewardScaling"] = 1,
+    ["drops"] = {
+        {
+            ["id"] = "rift1",
+            ["typ"] = "artifact",
+            ["amount"] = v_u_2.new(1, 0),
+            ["amountScaling"] = v_u_2.new(5, 0),
+            ["scalingType"] = "pow"
+        }
+    },
+    ["unlockDesc"] = "GRL 3",
+    ["unlockReq"] = function(p48)
+        -- upvalues: (copy) v_u_3
+        if p48 then
+            return p48.Currency.resets.rift.a >= 3
+        else
+            return v_u_3.Resets.rift.a >= 3
+        end
+    end,
+    ["order"] = 4,
+    ["respawn"] = 1,
+    ["location"] = "chamber2",
+    ["powerType"] = "grp"
+}
+v6.rift3 = v49
+v_u_5.Areas = v6
+local v70 = {
+    ["jungle"] = {
+        ["display"] = "Jungle Artifact",
+        ["icon"] = "rbxassetid://18277434270",
+        ["color"] = Color3.new(0.6, 1, 0),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v50 = v_u_5.Artifacts.jungle
+            return "Increases jungle experience by <font color=\"#00ff00\">+100%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v50.level, v50.extra), 100)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 0,
+        ["tier"] = 1,
+        ["location"] = "temple"
+    },
+    ["cavern"] = {
+        ["display"] = "Cavern Artifact",
+        ["icon"] = "rbxassetid://18277434679",
+        ["color"] = Color3.new(0.901961, 0.352941, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v51 = v_u_5.Artifacts.cavern
+            return "Increases cavern experience by <font color=\"#00ff00\">+100%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v51.level, v51.extra), 100)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 1,
+        ["tier"] = 1,
+        ["location"] = "temple"
+    },
+    ["power"] = {
+        ["display"] = "Artifact of Power",
+        ["icon"] = "rbxassetid://18277433656",
+        ["color"] = Color3.new(0, 1, 0.533333),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v52 = v_u_5.Artifacts.power
+            return "Increases TAP by <font color=\"#00ff00\">+1%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.add(v52.level, v52.extra)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 2,
+        ["tier"] = 1,
+        ["location"] = "temple"
+    },
+    ["ce"] = {
+        ["display"] = "Artifact of Creation",
+        ["icon"] = "rbxassetid://18277458537",
+        ["color"] = Color3.new(0.45098, 0, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v53 = v_u_5.Artifacts.ce
+            return "Increases creation energy generated and creation energy cap by a diminishing amount per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.pow(v_u_2.add(v53.level, v53.extra), 0.7)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 3,
+        ["tier"] = 1,
+        ["location"] = "temple"
+    },
+    ["pot"] = {
+        ["display"] = "Artifact of Potential",
+        ["icon"] = "rbxassetid://18277433924",
+        ["color"] = Color3.new(1, 0.882353, 0),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v54 = v_u_5.Artifacts.pot
+            return "Increases max artifact level for tier 1 artifacts by <font color=\"#00ff00\">+10</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v54.level, v54.extra), v_u_2.new(1, 1))) .. "</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 4,
+        ["tier"] = 2,
+        ["location"] = "temple"
+    },
+    ["heart"] = {
+        ["display"] = "Artifact of Life",
+        ["icon"] = "rbxassetid://18277435006",
+        ["color"] = Color3.new(0.239216, 1, 0.227451),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v55 = v_u_5.Artifacts.heart
+            return "Increases base rp generation by <font color=\"#00ff00\">+1</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.add(v55.level, v55.extra)) .. "/s</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 5,
+        ["tier"] = 2,
+        ["location"] = "temple"
+    },
+    ["int"] = {
+        ["display"] = "Intersection Artifact",
+        ["icon"] = "rbxassetid://18303121054",
+        ["color"] = Color3.new(0.694118, 0.694118, 0.694118),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v56 = v_u_5.Artifacts.int
+            return "Increases intersection experience by <font color=\"#00ff00\">+100%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v56.level, v56.extra), 100)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 6,
+        ["tier"] = 1,
+        ["location"] = "temple"
+    },
+    ["desert"] = {
+        ["display"] = "Desert Artifact",
+        ["icon"] = "rbxassetid://18429980909",
+        ["color"] = Color3.new(1, 0.819608, 0.458824),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_4, (copy) v_u_5, (copy) v_u_2
+            if v_u_4.ImportantData.Stats.prog2 < 2 then
+                return "???"
+            end
+            local v57 = v_u_5.Artifacts.desert
+            return "Increases desert experience by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v57.level, v57.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 7,
+        ["tier"] = 3,
+        ["location"] = "temple"
+    },
+    ["ssp"] = {
+        ["display"] = "Artifact of Sandstorms",
+        ["icon"] = "rbxassetid://18429552493",
+        ["color"] = Color3.new(1, 1, 0.219608),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v58 = v_u_5.Artifacts.ssp
+            return "Increases SSP by <font color=\"#00ff00\">+1%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.add(v58.level, v58.extra)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 8,
+        ["tier"] = 3,
+        ["location"] = "temple"
+    },
+    ["pot2"] = {
+        ["display"] = "Artifact of Great Potential",
+        ["icon"] = "rbxassetid://18659731364",
+        ["color"] = Color3.new(1, 0.317647, 0),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v59 = v_u_5.Artifacts.pot2
+            return "Increases max artifact level for tier 2 artifacts by <font color=\"#00ff00\">+10</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v59.level, v59.extra), v_u_2.new(1, 1))) .. "</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 9,
+        ["tier"] = 3,
+        ["location"] = "temple"
+    },
+    ["temple"] = {
+        ["display"] = "Temple Artifact",
+        ["icon"] = "rbxassetid://18673565054",
+        ["color"] = Color3.new(0.435294, 0.384314, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v60 = v_u_5.Artifacts.temple
+            return "Increases temple experience by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v60.level, v60.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 10,
+        ["tier"] = 3,
+        ["location"] = "temple"
+    },
+    ["cactus"] = {
+        ["display"] = "Artifact of Cactus",
+        ["icon"] = "rbxassetid://18429552249",
+        ["color"] = Color3.new(0.709804, 1, 0.239216),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v61 = v_u_5.Artifacts.cactus
+            return "Increases cactus value by <font color=\"#00ff00\">+100%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v61.level, v61.extra), 100)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 1,
+        ["tier"] = 2,
+        ["location"] = "desert"
+    },
+    ["water"] = {
+        ["display"] = "Artifact of Water",
+        ["icon"] = "rbxassetid://18429552057",
+        ["color"] = Color3.new(0, 0.384314, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v62 = v_u_5.Artifacts.water
+            return "Increases water generated by <font color=\"#00ff00\">+100%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v62.level, v62.extra), 100)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 2,
+        ["tier"] = 2,
+        ["location"] = "desert"
+    },
+    ["sf"] = {
+        ["display"] = "Artifact of Stars",
+        ["icon"] = "rbxassetid://18673564834",
+        ["color"] = Color3.new(0.435294, 0.384314, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v63 = v_u_5.Artifacts.sf
+            return "Increases star fragments earned by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v63.level, v63.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 3,
+        ["tier"] = 3,
+        ["location"] = "desert"
+    },
+    ["bone"] = {
+        ["display"] = "Artifact of Remains",
+        ["icon"] = "rbxassetid://18694946109",
+        ["color"] = Color3.new(1, 0.921569, 0.815686),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v64 = v_u_5.Artifacts.bone
+            return "Increases bones earned by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v64.level, v64.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 4,
+        ["tier"] = 3,
+        ["location"] = "desert"
+    },
+    ["twi"] = {
+        ["display"] = "Artifact of Twilight",
+        ["icon"] = "rbxassetid://18738932859",
+        ["color"] = Color3.new(0.729412, 0.352941, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v65 = v_u_5.Artifacts.twi
+            return "Increases twilight essence earned by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v65.level, v65.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 5,
+        ["tier"] = 3,
+        ["location"] = "desert"
+    },
+    ["mid"] = {
+        ["display"] = "Artifact of Midnight",
+        ["icon"] = "rbxassetid://18738933091",
+        ["color"] = Color3.new(0.529412, 0.529412, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v66 = v_u_5.Artifacts.mid
+            return "Increases midnight essence earned by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v66.level, v66.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 6,
+        ["tier"] = 4,
+        ["location"] = "desert"
+    },
+    ["rift1a"] = {
+        ["display"] = "Bonus",
+        ["icon"] = "rbxassetid://94662158042845",
+        ["color"] = Color3.new(1, 1, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v67 = v_u_5.Artifacts.rift1a
+            return "Increases the Jungle, Cavern, Intersection, Desert, and Temple artifacts bonus levels by <font color=\"#00ff00\">1</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.add(v67.level, v67.extra)) .. "</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 1,
+        ["tier"] = 0,
+        ["style"] = 0,
+        ["location"] = "chamber2"
+    },
+    ["rift1"] = {
+        ["display"] = "Essence",
+        ["icon"] = "rbxassetid://19001431801",
+        ["color"] = Color3.new(1, 1, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v68 = v_u_5.Artifacts.rift1
+            return "Increases rift essence earned by <font color=\"#00ff00\">+100%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v68.level, v68.extra), 100)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 3,
+        ["tier"] = 0,
+        ["style"] = 0,
+        ["location"] = "chamber2"
+    },
+    ["rift2"] = {
+        ["display"] = "Energy",
+        ["icon"] = "rbxassetid://19001431924",
+        ["color"] = Color3.new(1, 1, 1),
+        ["desc"] = function()
+            -- upvalues: (copy) v_u_5, (copy) v_u_2
+            local v69 = v_u_5.Artifacts.rift2
+            return "Increases rift energy value by <font color=\"#00ff00\">+10%</font> per level\nTotal: <font color=\"#00ff00\">+" .. v_u_2.getString(v_u_2.multiply(v_u_2.add(v69.level, v69.extra), 10)) .. "%</font>"
+        end,
+        ["level"] = v_u_2.new(0, 0),
+        ["extra"] = v_u_2.new(0, 0),
+        ["asc"] = 0,
+        ["order"] = 2,
+        ["tier"] = 0,
+        ["style"] = 0,
+        ["location"] = "chamber2"
+    }
+}
+v_u_5.Artifacts = v70
+return v_u_5
