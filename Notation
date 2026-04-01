@@ -1,0 +1,7 @@
+-- Decompiled with Velocity Script Decompiler
+local v1 = {
+    ["Info"] = {
+        ["notation"] = "standard"
+    }
+}
+return v1
