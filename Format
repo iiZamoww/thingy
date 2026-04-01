@@ -1,0 +1,522 @@
+-- Decompiled with Velocity Script Decompiler
+local v1 = game:GetService("ReplicatedStorage")
+local v_u_2 = require(v1.Notation)
+local v_u_67 = {
+    ["Format"] = function(p3)
+        -- upvalues: (copy) v_u_2, (copy) v_u_67
+        if p3 == nil then
+            return ""
+        else
+            local v4 = p3
+            local v5 = 1
+            while p3 >= 1000 do
+                p3 = p3 / 1000
+                v5 = v5 + 1
+            end
+            local v6 = ({
+                "",
+                "",
+                "M",
+                "B",
+                "T",
+                "Qa",
+                "Qt",
+                "Sx",
+                "Sp",
+                "Oc",
+                "No",
+                "Dc",
+                "Ud",
+                "DDc",
+                "Td",
+                "Qad",
+                "Qid",
+                "Sxd",
+                "Spd",
+                "Ocd",
+                "Nod",
+                "Vg",
+                "UVg",
+                "DVg",
+                "TVg",
+                "QaVg",
+                "QtVg",
+                "SxVg",
+                "SpVg",
+                "OVg",
+                "NVg",
+                "Tg",
+                "UTg",
+                "DTg",
+                "TTg",
+                "QaTg",
+                "QtTg",
+                "SxTg",
+                "SpTg",
+                "OTg",
+                "NTg",
+                "Qd",
+                "UQd",
+                "DQd",
+                "TQd",
+                "QaQd",
+                "QtQd",
+                "SxQd",
+                "SpQd",
+                "OQd",
+                "NQd",
+                "Qi",
+                "UQi",
+                "DQi",
+                "TQi",
+                "QaQi",
+                "QtQi",
+                "SxQi",
+                "SpQi",
+                "OQi",
+                "NQi",
+                "He",
+                "UHe",
+                "DHe",
+                "THe",
+                "QaHe",
+                "QtHe",
+                "SxHe",
+                "SpHe",
+                "OHe",
+                "NHe",
+                "St",
+                "USt",
+                "DSt",
+                "TSt",
+                "QaSt",
+                "QtSt",
+                "SxSt",
+                "SpSt",
+                "OSt",
+                "NSt",
+                "Og",
+                "UOg",
+                "DOg",
+                "TOg",
+                "QaOg",
+                "QtOg",
+                "SxOg",
+                "SpOg",
+                "OOg",
+                "NOg",
+                "Nn",
+                "UNn",
+                "DNn",
+                "TNn",
+                "QaNn",
+                "QtNn",
+                "SxNn",
+                "SpNn",
+                "ONn",
+                "NNn",
+                "Ce"
+            })[v5]
+            if v_u_2.Info.notation == "sci" then
+                if v4 >= 1000000 then
+                    local v7 = math.log10(v4)
+                    local v8 = ("%.2f"):format(v4 / 10 ^ math.floor(v7))
+                    local v9 = math.log10(v4)
+                    return v8 .. "e" .. math.floor(v9)
+                elseif v4 >= 1000 and v4 < 1000000 then
+                    local v10 = v4 / 1000
+                    local v11 = math.floor(v10)
+                    local v12 = v4 % 1000
+                    local v13 = math.floor(v12)
+                    local v14 = ""
+                    if v13 < 100 then
+                        v14 = v14 .. "0"
+                    end
+                    if v13 < 10 then
+                        v14 = v14 .. "0"
+                    end
+                    return "" .. v11 .. "," .. v14 .. v13
+                elseif v4 % 1 == 0 then
+                    return p3 .. "" .. v6
+                else
+                    return ("%.2f"):format(p3) .. "" .. v6
+                end
+            elseif v4 >= 1000000 then
+                return ("%." .. v_u_67.Zeroes(p3, true) .. "f"):format(p3) .. "" .. v6
+            elseif v4 >= 1000 and v4 < 1000000 then
+                local v15 = v4 / 1000
+                local v16 = math.floor(v15)
+                local v17 = v4 % 1000
+                local v18 = math.floor(v17)
+                local v19 = ""
+                if v18 < 100 then
+                    v19 = v19 .. "0"
+                end
+                if v18 < 10 then
+                    v19 = v19 .. "0"
+                end
+                return "" .. v16 .. "," .. v19 .. v18
+            elseif v4 % 1 == 0 then
+                return p3 .. "" .. v6
+            else
+                return ("%.2f"):format(p3) .. "" .. v6
+            end
+        end
+    end,
+    ["FormatWhole"] = function(p20)
+        -- upvalues: (copy) v_u_2, (copy) v_u_67
+        if p20 == nil then
+            return ""
+        else
+            local v21 = p20
+            local v22 = 1
+            while p20 >= 1000 do
+                p20 = p20 / 1000
+                v22 = v22 + 1
+            end
+            local v23 = ({
+                "",
+                "",
+                "M",
+                "B",
+                "T",
+                "Qa",
+                "Qt",
+                "Sx",
+                "Sp",
+                "Oc",
+                "No",
+                "Dc",
+                "Ud",
+                "DDc",
+                "Td",
+                "Qad",
+                "Qid",
+                "Sxd",
+                "Spd",
+                "Ocd",
+                "Nod",
+                "Vg",
+                "UVg",
+                "DVg",
+                "TVg",
+                "QaVg",
+                "QtVg",
+                "SxVg",
+                "SpVg",
+                "OVg",
+                "NVg",
+                "Tg",
+                "UTg",
+                "DTg",
+                "TTg",
+                "QaTg",
+                "QtTg",
+                "SxTg",
+                "SpTg",
+                "OTg",
+                "NTg",
+                "Qd",
+                "UQd",
+                "DQd",
+                "TQd",
+                "QaQd",
+                "QtQd",
+                "SxQd",
+                "SpQd",
+                "OQd",
+                "NQd",
+                "Qi",
+                "UQi",
+                "DQi",
+                "TQi",
+                "QaQi",
+                "QtQi",
+                "SxQi",
+                "SpQi",
+                "OQi",
+                "NQi",
+                "He",
+                "UHe",
+                "DHe",
+                "THe",
+                "QaHe",
+                "QtHe",
+                "SxHe",
+                "SpHe",
+                "OHe",
+                "NHe",
+                "St",
+                "USt",
+                "DSt",
+                "TSt",
+                "QaSt",
+                "QtSt",
+                "SxSt",
+                "SpSt",
+                "OSt",
+                "NSt",
+                "Og",
+                "UOg",
+                "DOg",
+                "TOg",
+                "QaOg",
+                "QtOg",
+                "SxOg",
+                "SpOg",
+                "OOg",
+                "NOg",
+                "Nn",
+                "UNn",
+                "DNn",
+                "TNn",
+                "QaNn",
+                "QtNn",
+                "SxNn",
+                "SpNn",
+                "ONn",
+                "NNn",
+                "Ce"
+            })[v22]
+            if v_u_2.Info.notation == "sci" then
+                if v21 >= 1000000 then
+                    local v24 = math.log10(v21)
+                    local v25 = ("%.2f"):format(v21 / 10 ^ math.floor(v24))
+                    local v26 = math.log10(v21)
+                    return v25 .. "e" .. math.floor(v26)
+                end
+                if v21 < 1000 or v21 >= 1000000 then
+                    return p20 .. "" .. v23
+                end
+                local v27 = v21 / 1000
+                local v28 = math.floor(v27)
+                local v29 = v21 % 1000
+                local v30 = math.floor(v29)
+                local v31 = ""
+                if v30 < 100 then
+                    v31 = v31 .. "0"
+                end
+                if v30 < 10 then
+                    v31 = v31 .. "0"
+                end
+                return "" .. v28 .. "," .. v31 .. v30
+            else
+                if v21 >= 1000000 then
+                    return ("%." .. v_u_67.Zeroes(p20, true) .. "f"):format(p20) .. "" .. v23
+                end
+                if v21 < 1000 or v21 >= 1000000 then
+                    return math.floor(p20) .. "" .. v23
+                end
+                local v32 = v21 / 1000
+                local v33 = math.floor(v32)
+                local v34 = v21 % 1000
+                local v35 = math.floor(v34)
+                local v36 = ""
+                if v35 < 100 then
+                    v36 = v36 .. "0"
+                end
+                if v35 < 10 then
+                    v36 = v36 .. "0"
+                end
+                return "" .. v33 .. "," .. v36 .. v35
+            end
+        end
+    end,
+    ["FormatLN"] = function(p37)
+        -- upvalues: (copy) v_u_2, (copy) v_u_67
+        if not p37 then
+            return ""
+        end
+        local v38 = p37.e / 3
+        local v39 = math.floor(v38) + 1
+        local v40 = p37.e
+        local v41 = p37.e % 3
+        local v42 = v39 > 101 and 0 or v41
+        if p37.e <= 0 and p37.n < 1 then
+            return "0"
+        end
+        if p37.n == nil or p37.e == nil then
+            return "0"
+        end
+        local v43 = p37.n * 10 ^ v42 * 1000
+        local v44 = math.floor(v43) / 1000
+        if v39 == 1 or v39 == 2 then
+            v44 = math.round(v44)
+        end
+        local v45 = v39 > 101 and 0 or v39
+        local v46 = ({
+            "",
+            "",
+            "M",
+            "B",
+            "T",
+            "Qa",
+            "Qt",
+            "Sx",
+            "Sp",
+            "Oc",
+            "No",
+            "Dc",
+            "Ud",
+            "DDc",
+            "Td",
+            "Qad",
+            "Qid",
+            "Sxd",
+            "Spd",
+            "Ocd",
+            "Nod",
+            "Vg",
+            "UVg",
+            "DVg",
+            "TVg",
+            "QaVg",
+            "QtVg",
+            "SxVg",
+            "SpVg",
+            "OVg",
+            "NVg",
+            "Tg",
+            "UTg",
+            "DTg",
+            "TTg",
+            "QaTg",
+            "QtTg",
+            "SxTg",
+            "SpTg",
+            "OTg",
+            "NTg",
+            "Qd",
+            "UQd",
+            "DQd",
+            "TQd",
+            "QaQd",
+            "QtQd",
+            "SxQd",
+            "SpQd",
+            "OQd",
+            "NQd",
+            "Qi",
+            "UQi",
+            "DQi",
+            "TQi",
+            "QaQi",
+            "QtQi",
+            "SxQi",
+            "SpQi",
+            "OQi",
+            "NQi",
+            "He",
+            "UHe",
+            "DHe",
+            "THe",
+            "QaHe",
+            "QtHe",
+            "SxHe",
+            "SpHe",
+            "OHe",
+            "NHe",
+            "St",
+            "USt",
+            "DSt",
+            "TSt",
+            "QaSt",
+            "QtSt",
+            "SxSt",
+            "SpSt",
+            "OSt",
+            "NSt",
+            "Og",
+            "UOg",
+            "DOg",
+            "TOg",
+            "QaOg",
+            "QtOg",
+            "SxOg",
+            "SpOg",
+            "OOg",
+            "NOg",
+            "Nn",
+            "UNn",
+            "DNn",
+            "TNn",
+            "QaNn",
+            "QtNn",
+            "SxNn",
+            "SpNn",
+            "ONn",
+            "NNn",
+            "Ce"
+        })[v45]
+        if v45 <= 0 then
+            v46 = "e" .. v40
+        end
+        if v46 == nil or p37 == nil then
+            return "0"
+        end
+        if v_u_2.Info.notation == "sci" then
+            if p37.e >= 6 then
+                local v47 = ("%.2f"):format(p37.n) .. "e" .. p37.e
+                return p37.e >= 99999999 and "Infinity" or v47
+            end
+            if p37.e < 3 or p37.e >= 6 then
+                return v44 .. "" .. v46
+            end
+            local v48 = p37.n * 10 ^ p37.e
+            local v49 = v48 / 1000
+            local v50 = math.floor(v49)
+            local v51 = v48 % 1000
+            local v52 = math.floor(v51)
+            local v53 = ""
+            if v52 < 100 then
+                v53 = v53 .. "0"
+            end
+            if v52 < 10 then
+                v53 = v53 .. "0"
+            end
+            return "" .. v50 .. "," .. v53 .. v52
+        end
+        if p37.e > 101 and v45 == 0 then
+            local v54 = ("%.2f"):format(v44) .. "" .. v46
+            return p37.e >= 99999999 and "Infinity" or v54
+        end
+        if p37.e >= 6 and v45 > 0 then
+            return ("%." .. v_u_67.Zeroes(v44, true) .. "f"):format(v44) .. "" .. v46
+        end
+        if p37.e < 3 or p37.e >= 6 then
+            return v44 .. "" .. v46
+        end
+        local v55 = p37.n * 10 ^ p37.e
+        local v56 = v55 / 1000
+        local v57 = math.floor(v56)
+        local v58 = v55 % 1000
+        local v59 = math.floor(v58)
+        local v60 = ""
+        if v59 < 100 then
+            v60 = v60 .. "0"
+        end
+        if v59 < 10 then
+            v60 = v60 .. "0"
+        end
+        return "" .. v57 .. "," .. v60 .. v59
+    end,
+    ["Zeroes"] = function(p61, p62)
+        local v63 = p61
+        local v64 = 0
+        local v65 = 0
+        while p61 >= 1 do
+            p61 = p61 / 10
+            v64 = v64 + 1
+        end
+        if v63 % 1 ~= 0 or p62 then
+            for v66 = 0, 3 - v64 do
+                if v66 == 0 then
+                    v65 = v65 .. "."
+                end
+                v65 = v65 + 1
+            end
+        end
+        return v65
+    end
+}
+return v_u_67
