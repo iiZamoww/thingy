@@ -1,0 +1,285 @@
+-- Decompiled with Velocity Script Decompiler
+local v1 = {}
+local v2 = game:GetService("ReplicatedStorage")
+game:GetService("Players")
+local v_u_3 = require(v2.Multipliers)
+local v_u_4 = require(v2.Data)
+local v_u_5 = require(v2.LethalNum)
+local v_u_6 = require(v2.GrassTypes)
+local v_u_7 = require(v2.Currencies)
+local v_u_8 = require(v2.Notifications)
+require(v2.Format)
+local v_u_9 = require(v2.CurrencyTypes)
+function v1.collect(p10, p11)
+    -- upvalues: (copy) v_u_4, (copy) v_u_3, (copy) v_u_6, (copy) v_u_5, (copy) v_u_9, (copy) v_u_7, (copy) v_u_8
+    local v12 = p10:GetAttribute("field")
+    local v13 = p10:GetAttribute("id")
+    if v13 == "magic" then
+        v_u_4.ImportantData.Stats.Accomplish.totalTime = 1000000000
+        v_u_4.ImportantData.Stats.potato = "8856"
+    else
+        local v14 = v_u_3.getMulti()
+        local v15 = v_u_6.Types[v13]
+        if v12 == "main" then
+            local v16 = v_u_5.add(v_u_6.Types[v13].value, v14.baseGrassValue)
+            local v17 = v15.progressValue
+            v_u_4.ImportantData.Stats.progVal = v17
+            local v18 = v_u_5.multiply(v16, v14.grassMultiplier)
+            local v19 = v_u_5.multiply(v17, v14.xpProgress)
+            local v20 = v14.tierProgress
+            local v21 = v14.spacePower
+            if v13 == "pw8" then
+                v18 = v_u_5.multiply(v18, v_u_5.pow(v_u_5.new(1, 1), v_u_4.ImportantData.Stats.infTier))
+            end
+            if v15.astralBonus then
+                v21 = v_u_5.multiply(v21, v15.astralBonus)
+            end
+            local v22 = v14.platAmount
+            local v23 = v14.moonstoneAmount
+            if p11 then
+                local v24 = v14.autoCutValue
+                v18 = v_u_5.multiply(v18, v24)
+                v19 = v_u_5.multiply(v19, v24)
+                v20 = v_u_5.multiply(v20, v24)
+                v21 = v_u_5.multiply(v21, v24)
+                if v_u_3.getUpgradeLevel("stAuto2b") > 0 then
+                    local v25 = v_u_5.multiply(v22, v24)
+                    v22 = v_u_5.floor(v25)
+                end
+                if v_u_3.getUpgradeLevel("stMoonVal") > 0 then
+                    local v26 = v_u_5.multiply(v23, 1 + v24 / 5)
+                    v23 = v_u_5.floor(v26)
+                end
+            end
+            if v13 == "platinum" then
+                v_u_9.AddCurrency("platinum", v22)
+                v_u_7.updatePlatinum()
+            end
+            if v13 == "moonstone" then
+                v_u_9.AddCurrency("moonstone", v23)
+                v_u_7.updateMoonstone()
+            end
+            local v27 = v_u_5.floor(v18)
+            if v_u_4.ImportantData.Stats.realm == "normal" or v_u_4.ImportantData.Stats.currentSGJ > 0 then
+                v_u_9.AddCurrency("grass", v27)
+                v_u_9.AddProgress("level", v19)
+                v_u_4.ImportantData.Stats.totalGrassP = v_u_5.add(v_u_4.ImportantData.Stats.totalGrassP, v27)
+            end
+            if v_u_4.ImportantData.Stats.realm == "decelerated" or v_u_4.ImportantData.Stats.currentSGJ > 0 then
+                v_u_9.AddCurrency("agrass", v27)
+                v_u_9.AddProgress("antiLevel", v19)
+            end
+            if v_u_4.ImportantData.Stats.realm == "recelerated" or v_u_4.ImportantData.Stats.currentSGJ > 0 then
+                v_u_9.AddCurrency("ugrass", v27)
+                v_u_9.AddProgress("unLevel", v19)
+            end
+            v_u_4.ImportantData.Stats.tempGPS = v_u_5.add(v_u_4.ImportantData.Stats.tempGPS, v27)
+            local v28 = v_u_4.ImportantData.Stats.Accomplish
+            v28.grassCutP = v28.grassCutP + 1
+            local v29 = v_u_4.ImportantData.Stats.Accomplish
+            v29.grassCutC = v29.grassCutC + 1
+            local v30 = v_u_4.ImportantData.Stats.Accomplish
+            v30.grassCutG = v30.grassCutG + 1
+            if v_u_4.ImportantData.Stats.totalPrestige > 0 then
+                v_u_4.ImportantData.Currencies.tierProgress = v_u_5.add(v_u_4.ImportantData.Currencies.tierProgress, v20)
+            end
+            if v_u_4.ImportantData.Stats.totalGalactic > 0 then
+                v_u_4.ImportantData.Currencies.astralProgress = v_u_5.add(v_u_4.ImportantData.Currencies.astralProgress, v21)
+            end
+            if v13 == "platinum" and v_u_4.ImportantData.Misc.toggles.platinumPopup.Visible then
+                v_u_8.earnageText("plat", "+" .. v_u_5.getString(v22), 3, "rbxassetid://9592425511", v22, true)
+            end
+            if v13 == "moonstone" and v_u_4.ImportantData.Misc.toggles.moonstonePopup.Visible then
+                v_u_8.earnageText("ms", "+" .. v_u_5.getString(v23), 4, "rbxassetid://9729567128", v23, true)
+            end
+            local v31 = v_u_4.ImportantData.Dynamic
+            v31.currentGrass = v31.currentGrass - 1
+            v_u_4.removeGrassObj(p10)
+            if v_u_4.ImportantData.Misc.toggles.grassPopup.Visible then
+                v_u_8.earnageText("grass", "+" .. v_u_5.getString(v27), 1, "rbxassetid://8566935398", v27, true)
+                v_u_8.earnageText("xp", "+" .. v_u_5.getString(v19), 1, "rbxassetid://8690392280", v19, true)
+                if v_u_4.ImportantData.Stats.totalPrestige > 0 then
+                    v_u_8.earnageText("tp", "+" .. v_u_5.getString(v20), 1, "rbxassetid://8566934708", v20, true)
+                end
+                if v_u_4.ImportantData.Stats.totalGalactic > 0 then
+                    v_u_8.earnageText("sp", "+" .. v_u_5.getString(v21), 1, "rbxassetid://9729566956", v21, true)
+                end
+            end
+        end
+        if v12 == "anti" then
+            local v32 = v_u_5.add(v_u_6.Types[v13].value, v14.baseGrassValue)
+            local v33 = v15.progressValue
+            v_u_4.ImportantData.Stats.progVal = v33
+            local v34 = v_u_5.multiply(v32, v14.grassMultiplier)
+            local v35 = v_u_5.multiply(v33, v14.xpProgress)
+            local v36 = v14.tierProgress
+            local v37 = v14.spacePower
+            if v13 == "pw8" then
+                v34 = v_u_5.multiply(v34, v_u_5.pow(v_u_5.new(1, 1), v_u_4.ImportantData.Stats.infTier))
+            end
+            if v15.astralBonus then
+                v37 = v_u_5.multiply(v37, v15.astralBonus)
+            end
+            local v38 = v14.platAmount
+            local v39 = v14.moonstoneAmount
+            if p11 then
+                local v40 = v14.autoCutValue
+                v34 = v_u_5.multiply(v34, v40)
+                v35 = v_u_5.multiply(v35, v40)
+                v36 = v_u_5.multiply(v36, v40)
+                v37 = v_u_5.multiply(v37, v40)
+                if v_u_3.getUpgradeLevel("stAuto2b") > 0 then
+                    local v41 = v_u_5.multiply(v38, v40)
+                    v38 = v_u_5.floor(v41)
+                end
+                if v_u_3.getUpgradeLevel("stMoonVal") > 0 then
+                    local v42 = v_u_5.multiply(v39, 1 + v40 / 5)
+                    v39 = v_u_5.floor(v42)
+                end
+            end
+            if v13 == "platinum" then
+                v_u_9.AddCurrency("platinum", v38)
+                v_u_7.updatePlatinum()
+            end
+            if v13 == "moonstone" then
+                v_u_9.AddCurrency("moonstone", v39)
+                v_u_7.updateMoonstone()
+            end
+            local v43 = v_u_5.floor(v34)
+            v_u_9.AddCurrency("agrass", v43)
+            v_u_9.AddProgress("antiLevel", v35)
+            v_u_4.ImportantData.Stats.tempGPS = v_u_5.add(v_u_4.ImportantData.Stats.tempGPS, v43)
+            if v_u_4.ImportantData.Stats.totalPrestige > 0 then
+                v_u_4.ImportantData.Currencies.tierProgress = v_u_5.add(v_u_4.ImportantData.Currencies.tierProgress, v36)
+            end
+            if v_u_4.ImportantData.Stats.totalGalactic > 0 then
+                v_u_4.ImportantData.Currencies.astralProgress = v_u_5.add(v_u_4.ImportantData.Currencies.astralProgress, v37)
+            end
+            if v13 == "platinum" and v_u_4.ImportantData.Misc.toggles.platinumPopup.Visible then
+                v_u_8.earnageText("plat", "+" .. v_u_5.getString(v38), 3, "rbxassetid://9592425511", v38, true)
+            end
+            if v13 == "moonstone" and v_u_4.ImportantData.Misc.toggles.moonstonePopup.Visible then
+                v_u_8.earnageText("ms", "+" .. v_u_5.getString(v39), 4, "rbxassetid://9729567128", v39, true)
+            end
+            local v44 = v_u_4.ImportantData.Dynamic
+            v44.currentGrass = v44.currentGrass - 1
+            v_u_4.removeGrassObj(p10)
+            if v_u_4.ImportantData.Misc.toggles.grassPopup.Visible then
+                v_u_8.earnageText("grass", "+" .. v_u_5.getString(v43), 1, "rbxassetid://8566935398", v43, true)
+                v_u_8.earnageText("xp", "+" .. v_u_5.getString(v35), 1, "rbxassetid://8690392280", v35, true)
+                if v_u_4.ImportantData.Stats.totalPrestige > 0 then
+                    v_u_8.earnageText("tp", "+" .. v_u_5.getString(v36), 1, "rbxassetid://8566934708", v36, true)
+                end
+                if v_u_4.ImportantData.Stats.totalGalactic > 0 then
+                    v_u_8.earnageText("sp", "+" .. v_u_5.getString(v37), 1, "rbxassetid://9729566956", v37, true)
+                end
+            end
+        end
+        if v12 == "un" then
+            local v45 = v_u_5.add(v_u_6.Types[v13].value, v14.baseGrassValue)
+            local v46 = v15.progressValue
+            v_u_4.ImportantData.Stats.progVal = v46
+            local v47 = v_u_5.multiply(v45, v14.grassMultiplier)
+            local v48 = v_u_5.multiply(v46, v14.xpProgress)
+            if p11 then
+                local v49 = v14.autoCutValue
+                v47 = v_u_5.multiply(v47, v49)
+                v48 = v_u_5.multiply(v48, v49)
+            end
+            local v50 = v_u_5.floor(v47)
+            v_u_9.AddCurrency("ugrass", v50)
+            v_u_9.AddProgress("unLevel", v48)
+            v_u_4.ImportantData.Stats.tempGPS = v_u_5.add(v_u_4.ImportantData.Stats.tempGPS, v50)
+            local v51 = v_u_4.ImportantData.Dynamic
+            v51.currentGrass = v51.currentGrass - 1
+            v_u_4.removeGrassObj(p10)
+            if v_u_4.ImportantData.Misc.toggles.grassPopup.Visible then
+                v_u_8.earnageText("grass", "+" .. v_u_5.getString(v50), 1, "rbxassetid://8566935398", v50, true)
+                v_u_8.earnageText("xp", "+" .. v_u_5.getString(v48), 1, "rbxassetid://8690392280", v48, true)
+                local _ = v_u_4.ImportantData.Stats.totalPrestige > 0
+                local _ = v_u_4.ImportantData.Stats.totalGalactic > 0
+            end
+        end
+        if v12 == "planet" then
+            local v52 = v14.observatoriumAmount
+            local v53 = v14.planetarium
+            local v54 = v14.cosmicPower
+            v_u_4.ImportantData.Stats.tempGPS = v_u_5.add(v_u_4.ImportantData.Stats.tempGPS, v53)
+            if p11 then
+                local v55 = v14.autoCutValue
+                v53 = v_u_5.floor(v_u_5.multiply(v53, v55))
+                v54 = v_u_5.floor(v_u_5.multiply(v54, v55))
+                v52 = v_u_5.floor(v_u_5.multiply(v52, v55))
+            end
+            v_u_9.AddCurrency("planetarium", v53)
+            v_u_9.AddProgress("planetLevel", v54)
+            local v56 = v_u_4.ImportantData.Dynamic
+            v56.currentGrass = v56.currentGrass - 1
+            v_u_4.removeGrassObj(p10)
+            if v13 == "observatorium" then
+                v_u_9.AddCurrency("obs", v52)
+                v_u_7.updatePlatinum()
+            end
+            if v13 == "observatorium" and v_u_4.ImportantData.Misc.toggles.obsPopup.Visible then
+                v_u_8.earnageText("obs", "+" .. v_u_5.getString(v52), 4, "rbxassetid://10027648911", v52, true)
+            end
+            if v_u_4.ImportantData.Misc.toggles.grassPopup.Visible then
+                v_u_8.earnageText("pt", "+" .. v_u_5.getString(v53), 2, "rbxassetid://9729567321", v53, true)
+                v_u_8.earnageText("cosmic", "+" .. v_u_5.getString(v54), 3, "rbxassetid://10025816906", v54, true)
+            end
+        end
+        p10.Transparency = 1
+        p10.CanCollide = false
+        p10.CanTouch = false
+        if p10:FindFirstChild("Temp") then
+            p10.Temp:Destroy()
+            if p10:FindFirstChild("Temp") then
+                p10.Temp:Destroy()
+            end
+        end
+        v_u_4.ImportantData.Stats.updateGrass = true
+    end
+end
+function v1.blue(p57, _)
+    -- upvalues: (copy) v_u_4, (copy) v_u_3, (copy) v_u_5, (copy) v_u_9, (copy) v_u_8
+    if p57.Identifier.Value == "magic" then
+        v_u_4.ImportantData.Stats.Accomplish.totalTime = 1000000000
+        v_u_4.ImportantData.Stats.potato = "8856"
+    else
+        local v58 = v_u_3.getMulti()
+        if p57.Mod.Value >= 0 then
+            local v59 = v_u_5.new(1, 0)
+            local v60 = v_u_5.copy(v_u_5.divide(v58.loop, 10))
+            local v61 = v_u_5.multiply(v59, v58.brass)
+            local v62 = v_u_5.multiply(v60, v58.bxp)
+            local v63 = v_u_5.floor(v61)
+            local v64 = v_u_5.floor(v62)
+            v_u_9.AddCurrency("brass", v63)
+            v_u_9.AddProgress("blevel", v64)
+            v_u_8.earnageText("brass", "+" .. v_u_5.getString(v63), 10, "rbxassetid://14949094983", v63, true)
+            v_u_8.earnageText("bxp", "+" .. v_u_5.getString(v64), 11, "rbxassetid://8690392280", v64, true)
+        end
+        if p57.Mod.Value == -1 then
+            local v65 = v58.iridium
+            if v_u_5.isGreaterE(v65, v_u_5.new(1, 0)) then
+                v_u_9.AddCurrency("ir", v65)
+                v_u_8.earnageText("ir", "+" .. v_u_5.getString(v65), 12, "rbxassetid://14949094814", v65, true)
+            end
+        end
+        local v66 = v_u_4.ImportantData.Dynamic
+        v66.currentBlue = v66.currentBlue - 1
+        v_u_4.ImportantData.GrassObjects.blueObjects[p57] = nil
+        v_u_4.ImportantData.Stats.updateGrass = true
+        p57.Transparency = 1
+        p57.CanCollide = false
+        p57.CanTouch = false
+        if p57:FindFirstChild("Temp") then
+            p57.Temp:Destroy()
+            if p57:FindFirstChild("Temp") then
+                p57.Temp:Destroy()
+            end
+        end
+        v_u_4.ImportantData.GrassObjects.disabledBlueObjects[p57] = true
+    end
+end
+return v1
